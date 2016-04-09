@@ -1,0 +1,51 @@
+INSTALLING THE XENO TOOLS
+=========================
+
+On the host:
+
+  cd xeno/tools
+  ./run-xeno
+  
+On the Q.reader:
+
+  Logon as root (password: geagea), stay in /root (run "pwd" to be sure), and execute the following:
+
+  curl http://<Host-IP>:8901/xeno/bootstrap/qreader | /bin/sh
+
+On a Raspberry Pi:
+
+  Logon as pi (password: (default)raspberry), stay in ~/ (run "pwd" to be sure), and execute the following:
+
+  curl http://<Host-IP>:8901/xeno/bootstrap/pi | /bin/sh
+
+On any Debian(ese) Linux:
+
+  Pretty much like the above, using
+  
+  curl http://<Host-IP>:8901/xeno/bootstrap/debian | /bin/sh
+
+RUNNING THE XENO TOOLS
+======================
+Make sure the builder is running on the host (see above).
+
+load xeno
+  Will transfer the netropy executable to $PWD
+  
+load gins
+  Will transfer the libgins-netropy.so library to $PWD
+
+load xml
+  Will transfer the XML file and support files to $PWD
+  
+run
+  Will execute the program, using the files in $PWD.
+  Do not forget to stop the system with "stop" first!
+
+stop
+  Will stop the program (if it is running).
+  
+install
+  Will copy the files in /root to their proper places.
+  Do not forget to stop the Q.reader system with "qreader_ctrl stop" first,
+  and to restart it with "qreader_ctrl start" afterwards.
+ 
