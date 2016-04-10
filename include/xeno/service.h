@@ -35,7 +35,7 @@ XENO_EXPORT action* xeno_create(context&, const char* const ns, const char* cons
 extern "C"
 XENO_EXPORT action* xeno_inject(context&, action* svc);
 
-class XENO_EXPORT action : public context {
+struct XENO_EXPORT action : context {
 public:
 	inline virtual ~action() {};
 	inline virtual void invoke(client& visitor, sequens& route) {};
