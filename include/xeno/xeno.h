@@ -38,9 +38,9 @@ struct XENO_EXPORT type {
 	static const char BLOB[];
 };
 
-struct XENO_EXPORT action;
+struct XENO_EXPORT action; // rename to reactor
 
-struct XENO_EXPORT client;
+struct XENO_EXPORT client; // rename to contact
 
 struct XENO_EXPORT context : public boost::noncopyable
 {
@@ -74,7 +74,7 @@ private:
 	mutable const context* next_sibling;
 };
 
-class XENO_EXPORT element;
+struct XENO_EXPORT element;
 
 template <>
 xeno::contens& xeno::contens::skip_until<xeno::element>();

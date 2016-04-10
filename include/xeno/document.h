@@ -14,7 +14,7 @@
 
 namespace xeno XENO_EXPORT {
 
-class XENO_EXPORT element;
+struct XENO_EXPORT element;
 
 context& xml_preample(context& document, const char* stylesheet = 0);
 
@@ -33,8 +33,7 @@ element* find_element(context& root, const char* qname);
 
 bool local_call(const context& origin, const std::string& href);
 
-class element : public context {
-public:
+struct element : context {
 	inline element& child(const std::string& qname) {
 		return make_element(*this, qname.c_str());
 	}
@@ -53,16 +52,14 @@ public:
 	}
 };
 
-class XENO_EXPORT document : public context {
-public:
+struct XENO_EXPORT document : context {
 	element& root();
 	const element& root() const;
 	document& text(const std::string& text);
 	const std::string& text() const;
 };
 
-class XENO_EXPORT local_context {
-public:
+struct XENO_EXPORT local_context {
 	local_context(std::size_t sz);
 	~local_context();
 	document& content() { return local; }
