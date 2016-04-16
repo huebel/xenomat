@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xeno:space xmlns:xeno="xeno:XENOmat" xmlns:html="http://www.w3.org/1999/xhtml/">
 
-    <!-- HOW TO BUILD AN INFORMATION SYSTEM -->
+    <!-- HOW TO BUILD AN INFORMATION SYSTEM FROM (ALMOST) SCRATCH -->
 
     <intro>
         If you were to start from scratch, what would you really need, in
@@ -11,42 +11,54 @@
         them being energy savings in mobile or remote devices, and the 
         overall value of having a well defined cost of computation.
                 
-        The core question needed to be adressed first, is what is this thing
-        called Information actually? For the purpose of this text, we'll use 
-        a definition given by Gergory Bateson, an English multi-disciplinary 
-        scientist, who stated it quite short:
-               
+        The core question we need to adress first, is: What is this thing
+        called "information" actually? For the purpose of this text, we'll 
+        use a definition given by the polymath Gergory Bateson:
+
             Information is a difference, that makes a difference.
 
-        We can go with the mainstream and interpret that in an HATEOAS fashion,
-        as fetching some resource via a cache, and so to reduce bandwith and 
-        other resource consumption in cases, when no information has changed.
-
-        Next, you'd need to have a way to describe the System. Some kind of
-        blueprint with sufficient information for some mechanism to set up 
-        any processes needed for fulfilling the purpose of our system.
+        We shall not be going into the deeper discussion about the philosophical
+        implication of that sentence (interested readers might pick up af copy of
+        "Steps to an Ecology of Mind: Collected Essays in Anthropology", where the
+        subject is discusses in a couple of the essays).
+        
+        <aside>
+        A as note to implementors, we can simply adopt best practices, and 
+        interpret Bateson's words in a ressource centred fashion. As when 
+        we are fetching some resource via a cache, and do so to reduce both 
+        bandwith and needed (or rather wasted) computational power in cases, 
+        when "nothing really happened" i.e. no information really has changed. 
+        
+        Burning battery power without actually making a difference is not anything
+        you'd want. At all. Ever. Systems exposing that behaviour actually are in 
+        a state of indifference, a condition which not surprisingly also seems to 
+        lead to burnout syndromes in human social systems.
+        </aside>
+        
+        Given that definition, you would need to have a way to describe the system, 
+        a kind of blueprint with sufficient information for enabling someone or 
+        something to actually build the system, or for some software to emulate
+        the processes needed for the system to actually fulfill its purpose.
 
         Commonly contemporary object-oriented programmers create some kind 
         of "model" by writing definitions of concepts in special languages
         like Python, Java, C#, Ruby, and (more or less) briefly describe a 
-        system in terms of interacting objects. 
-        
-        Also, there exist frameworks for creating generalized state machines.
-        There even is an W3C initiative on an XML dialect called SCXML for 
-        leveraging other existing technologies in telecommunications.
-        
+        system in terms of interacting objects.
+
         Enough has been written about those subjects already, and shall not 
         be discussed further in this text as we shall take another approach to 
         computation.
 
         That other approach, which even predates programming languages as
-        we know them, was taken by Konrad Zuse, a german ingeneer, who
-        built the worlds first working electronic computer. He imagined
-        something he called "Rechnender Raum" - a "computing universe" - 
-        which we can identify as a precursor to a branch in the field of 
-        physics now known as "Digital Physics".
+        we know them, was taken by Konrad Zuse, the German ingeneer who
+        built the first working electronic computer just before World War II. 
+        He imagined what he called "Rechnender Raum" - a "computing universe" - 
+        where actions in the real world is thought of as discrete changes in
+        state and transfer of information. This is a line of thought, which 
+        we can identify as a precursor to a branch in the field of physics 
+        that now mostly is known as "Digital Physics".
         
-        Without getting into gritty details, it will be an approach in 
+        Without getting into gritty details of DP, it will be an approach in 
         that direction, which we'll try to explore in the next chapter.
         
         The key is to imagine the system as some kind of space, containg 
@@ -113,7 +125,7 @@ They are directions of where to find different
         
         And to deliver information stored on disk, really fast:
         
-        <xeno:disk mount="/public/data" method="sendfile"/>
+        <xeno:disk mount="/public/data" method="send"/>
         
         Information may also be present in the description itself and simply copied:
         
@@ -124,9 +136,9 @@ They are directions of where to find different
         And, to get started, you might need some simple
         
         <storage>
-            <xeno:stash type="text/plain"> where you can put volatile information </xeno:stash>
+            <xeno:stash type="text/plain"> where you can put volatile information... </xeno:stash>
         </storage>
-
+        
     </services>
     
     <!-- 
@@ -149,17 +161,15 @@ They are directions of where to find different
     
     <blueprint>
         <!-- serve the fancy interpretation really fast -->
-        <xeno:disk mount="scratch.html" method="sendfile"/>
+        <xeno:disk mount="blueprint.html" method="send"/>
         <!--
         <xeno:copy src="blueprint.js"/>
         -->
         <service>
-            <!-- or use the built in service for raw data 
-                 only about this section -->
+            <!-- or use the built in service for raw data only about this section -->
             <xeno:blueprint type="text/xml" src="/blueprint"/>
         </service>
     </blueprint>
-    
     
     <wiki>
         <tiddlywiki>
@@ -190,8 +200,6 @@ They are directions of where to find different
         <xeno:space>
             <defaults>
                 <xeno:blueprint src="/" host="$Host" type="application/xml" style="xml"/>
-                    Note that here only two bits changes: from h to H, and the $ was added.
-                    Representational compression is very powerful
                     We deliver the whole blueprint of the enclosing space (starting with
                     defaults in this space)
                 <xeno:blueprint src="/" host="fixed.domain.example.org"/>
@@ -200,12 +208,6 @@ They are directions of where to find different
             <pure-development>
                 <xeno:blueprint freeze="/" host="Host" type="application/xml" style="xml"/>                
             </pure-development>
-            <etc.etc.etc.>
-                USW de
-                OSV da
-                ASO en
-                ETC ln (<a href="http://en.wikipedia/Latin">Latin</a>)
-            </etc.etc.etc.>
         </xeno:space>
         
         <xeno:blueprint freeze="/blueprint">
