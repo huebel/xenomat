@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xeno:space xmlns:xeno="xeno:XENOmat" xmlns:html="http://www.w3.org/1999/xhtml/">
+
+    <!-- HOW TO BUILD AN INFORMATION SYSTEM -->
+
+    <intro>
+        If you were to start from scratch, what would you really need, in
+        order to build an information system that uses minimal resources? 
+        
+        There are many reasons to focus on the use of resources, a few of 
+        them being energy savings in mobile or remote devices, and the 
+        overall value of having a well defined cost of computation.
+                
+        The core question needed to be adressed first, is what is this thing
+        called Information actually? For the purpose of this text, we'll use 
+        a definition given by Gergory Bateson, an English multi-disciplinary 
+        scientist, who stated it quite short:
+               
+            Information is a difference, that makes a difference.
+
+        We can go with the mainstream and interpret that in an HATEOAS fashion,
+        as fetching some resource via a cache, and so to reduce bandwith and 
+        other resource consumption in cases, when no information has changed.
+
+        Next, you'd need to have a way to describe the System. Some kind of
+        blueprint with sufficient information for some mechanism to set up 
+        any processes needed for fulfilling the purpose of our system.
+
+        Commonly contemporary object-oriented programmers create some kind 
+        of "model" by writing definitions of concepts in special languages
+        like Python, Java, C#, Ruby, and (more or less) briefly describe a 
+        system in terms of interacting objects. 
+        
+        Also, there exist frameworks for creating generalized state machines.
+        There even is an W3C initiative on an XML dialect called SCXML for 
+        leveraging other existing technologies in telecommunications.
+        
+        Enough has been written about those subjects already, and shall not 
+        be discussed further in this text as we shall take another approach to 
+        computation.
+
+        That other approach, which even predates programming languages as
+        we know them, was taken by Konrad Zuse, a german ingeneer, who
+        built the worlds first working electronic computer. He imagined
+        something he called "Rechnender Raum" - a "computing universe" - 
+        which we can identify as a precursor to a branch in the field of 
+        physics now known as "Digital Physics".
+        
+        Without getting into gritty details, it will be an approach in 
+        that direction, which we'll try to explore in the next chapter.
+        
+        The key is to imagine the system as some kind of space, containg 
+        what we simply call
+        
+        <places where-you-can="PUT">
+            <information>
+
+For instance, the information in this document is stored in a file on 
+some storage media in some sort of computer. The spatial metaphor is
+omniprevalent in the age of the internet.
+
+So what exactly is meant by "places", are those bounded sectors within 
+a space which are marked with a name.
+
+Travelling through that space, you will encounter the name of a place 
+twice: Once when entering the sector, and once when you exit the sector.
+For instance, you might consider the word from <here> to </here> as an 
+example of a very small sector. It might be useful to regard those marks 
+like the signs commonly found at city limits.
+
+There may be <empty/> places as well.
+
+This text, this very paragraph, is located in a place called "information", 
+and you reached it by starting reading a place called "intro", then going 
+to "places" and finally to "information", where the author put this for you 
+to read.
+
+Using a simple code, we can write the sequence of places entered by spelling 
+out their names, separated with a slash. 
+
+<path>/intro/places/information/</path>
+
+Again it may be useful to think of the slashes as doors, through which you 
+have entered the places. It's just like what you often see as part of the 
+"internet address" in your web browser, and it means roughly the same. 
+They are directions of where to find different
+
+            </information>
+            
+            in different
+
+        </places>.
+        
+        The place containing all places is simply called "the space".
+                
+        That should be quite straight-forward, so let's leave the
+    </intro>
+    
+    <!-- coffee break -->
+    
+    <services>
+        The least an information system should be able to do, besides keeping
+        information in different places, would be making that information
+        accessible to those who need it.
+
+        Throughout a space, there may be located a number of services, which 
+        are necessary to fulfil those needs.
+        
+        If we need to be able to enter the space from the outside, it might be
+        useful to set up a service listening for HTTP requests on a given port:
+        
+        <xeno:http host="localhost" port="8901" Access-Control-Allow-Origin="*"/>
+        
+        And to deliver information stored on disk, really fast:
+        
+        <xeno:disk mount="/public/data" method="sendfile"/>
+        
+        Information may also be present in the description itself and simply copied:
+        
+        <message>
+            <xeno:copy type="text/plain">Hello world!</xeno:copy>
+        </message>
+        
+        And, to get started, you might need some simple
+        
+        <storage>
+            <xeno:stash type="text/plain"> where you can put volatile information </xeno:stash>
+        </storage>
+
+    </services>
+    
+    <!-- 
+        For a running system we need the next place to display info
+        you might think of it as a browser seen from the "other" side,
+        where any content you put into it shows up on the browser.
+     -->
+    
+    <display>
+        <xeno:display type="text/xml+xhtml+svg"/>
+    </display>
+    
+    <!-- 
+        If we put some info into that place, it would show up on a 
+        display, just as if you had retreived the info with a browser.
+        
+        Also, we might want the system to be able to give a description 
+        of itself. We call that description a "blueprint":
+    -->
+    
+    <blueprint>
+        <!-- serve the fancy interpretation really fast -->
+        <xeno:disk mount="scratch.html" method="sendfile"/>
+        <!--
+        <xeno:copy src="blueprint.js"/>
+        -->
+        <service>
+            <!-- or use the built in service for raw data 
+                 only about this section -->
+            <xeno:blueprint type="text/xml" src="/blueprint"/>
+        </service>
+    </blueprint>
+    
+    
+    <wiki>
+        <tiddlywiki>
+            The text between elements could be TW markup...
+            
+            So this section is largely random thoughts and description 
+            of not implemented features.
+            
+            Scratchpad...
+        </tiddlywiki>
+
+        <!-- freeze the blueprint from the point referenced -->
+        <xeno:blueprint freeze="/blueprint">
+            <!-- all the contact ever will get is a description of lines 9-15-->
+        </xeno:blueprint>
+
+        Freezing the blueprint means adding 
+        the used namespaces to the opening 
+        tag of the returned fragment, as well 
+        as tagging the default namespace on
+        the returned blueprint with the host (which is 
+        in the Host of the request per default 
+        or otherwise the value of the 'host' 
+        attribute.
+        
+        Par example:
+
+        <xeno:space>
+            <defaults>
+                <xeno:blueprint src="/" host="$Host" type="application/xml" style="xml"/>
+                    Note that here only two bits changes: from h to H, and the $ was added.
+                    Representational compression is very powerful
+                    We deliver the whole blueprint of the enclosing space (starting with
+                    defaults in this space)
+                <xeno:blueprint src="/" host="fixed.domain.example.org"/>
+                    The source is taken from root and the namespace is tied to some fixed domain
+            </defaults>
+            <pure-development>
+                <xeno:blueprint freeze="/" host="Host" type="application/xml" style="xml"/>                
+            </pure-development>
+            <etc.etc.etc.>
+                USW de
+                OSV da
+                ASO en
+                ETC ln (<a href="http://en.wikipedia/Latin">Latin</a>)
+            </etc.etc.etc.>
+        </xeno:space>
+        
+        <xeno:blueprint freeze="/blueprint">
+        </xeno:blueprint>
+        
+    </wiki>
+    <musings>
+        <!-- Highly experimental, half finished sentences may occur -->
+        <objects>
+            <!-- An approach on object-oriented modelling -->
+            <new>
+                Given the following xeno:proto declaration, 
+                you get a prototypical structure served at
+
+                    /musings/objects/new/user
+
+                in a number of languages, e.g. JSON
+
+                    {
+                        fullname: "Kurt Gödel",
+                        username: "abc123",
+                        password: "********",
+                        bookmark: "/project/23/app/312/track/321/version/423",
+                        favorite: [
+                            "/project/23",
+                            "/project/342/app/23/track/321",
+                            "/project/23",
+                        ],
+                        
+                    }
+
+                or XML, which more or less is a plain copy of the protoypes
+                inner structure:
+                
+                <xeno:proto>
+                    <user
+                        fullname="Kurt Gödel"
+                        username="abc123"
+                        password="********">
+                        <!-- attributes may also be simple tags -->
+                        <bookmark>/project/23/app/312/track/321/version/423</bookmark>
+                        <!-- and more occurrences represent elements in a list/sequence -->
+                        <favorite>/project/23</favorite>
+                        <favorite>/project/342/app/23/track/321</favorite>
+                        <favorite role="admin">/project/23/edit</favorite>
+                        <!-- this class may be extended -->
+                        <xeno:extend/>
+                    </user>
+                    <!-- this model may be extended -->
+                    <xeno:extend/>
+                </xeno:proto>
+                
+                You can also source a prototype from another system
+                
+                <xeno:proto src="http://tpa.trifork.com/models/BundleTagIdentifier"/>
+
+                We may note as a fact, that the context, in which this object will be used, 
+                actually knows that these data are prototypical. As an example, when we fetch 
+                something from a place called /musings/objects/new/user/, then a bell should 
+                ring loud and clear.
+                
+                Knowing this, a form could use the default values given in the prototype 
+                as labels or placeholders. It also knows that it should "insert" the form 
+                data, rather than "update" it.
+                
+                <xeno:form name="user" action="/path/to/user/database/insert" proto="/musings/new/user">
+                    <input name="fullname" type="text" value="">Label (for this input)</input>
+                    <!-- script some action -->
+                    <script>
+                        // this.form.submit = ...;
+                        fullname.addEventHandler('focus', function() { 
+                            this.placeholder = this.textContent
+                            delete this.textContent
+                        }, false);
+                    </script>
+                </xeno:form>
+
+                A prototypical structure might be marked with some unique identification:
+                
+                <xeno:proto unique="uuid(@id)">
+                    <unique-object>
+                        <identity id="will-get-replaced-by-a-uuid"/>
+                    </unique-object>
+                </xeno:proto>
+
+                <xeno:proto unique="uuid(name)">
+                    <unique-named>
+                        <name>will get replaced by the hash</name>
+                    </unique-named>
+                </xeno:proto>
+                
+            </new>
+            
+            <version2>
+                <xeno:proto type="text/python" lang="python|klingon">
+                class User:
+                    fullname="Kurt Gödel"
+                    username="abc123"
+                    password="********"
+                    # attributes may also be simple tags
+                    bookmark="/project/23/app/312/track/321/version/423"
+                    # and more occurrences of elementname represent elements in a list/sequence -->
+                    favorite = [
+                        "/project/23",
+                        "/project/342/app/23/track/321",
+                        "...",
+                    ]
+                    <xeno:extend/>
+                    <!-- see below, also this model may be extended -->
+                </xeno:proto>            
+            </version2>
+            
+        </objects>
+        
+        <xeno:proto extend="this:/musings/objects/version2">
+            <app-user extend="user">
+                <identitiy provider="http://cookie-monster.com/kurt.goedel/"/>
+                <!-- the Python class User is extended with an identity field -->
+            </app-user>
+            <!-- no further extensions allowed -->
+        </xeno:proto>
+        
+        <xeno:proto extend="http://embedded-host:8901/leutert/pdm/channels">
+            <signals is="channels">
+            </signals>
+        </xeno:proto>
+
+        
+<!-- This is the cursor:
+        Select the line and move it up/down with CMD CTRL UP/DOWN
+        
+        This.is (the system which has been built by this blueprint)
+        That.at (the system which sent the contact into this space)
+        
+        -->
+        <echo>
+            <xeno:proto type="text/plain">You sent:\n<xeno:copy src="that:/*"/>
+            <!-- Comments like this are not included, contact gets delivered a copy of the 
+                 payload of the contact along with everything --> in plain text.
+            </xeno:proto>
+        </echo>
+        <whoami>
+            <!-- access the attributes of the contact (often HTTP headers) -->
+            <xeno:proto type="text/plain">
+                You are a visitor from <xeno:copy src="that:@Origin"/>.
+            </xeno:proto>
+        </whoami>
+        
+        <clone-origin>
+            
+        </clone-origin>
+
+        <database>
+            <admin>
+                <xeno:sql>SELECT 
+                    <fullname>FULLNAME</fullname>, 
+                    <username>USERNAME</username>,
+                    <password>PASSWORD</password>
+                          FROM USER WHERE FULLNAME="admin"
+                </xeno:sql>
+            </admin>
+        </database>
+        
+        
+        <xeno:sloppy>
+            <!-- paths within this sector will be interpreted sloppy -->
+            <context/>
+            <content alt="contest"/>
+            <consent/>
+            <consens/>
+            <contens alt="nonsens"/>
+        </xeno:sloppy>
+
+        <recursive ns="this">
+
+            In the context of a (name)space, a name is a string -- a finite sequence of characters.
+            <aside>The Halting Problem tells us, that we can not decide if we are dealing with a name, 
+            given only a sequence.</aside>
+
+            The namespace handling in a xeno:space gives us a mapping from (UTF-8) strings to integers.
+            Each place in a space has a name which then maps to an integer.
+            The set of integers mapping to places such comprise to an alphabet of valid symbols.
+
+            Once having this alphabet, the path from the root to a given element can be written as a 
+            sequence of integers. Just like a sequence of characters are interpreted as a word, 
+            a sequence of words will form a sentence. In a given (name)space, each place P therefore may
+            be designated by a sentence, which contains exactly the words necessary to get to P from 
+            anywhere within that (name)space. A contact from another (outer?) space will be able
+            to reach P with just one sentence.
+
+            Finding this sequence for each place in the space will then comprise to the set of sentences 
+            which are valid designations in that space.
+            
+            Now each place also has a number of other unique caracteristics. For one, there is the 
+            position of a place, as encountered in a linear traversal of the containing space. Counting
+            from 0 that gives us a unique integer for each place in the space, and hence a mapping for each
+            sentence.
+
+        </recursive>
+        
+        <![CDATA[
+        Mashup of form / user-agent / proxy / port
+        - quite experimental
+        ]]>
+        
+        <visitors>
+            <!-- a visiting contact has an origin - sending it via a subprotocol works like a proxy -->
+            <xeno:http proto="https" action="url:" Content-Type="application/x-www-form-urlencoded">
+                <!-- fullname=Kurt Gödel&copy=false -->
+            </xeno:http>
+            <!-- Forms as a special kind of contact? -->
+        </visitors>
+        
+        <!-- or rather -->
+        <user-agent>
+            <!-- a contact is sent to another context with part of the payload -->
+            <xeno:contact href="http://other.example.info" method="PUT" src="that:/data/for/other/system"/>
+        </user-agent>
+        
+        
+        <!-- accessible via ws://host:8901/musings/events/topics -->
+        <events>
+            <xeno:ws size="100" Access-Control-Allow-Origin="trusted.dom.ain">
+                <!-- max. 100 subscribers aka connections -->
+                <topics>
+                    <xeno:stash type="application/javascript">initialMessageForSubscribers</xeno:stash>
+                </topics>
+            </xeno:ws>
+        </events>
+    </musings>
+</xeno:space>
