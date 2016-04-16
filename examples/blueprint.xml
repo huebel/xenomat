@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xeno:space name="netropy retrofixture" xmlns="http://netropy.huebel.freeshells.org:8901/2016/04/13" xmlns:xeno="xeno:XENOmat">
+<xeno:space name="netropy retrofixture" xmlns="http://netropy.huebel.freeshells.org:8901/2016/04/16" xmlns:xeno="xeno:XENOmat">
     <xeno:http port="8901" logo="alien" title="Server Error">
-<alien>
-<style>a.button { display: inline-block; color: white; background: blue; border: none; padding: 1em; margin: 2em auto; border-radius: 5px; text-decoration: none; font-size: 24pt; font-weight: bold; }</style>
-<div>
+    <alien>
+    <style>a.button { display: inline-block; color: white; background: blue; border: none; padding: 1em; margin: 2em auto; border-radius: 5px; text-decoration: none; font-size: 24pt; font-weight: bold; }</style>
+    <div>
     <svg width="360" height="240" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
         <defs>
             <filter id="xeno-alien-blur">
@@ -40,31 +40,31 @@
             </g>
         </g>
     </svg> 
-</div>
-<h1>Computer says "no!"</h1>
-<p>Have you lost your way? Use the source, Luke!</p>
-<p>Or, you can just try going to the <a href="/">home page</a>.</p>
-<p>For a site map, you could read the <a href="/blueprint/raw/">blueprint</a>, but the raw code can be a bit hard on the eyes.</p>
-<p>Actually, you might prefer a <a href="/blueprint/plain/">plain text</a> version, or use your browsers option to view sources.</p>
-<p>Google Chrome or Mozilla Firefox users may go to the <a href="view-source:http://netropy.huebel.freeshells.org:8901/blueprint/">source directly</a>.</p>
-<script defer="defer" type="text/javascript">//<![CDATA[
-(function(window){
-  var alien_lid = window.document.getElementById('xeno-alien-lid');
-  function blink(pos, min, max, delta) {
-    pos += delta;
-    if (pos < min) {
-      pos = min; delta = -delta;
-    }
-    else if (pos > max) {
-      pos = max; delta = -delta;
-    }
-    alien_lid.setAttribute('ry', pos);
-    window.setTimeout(blink, 100, pos, min, max, delta);
-  };
-  window.setTimeout(blink, 100, 10, 10, 70, 5);
-})(window);//]]>       
-</script>
-</alien>
+    </div>
+    <h1>Computer says "no!"</h1>
+    <p>Have you lost your way? Use the source, Luke!</p>
+    <p>Or, you can just try going to the <a href="/">home page</a>.</p>
+    <p>For a site map, you could read the <a href="/blueprint/raw/">blueprint</a>, but the raw code can be a bit hard on the eyes.</p>
+    <p>Actually, you might prefer a <a href="/blueprint/plain/">plain text</a> version, or use your browsers option to view sources.</p>
+    <p>Google Chrome or Mozilla Firefox users may go to the <a href="view-source:http://netropy.huebel.freeshells.org:8901/blueprint/">source directly</a>.</p>
+    <script defer="defer" type="text/javascript">//<![CDATA[
+    (function(window){
+      var alien_lid = window.document.getElementById('xeno-alien-lid');
+      function blink(pos, min, max, delta) {
+        pos += delta;
+        if (pos < min) {
+          pos = min; delta = -delta;
+        }
+        else if (pos > max) {
+          pos = max; delta = -delta;
+        }
+        alien_lid.setAttribute('ry', pos);
+        window.setTimeout(blink, 100, pos, min, max, delta);
+      };
+      window.setTimeout(blink, 100, 10, 10, 70, 5);
+    })(window);//]]>       
+    </script>
+    </alien>
     </xeno:http>
     <!--xeno:extend lib="/home/user1/workspace/xeno-sample/Debug/libxeno-sample.so"/-->
     <![CDATA[Introduction]]>
@@ -2964,7 +2964,7 @@ $.fn.netropyForm = function(params) {
                         In terms of <em>speed</em>, <em>low overhead</em> and <em>robustness</em> it is well suited for <em>embedded applications</em> and critical <em>infrastructure</em>.
                         Guess which of the processes below is running this <a href="/distribution/debian/xenomat">server</a>? 
                     </p>
-<pre style="margin-left: .5em; font-family: 'Andale Mono', monospace; font-size: 9pt;"><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">top - 08:44:09 up 39 days,  4:57, 11 users,  load average: 0.20, 0.34, 0.56</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">Tasks:<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  4 </span>total,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  1 </span>running,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  3 </span>sleeping,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">   0 </span>stopped,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">   0 </span>zombie</div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">%Cpu(s):</span>  0.7 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">us,</span>  0.9 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="c29f914">sy,</span>  0.3 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">ni,</span> 98.1 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">id,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">wa,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">hi,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">si,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">st</span></div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">KiB Mem: </span>  4048128 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">total,</span>  3680340 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">used,</span>   367788 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">free,</span>   612588 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">buffers</span></div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">KiB Swap:</span>  8385532 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">total,</span>   585036 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">used,</span>  7800496 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">free,</span>   912056 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">cached</span></div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0); min-height: 14px;" class=""><br class=""/></div><div style="margin: 0px; color: rgb(0, 0, 0); background-color: rgb(41, 249, 20);" class="">  PID USER      PR  NI  VIRT RES  SHR  S  %CPU %MEM    TIME+  COMMAND                              </div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class=""> 4091 web1108   39  19  4784 3788 2480 S   0.0  0.1   0:00.03 xenomat</div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""> 4092 web1108   39  19 23184 2568 2124 R   0.0  0.1   0:00.01 top</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">10589 web1108   39  19 79944 3700 2720 S   0.0  0.1   0:05.54 sshd</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">10590 web1108   39  19 20600 4536 2860 S   0.0  0.1   0:00.08 bash</div>
+<pre style="margin-left: .5em; font-family: 'Andale Mono', monospace; font-size: 9pt;"><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">top - 08:44:09 up 39 days,  4:57, 11 users,  load average: 0.20, 0.34, 0.56</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">Tasks:<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  4 </span>total,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  1 </span>running,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  3 </span>sleeping,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">   0 </span>stopped,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">   0 </span>zombie</div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">%Cpu(s):</span>  0.7 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">us,</span>  0.9 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">sy,</span>  0.3 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">ni,</span> 98.1 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">id,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">wa,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">hi,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">si,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">st</span></div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">KiB Mem: </span>  4048128 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">total,</span>  3680340 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">used,</span>   367788 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">free,</span>   612588 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">buffers</span></div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">KiB Swap:</span>  8385532 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">total,</span>   585036 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">used,</span>  7800496 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">free,</span>   912056 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">cached</span></div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0); min-height: 14px;" class=""><br class=""/></div><div style="margin: 0px; color: rgb(0, 0, 0); background-color: rgb(41, 249, 20);" class="">  PID USER      PR  NI  VIRT RES  SHR  S  %CPU %MEM    TIME+  COMMAND                              </div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class=""> 4091 web1108   39  19  5040 4568 2944 S   0.0  0.1   0:00.03 xenomat</div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""> 4092 web1108   39  19 23184 2568 2124 R   0.0  0.1   0:00.01 top</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">10589 web1108   39  19 79944 3700 2720 S   0.0  0.1   0:05.54 sshd</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">10590 web1108   39  19 20600 4536 2860 S   0.0  0.1   0:00.08 bash</div>
 </pre>
                     <p>That's right, it's the smallest one. This site is served by a single threaded 32-bit Debian build. To confirm, check the online <a href="/pipe/top/">resource usage</a>.</p>
 <!--
@@ -2972,7 +2972,7 @@ $.fn.netropyForm = function(params) {
 -->
                     <h3>History</h3>
                     <p>
-                        Starting out as a private <a href="/manual#netropy" target="_top">research project</a> in <em>2004</em>, it evolved to a full blown product for building <a href="http://en.wikipedia.org/wiki/HATEOAS" _target="_blank">HATEOAS</a> applications in <em>2009</em> (you can tell from the <em>so-last-decade</em> styling here), and eventually matured into the present full stack reactive realtime processing platform during late <em>2013</em>.
+                        Starting out as a private <a href="/manual#netropy" target="_top">research project</a> in <em>2004</em>, it evolved to a full blown product for building <a href="http://en.wikipedia.org/wiki/HATEOAS" _target="_blank">HATEOAS</a> applications in <em>2009</em> (you can tell from the <em>so-last-decade</em> styling here), and eventually matured into the present full stack reactive realtime processing platform during early <em>2014</em>.
                     </p>
                     <p>
                         <a href="http://www.leutert.com/oil-gas-division/en/products/artificial-lift/permanent-dynamometer.php?lang=EN#images" target="_blank"><img src="http://www.leutert.com/media/oilgas/images/artificial-lift/pdm/fg-thumbs/pdm_display.jpg" class="right" title="Leutert PDM II"/></a>
@@ -3027,7 +3027,7 @@ $.fn.netropyForm = function(params) {
                         </li>
                         <li>
                             <a href="/editor/">Editor</a>
-                            <br/>A small AJAX application for modifying this <a href="/manual#[[InformationSpaces]]" target="_top">&lt;xeno:space/&gt;</a>. From before anything like jsfiddle and gists and cloud snippets existed. Useful for fast prototyping a backend. Of course you can use <b>curl</b> as well with any <a href="/manual#[[%3Cxeno%3Astash%3E]]" target="_top">&lt;xeno:stash/&gt;</a>.
+                            <br/>A small AJAX application for modifying this <a href="/manual#[[InformationSpaces]]" target="_top">&lt;xeno:space/&gt;</a>. From long time before anything like jsfiddle and gists and cloud snippets existed. Useful for fast prototyping a backend. Of course you can use <b><code>curl</code></b> as well with any <a href="/manual#[[%3Cxeno%3Astash%3E]]" target="_top">&lt;xeno:stash/&gt;</a>.
                         </li>
                         <li>
                             <a href="/northwind/products/">Sample application</a>
@@ -3055,10 +3055,10 @@ $.fn.netropyForm = function(params) {
 
                 </html>
             </xeno:copy>
-            <!-- new data go below here -->
+            <!-- extension of this space goes below here -->
         </xeno:space>
         <reboot>
-            <xeno:reset goto="/hello/world/" allow="*" type="text/plain">Netropy Server is restarting, please refresh in a second...</xeno:reset>
+            <xeno:reset goto="/hello/world" allow="*" type="text/plain">Netropy Server is restarting, please refresh in a second...</xeno:reset>
         </reboot>
         <build>
             <xeno:build start="order-form" storage="./build-dir" ticket-tackle="/html/body/form/action">
