@@ -39,8 +39,8 @@ DAMAGE.
 " />
 <!--PRE-HEAD-START-->
 <!--{{{-->
-<link rel='alternate' type='application/rss+xml' title='RSS' href='index.xml' />
-<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA" type="image/x-icon" />
+<link rel='shortcut icon' href='data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA' type='image/x-icon' />
+<link rel='alternate' href='index.xml' type='application/rss+xml' title='RSS' />
 <!--}}}-->
 
 <!--PRE-HEAD-END-->
@@ -776,82 +776,6 @@ Inserting data into a database is just as easy:
 }}}
 </pre>
 </div>
-<div title="&lt;netropy:sql/&gt;" modifier="PeterHübel" created="200905121942" modified="201205291343" tags="service">
-<pre>!!!Synopsis
-This module acts as an interface to an ODBC database.
-!!!Content
-The inner structure of the ''sql'' service contains the SQL to execute on the database.
-
-The SQL //must// be surrounded by an XML element (which then will wrap each row of the result) and it  //must// start immediately after the opening tag. Apart from the SQL being wellformed in respect to the configured ''database'', these are the only requirements. 
-!!!Example 1
-Here is a sample of what an instance of this service may look like.
-{{{
-&lt;netropy:service module=&quot;sql&quot; database=&quot;Northwind&quot; style=&quot;productstyle&quot; type=&quot;text/xml&quot; encoding=&quot;iso-8859-1&quot; batch=&quot;products&quot; xmlns:sql=&quot;http://www.strxtrs.net/netropy/sql&quot;&gt;
-  &lt;product&gt;
-    SELECT
-    &lt;sql:attribute name=&quot;id&quot;&gt;p.ProductID&lt;/sql:attribute&gt;,
-    &lt;name&gt;p.ProductName&lt;/name&gt;,
-    &lt;quantity&gt;p.QuantityPerUnit&lt;/quantity&gt;,
-    &lt;price&gt;p.UnitPrice&lt;/price&gt;,
-    &lt;stock&gt;p.UnitsInStock&lt;/stock&gt;,
-    &lt;supplier&gt;s.CompanyName&lt;/supplier&gt;
-    FROM
-      Products p, Suppliers s
-    WHERE
-      p.SupplierID = s.SupplierID
-    ORDER BY ProductName
-  &lt;/product&gt;
-&lt;/netropy:service&gt;
-}}}
-and the result will be something like
-{{{
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot; ?&gt;
-&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;productstyle&quot;?&gt;
-&lt;products&gt;
-  &lt;product id=&quot;17&quot;&gt;&lt;name&gt;Alice Mutton&lt;/name&gt;&lt;quantity&gt;20 - 1 kg tins&lt;/quantity&gt;&lt;price&gt;39.0000&lt;/price&gt;&lt;stock&gt;0&lt;/stock&gt;&lt;supplier&gt;Pavlova, Ltd.&lt;/supplier&gt;&lt;/product&gt;
-  &lt;product id=&quot;3&quot;&gt;&lt;name&gt;Aniseed Syrup&lt;/name&gt;&lt;quantity&gt;12 - 550 ml bottles&lt;/quantity&gt;&lt;price&gt;10.0000&lt;/price&gt;&lt;stock&gt;13&lt;/stock&gt;&lt;supplier&gt;Exotic Liquids&lt;/supplier&gt;&lt;/product&gt;
-  ...
-&lt;/products&gt;
-}}}
-You can execute the example right [[here|/northwind/products/]].
-!!!Attributes
-*''database''&lt;br/&gt;(required) name of an ODBC data source.
-*''style''&lt;br/&gt;(optional) URL to a stylesheet to refer to in the result.
-*''type''&lt;br/&gt;(optional) the MIME type of the result (default &quot;text/xml&quot;).
-*''encoding''&lt;br/&gt;(optional) the encoding of the result (default &quot;utf-8&quot;)&lt;br/&gt;Many ODBC data sources contain data encoded with ''iso-8859-1'', the default Windows encoding.
-*''batch''&lt;br/&gt;(optional) name of a tag to enclose lists of the items specified in the inner structure.
-!!!Service Tags
-*''sql:attribute''&lt;br/&gt;injects the value selected from the database as an attribute of the surrounding tag.
-*''sql:text''&lt;br/&gt;injects the value selected from the database as a child text node of the surrounding tag.
-!!!Example 2
-This example shows how you can use the ''sql'' service as a way to generate HTML fragments, which you may use to generate bits and pieces for an AJAX applicaton.
-{{{
-&lt;category-options&gt;
-  &lt;!-- example of a service which directly returns an html fragment --&gt;
-  &lt;netropy:service database=&quot;Northwind&quot; module=&quot;sql&quot; type=&quot;text/xml; charset=iso-8859-1&quot; wrap=&quot;select&quot; xmlns:sql=&quot;http://www.strxtrs.net/netropy/sql&quot;&gt;
-    &lt;option xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
-      SELECT
-      &lt;sql:attribute name=&quot;value&quot;&gt;CategoryID&lt;/sql:attribute&gt;,
-      &lt;sql:text&gt;CategoryName&lt;/sql:text&gt;
-      FROM
-      Categories
-      ORDER BY CategoryName
-    &lt;/option&gt;
-  &lt;/netropy:service&gt;
-&lt;/category-options&gt;
-}}}
-!!!Example 3
-Inserting data into a database is just as easy:
-{{{
-&lt;netropy:service database=&quot;Escapa Highscore Spreadsheet&quot; encoding=&quot;iso-8859-1&quot; module=&quot;sql&quot;&gt;
-  &lt;score&gt;
-    INSERT INTO HIGHSCORE ( NAME, SCORE ) 
-    VALUES (&lt;name&gt;?&lt;/name&gt;, &lt;seconds&gt;?&lt;/seconds&gt;)
-  &lt;/score&gt;
-&lt;/netropy:service&gt;
-}}}
-</pre>
-</div>
 <div title="&lt;netropy:system/&gt;" modifier="Peter Hübel" created="201201282214" modified="201205232149" changecount="5">
 <pre>!!!Synopsis
 Gives system information about the available services
@@ -1145,6 +1069,82 @@ In another context, a ''&lt;xeno:space/&gt;'' may look more like a huge XML docu
 &lt;/xeno:space&gt;
 }}}
 While developing a web application, the use of mockups also can come in handy.</pre>
+</div>
+<div title="&lt;xeno:sql/&gt;" modifier="Peter Hübel" created="200905121942" modified="201604172239" tags="service" changecount="2">
+<pre>!!!Synopsis
+This module acts as an interface to an SQL database.
+!!!Content
+The inner structure of the ''sql'' service contains the SQL to execute on the database.
+
+The SQL //must// be surrounded by an XML element (which then will wrap each row of the result) and it  //must// start immediately after the opening tag. Apart from the SQL being wellformed in respect to the configured ''database'', these are the only requirements. 
+!!!Example 1
+Here is a sample of what an instance of this service may look like.
+{{{
+&lt;xeno:sql database=&quot;Northwind&quot; style=&quot;productstyle&quot; type=&quot;text/xml&quot; encoding=&quot;iso-8859-1&quot; batch=&quot;products&quot; xmlns:sql=&quot;http://www.strxtrs.net/netropy/sql&quot;&gt;
+  &lt;product&gt;
+    SELECT
+    &lt;sql:attribute name=&quot;id&quot;&gt;p.ProductID&lt;/sql:attribute&gt;,
+    &lt;name&gt;p.ProductName&lt;/name&gt;,
+    &lt;quantity&gt;p.QuantityPerUnit&lt;/quantity&gt;,
+    &lt;price&gt;p.UnitPrice&lt;/price&gt;,
+    &lt;stock&gt;p.UnitsInStock&lt;/stock&gt;,
+    &lt;supplier&gt;s.CompanyName&lt;/supplier&gt;
+    FROM
+      Products p, Suppliers s
+    WHERE
+      p.SupplierID = s.SupplierID
+    ORDER BY ProductName
+  &lt;/product&gt;
+&lt;/xeno:sql&gt;
+}}}
+and the result will be something like
+{{{
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot; standalone=&quot;yes&quot; ?&gt;
+&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;productstyle&quot;?&gt;
+&lt;products&gt;
+  &lt;product id=&quot;17&quot;&gt;&lt;name&gt;Alice Mutton&lt;/name&gt;&lt;quantity&gt;20 - 1 kg tins&lt;/quantity&gt;&lt;price&gt;39.0000&lt;/price&gt;&lt;stock&gt;0&lt;/stock&gt;&lt;supplier&gt;Pavlova, Ltd.&lt;/supplier&gt;&lt;/product&gt;
+  &lt;product id=&quot;3&quot;&gt;&lt;name&gt;Aniseed Syrup&lt;/name&gt;&lt;quantity&gt;12 - 550 ml bottles&lt;/quantity&gt;&lt;price&gt;10.0000&lt;/price&gt;&lt;stock&gt;13&lt;/stock&gt;&lt;supplier&gt;Exotic Liquids&lt;/supplier&gt;&lt;/product&gt;
+  ...
+&lt;/products&gt;
+}}}
+You can execute the example right [[here|/northwind/products/]].
+!!!Attributes
+*''database''&lt;br/&gt;(required) name of an ODBC data source.
+*''style''&lt;br/&gt;(optional) URL to a stylesheet to refer to in the result.
+*''type''&lt;br/&gt;(optional) the MIME type of the result (default &quot;text/xml&quot;).
+*''encoding''&lt;br/&gt;(optional) the encoding of the result (default &quot;utf-8&quot;)&lt;br/&gt;Many ODBC data sources contain data encoded with ''iso-8859-1'', the default Windows encoding.
+*''batch''&lt;br/&gt;(optional) name of a tag to enclose lists of the items specified in the inner structure.
+!!!Service Tags
+*''sql:attribute''&lt;br/&gt;injects the value selected from the database as an attribute of the surrounding tag.
+*''sql:text''&lt;br/&gt;injects the value selected from the database as a child text node of the surrounding tag.
+!!!Example 2
+This example shows how you can use the ''sql'' service as a way to generate HTML fragments, which you may use to generate bits and pieces for an AJAX applicaton.
+{{{
+&lt;category-options&gt;
+  &lt;!-- example of a service which directly returns an html fragment --&gt;
+  &lt;xeno:sql wrap=&quot;select&quot; database=&quot;Northwind&quot; type=&quot;text/xml; charset=iso-8859-1&quot; xmlns:sql=&quot;http://www.strxtrs.net/netropy/sql&quot;&gt;
+    &lt;option xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+      SELECT
+      &lt;sql:attribute name=&quot;value&quot;&gt;CategoryID&lt;/sql:attribute&gt;,
+      &lt;sql:text&gt;CategoryName&lt;/sql:text&gt;
+      FROM
+      Categories
+      ORDER BY CategoryName
+    &lt;/option&gt;
+  &lt;/xeno:sql&gt;
+&lt;/category-options&gt;
+}}}
+!!!Example 3
+Inserting data into a database is just as easy:
+{{{
+&lt;xeno:sql database=&quot;Escapa Highscore Spreadsheet&quot; encoding=&quot;iso-8859-1&quot;&gt;
+  &lt;score&gt;
+    INSERT INTO HIGHSCORE ( NAME, SCORE ) 
+    VALUES (&lt;name&gt;?&lt;/name&gt;, &lt;seconds&gt;?&lt;/seconds&gt;)
+  &lt;/score&gt;
+&lt;/xeno:sql&gt;
+}}}
+</pre>
 </div>
 <div title="A short introduction to the XENOmat" modifier="Peter Hübel" created="200909181432" modified="201403222128" changecount="60">
 <pre>&lt;&lt;tiddler xeno&gt;&gt; is a machine designed to transport and transform structured information while using a minimum of energy on the physical level. It achieves that goal by leveraging the tension inherent in any representation of information - the difference between “something” and “nothing” - and putting that tension to work in a physical sense. To quote one of the great minds in cybernetics and system theory of the last century:
@@ -2694,8 +2694,8 @@ Ideally the abstractions written in C++ would disappear at runtime because a mod
 <div title="Internet of Things" modifier="Peter Hübel" created="201404030059" modified="201404030100" changecount="2">
 <pre>ConnectAbility - the ability to connect.</pre>
 </div>
-<div title="MainMenu" modifier="PeterHübel" created="200903160942" modified="200905192105" changecount="61">
-<pre>[[Welcome]] [[Built In Services]] &lt;html&gt;&lt;a href='/' class='tiddlyLink tiddlyLinkExisting' title='Back to the server main page'&gt;Server Main&lt;/a&gt;&lt;/html&gt;  &lt;&lt;tiddler strXtrs&gt;&gt; </pre>
+<div title="MainMenu" modifier="Peter Hübel" created="200903160942" modified="201604172241" changecount="63">
+<pre>[[Welcome]] [[Built In Services]] &lt;html&gt;&lt;a href='/' class='tiddlyLink tiddlyLinkExisting' title='Back to the server main page'&gt;Server Main&lt;/a&gt;&lt;/html&gt;</pre>
 </div>
 <div title="MarkupPreHead" modifier="PeterHübel" created="201203221051" modified="201205240130" tags="notable" changecount="3">
 <pre>&lt;!--{{{--&gt;
