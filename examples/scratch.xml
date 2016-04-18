@@ -7,24 +7,31 @@
         If you were to start from scratch, what would you really need, in
         order to build an information system that uses minimal resources? 
         
-        There are many reasons to focus on the use of resources, a few of 
-        them being energy savings in mobile or remote devices, and the 
-        overall value of having a well defined cost of computation.
+        There are many reasons to focus on the use of resources, one of 
+        them being energy savings in mobile or remote devices, and another
+        being the inherent value of having a well defined cost of computation.
                 
-        The core question we need to adress first, is: What is this thing
+        The core question we need to address first, is: What is this thing
         called "information" actually? For the purpose of this text, we'll 
-        use a definition given by the polymath Gergory Bateson:
+        use a definition given by the late polymath Gergory Bateson:
 
             Information is a difference, that makes a difference.
 
-        We shall not be going into the deeper discussion about the philosophical
-        implication of that sentence (interested readers might pick up af copy of
-        "Steps to an Ecology of Mind: Collected Essays in Anthropology", where the
-        subject is discusses in a couple of the essays).
+        We shall not be diving into a deeper discussion of the philosophical
+        implications of that sentence (interested readers might pick up af 
+        copy of Bateson's "Steps to an Ecology of Mind: Collected Essays in 
+        Anthropology", where the subject is discussed in a couple of essays).
+        
+        Four our purposes this conception mainly means abstaining from using 
+        complicated language, which more often than not really adds any value 
+        in solving the problems at hand, but it is also worth to remember, that 
+        even being able to grasp information, there has to be something that 
+        reacts on these "differences". Be it flashing lights, howling sirens,
+        or the vibrating solenoids in your mobile phone.
         
         <aside>
-        A as note to implementors, we can simply adopt best practices, and 
-        interpret Bateson's words in a ressource centred fashion. As when 
+        A as note to implementors, we can simply recall our best practices, 
+        and interpret Bateson's words in a ressource centred fashion. As when 
         we are fetching some resource via a cache, and do so to reduce both 
         bandwith and needed (or rather wasted) computational power in cases, 
         when "nothing really happened" i.e. no information really has changed. 
@@ -35,10 +42,11 @@
         lead to burnout syndromes in human social systems.
         </aside>
         
-        Given that definition, you would need to have a way to describe the system, 
-        a kind of blueprint with sufficient information for enabling someone or 
-        something to actually build the system, or for some software to emulate
-        the processes needed for the system to actually fulfill its purpose.
+        Given that definition of "information", you would then need to have a way 
+        to describe the system. A kind of blueprint with sufficient information 
+        for enabling someone or something to actually build the system, or for some 
+        software to emulate the processes needed for the system to actually fulfill 
+        its purpose.
 
         Commonly contemporary object-oriented programmers create some kind 
         of "model" by writing definitions of concepts in special languages
