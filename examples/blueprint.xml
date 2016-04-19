@@ -1998,7 +1998,7 @@ $.fn.netropyForm = function(params) {
             </xeno:copy>
         </form>
         <stuff>
-            <xeno:stash parse="xml" type="text/xml">
+            <xeno:stash type="text/xml">
                 <xml>Testing UTF-8! æøå ÆØÅ Hübel</xml>
             </xeno:stash>
         </stuff>
@@ -2921,6 +2921,7 @@ $.fn.netropyForm = function(params) {
         </quote>
         <!-- NOTE: service at root level -->
         <xeno:space base="/" name="XENOmat Main Page">
+            <xeno:duct_tape doctype="html"/>
             <xeno:copy debug="WHY NO WORK?" type="text/html;charset=utf-8">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                 <head>
