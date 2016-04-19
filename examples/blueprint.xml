@@ -2929,7 +2929,7 @@ $.fn.netropyForm = function(params) {
                     <meta name="format-detection" content="telephone=no"/>
                     <link rel="stylesheet" href="/styles"/>
                     <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA" type="image/x-icon"/>
-                    <script src="/jquery"/>
+                    <script src="/jquery"></script>
                     <script type="text/javascript">
                         var highscore = 0;
 
