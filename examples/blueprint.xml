@@ -2072,20 +2072,29 @@ $.fn.netropyForm = function(params) {
         </blueprint>
         <northwind>
             <products>
-                <xeno:sql batch="products" database="Northwind" encoding="iso-8859-1" style="../productstyle/" type="text/xml" xmlns:sql="http://www.strxtrs.net/netropy/sql">
-                    <product>
-                        SELECT
-                        <sql:attribute name="id">p.ProductID</sql:attribute>,
-                        <name>p.ProductName</name>,
-                        <category>p.CategoryID</category>,
-                        <quantity>p.QuantityPerUnit</quantity>,
-                        <price>p.UnitPrice</price>,
-                        <stock>p.UnitsInStock</stock>,
-                        <supplier>s.CompanyName</supplier>
-                        FROM Products p, Suppliers s WHERE p.SupplierID = s.SupplierID ORDER BY ProductName
-                    </product>
-                </xeno:sql>
-                <!-- style type="text/css">@namespace sql url(http://www.strxtrs.net/netropy/sql); body, product, sql|attribute, name, category, quantity, price, stock, supplier { display: block; padding: .5em; border: 6px inset rgba(248,231,200,.5); background: #86837C; line-height: 2em; border-radius: 6px; margin: .5em; }</style -->
+                <real>
+                    <xeno:sql batch="products" database="Northwind" encoding="iso-8859-1" style="../productstyle/" type="text/xml" xmlns:sql="http://www.strxtrs.net/netropy/sql">
+                        <product>
+                            SELECT
+                            <sql:attribute name="id">p.ProductID</sql:attribute>,
+                            <name>p.ProductName</name>,
+                            <category>p.CategoryID</category>,
+                            <quantity>p.QuantityPerUnit</quantity>,
+                            <price>p.UnitPrice</price>,
+                            <stock>p.UnitsInStock</stock>,
+                            <supplier>s.CompanyName</supplier>
+                            FROM Products p, Suppliers s WHERE p.SupplierID = s.SupplierID ORDER BY ProductName
+                        </product>
+                    </xeno:sql>
+                </real>
+                <xeno:copy type="text/xml">
+                    <products>
+                        <product id="17"><name>Alice Mutton</name><category>Specialities</category><quantity>20 - 1 kg tins</quantity><price>39.0000</price><stock>0</stock><supplier>Pavlova, Ltd.</supplier></product>
+                        <product id="3"><name>Aniseed Syrup</name><category>Ingredients</category><quantity>12 - 550 ml bottles</quantity><price>10.0000</price><stock>13</stock><supplier>Exotic Liquids</supplier></product>
+                        <product id="1"><name>Weiss Rössl</name><category>Beverages</category><quantity>12 - 550 ml bottles</quantity><price>7.0000</price><stock>42</stock><supplier>Exotic Liquids</supplier></product>
+                    </products>
+                </xeno:copy>
+                <!-- SQL could be styled easily as well. <style type="text/css">@namespace sql url(http://www.strxtrs.net/netropy/sql); body, product, sql|attribute, name, category, quantity, price, stock, supplier { display: block; padding: .5em; border: 6px inset rgba(248,231,200,.5); background: #86837C; line-height: 2em; border-radius: 6px; margin: .5em; }</style -->
             </products>
             <productstyle>
                 <xeno:stash type="text/xsl">
@@ -2329,11 +2338,9 @@ $.fn.netropyForm = function(params) {
                             background: rgb(200, 200, 200);
                         }
                     </style>
-                    <script src="/jquery" type="text/javascript">
-                        <!--wow-->
-                    </script>
+                    <script src="/jquery" type="text/javascript"></script>
                     <script type="text/javascript">
-                        //<![CDATA[
+//<![CDATA[
                         $(function () {
                             install_handlers();
                             runHighScoreScript();
@@ -2635,7 +2642,7 @@ $.fn.netropyForm = function(params) {
                             }
 
                         }
-                        //]]>
+//]]>
                     </script>
                 </head>
 
