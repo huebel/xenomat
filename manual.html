@@ -39,7 +39,7 @@ DAMAGE.
 " />
 <!--PRE-HEAD-START-->
 <!--{{{-->
-<link rel='alternate' type='application/rss+xml' title='RSS' href='index.xml'/>
+<link rel='alternate' type='application/rss+xml' title='RSS' href='index.xml' />
 <link rel='shortcut icon' href='data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA' type='image/x-icon' />
 <!--}}}-->
 
@@ -1141,11 +1141,11 @@ $attribute is used for runtime binding, and it has two cases:
 
 &lt;netropy:handler/&gt; could be implemented as a pattern, taking a &lt;netropy:event/&gt; which itself is a structure, where the sender can fill in some attributes.</pre>
 </div>
-<div title="Basic Concepts" modifier="Peter Hübel" created="200905191515" modified="201201200227" changecount="47">
-<pre>Working with Netropy Server has very few prerequisites. 
+<div title="Basic Concepts" modifier="Peter Hübel" created="200905191515" modified="201604210540" changecount="48">
+<pre>Working with &lt;&lt;tiddler xeno&gt;&gt; has very few prerequisites. 
 !!Introductory Articles
 * [[InformationSpaces]]&lt;br/&gt;A primer on the &quot;world view&quot; of Netropy Server.&lt;br/&gt;&lt;br/&gt;
-* [[Streams, Stacks, Stashes, and Spaces]]&lt;br/&gt;The fundamental components of Netropy Server.
+* [[Streams, Stacks, Stashes, and Spaces]]&lt;br/&gt;The fundamental components of &lt;&lt;tiddler xeno&gt;&gt;.
 !!Caveat Programmer
 You should have good knowledge of 
 *''[[XML|http://www.w3.org/TR/xml]]'' 
@@ -1163,14 +1163,16 @@ Eine hervoragende [[deutsche version|http://www.linkwerk.com/]] gibt es beim Tea
 
 Read more about this service [[here|&lt;netropy:blueprint/&gt;]].</pre>
 </div>
-<div title="Built In Services" modifier="YourName" created="200905122049" modified="201402020542" changecount="84">
-<pre>Netropy Server comes with a number of built in service modules:
-*[[copy|&lt;netropy:copy/&gt;]] - copies the content of the service back through the port, where the request entered. Assumes copyright for content. &lt;&lt;smiley ;-)&gt;&gt;
-*[[disk|&lt;netropy:disk/&gt;]] - maps a file or file system to a site and serves the content of disk based files.
+<div title="Built In Services" modifier="Peter Hübel" created="200905122049" modified="201604210543" changecount="86">
+<pre>&lt;&lt;tiddler xeno&gt;&gt; comes with a number of built in service modules:
+*[[copy|&lt;xeno:copy/&gt;]] - copies the content of the service back through the port, where the request entered. Assumes copyright for content. &lt;&lt;smiley ;-)&gt;&gt;
+*[[disk|&lt;xeno:disk/&gt;]] - maps a file or file system to a site and serves the content of disk based files.
 *''stash'' - a place to get and put variable structured or unstructured information.
 *''space'' - a place to extend simply by going there and setting up the structure on the way.
-*[[sql|&lt;netropy:sql/&gt;]] - a place to interface with a database (ODBC in this version). ODBC also allows you also to use an Excel&amp;reg; spreadsheet as your data source as in the [[Escapa!|/escapa/]] sample application.
-*[[blueprint|&lt;netropy:blueprint/&gt;]] - a service which allows you to introspect on the [[&lt;netropy:space/&gt;]] it resides in.</pre>
+*[[sql|&lt;xeno:sql/&gt;]] - a place to interface with a database (ODBC in this version). ODBC also allows you also to use an Excel&amp;reg; spreadsheet as your data source as in the [[Escapa!|/escapa/]] sample application.
+*[[blueprint|&lt;xeno:blueprint/&gt;]] - a service which allows you to introspect on the [[&lt;xeno:space/&gt;]] it resides in.
+*[[http|&lt;xeno:http/&gt;]] - sets up a HTTP server to access this space from the outside.
+</pre>
 </div>
 <div title="BuzzWords" modifier="Peter Hübel" created="201201290044" changecount="1">
 <pre>ProgrammingByExample
@@ -2604,7 +2606,7 @@ Ideally the abstractions written in C++ would disappear at runtime because a mod
 <div title="MarkupPreHead" modifier="PeterHübel" created="201203221051" modified="201205240130" tags="notable" changecount="3">
 <pre>&lt;!--{{{--&gt;
 &lt;link rel='alternate' type='application/rss+xml' title='RSS' href='index.xml' /&gt;
-&lt;link rel=&quot;shortcut icon&quot; href=&quot;data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA&quot; type=&quot;image/x-icon&quot;&gt;
+&lt;link rel='shortcut icon' href='data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA' type='image/x-icon' /&gt;
 &lt;!--}}}--&gt;
 </pre>
 </div>
@@ -3921,8 +3923,8 @@ config.macros.smiley.handler = function(place,macroName,params)
 <div title="strXtrs" modifier="Peter Hübel" created="200903160943" modified="201205160113" changecount="42">
 <pre>&lt;html&gt;&lt;a href=&quot;http://www.strxtrs.net&quot; style=&quot;text-decoration:none;&quot; target=&quot;_blank&quot;&gt;&lt;span style=&quot;font-family:Courier;font-weight:normal;font-size:18pt;color:white;background:#aba;padding:2px 7px 5px 5px;border: thin solid #898;&quot;&gt;str&amp;chi;trs&lt;/span&gt;&lt;/a&gt;&lt;/html&gt;</pre>
 </div>
-<div title="xeno" modifier="Peter Hübel" created="201402212241" modified="201402212335" changecount="2">
-<pre>[[XENOmat]]</pre>
+<div title="xeno" modifier="Peter Hübel" created="201402212241" modified="201604210539" changecount="4">
+<pre>''~XENOmat''</pre>
 </div>
 <div title="xeno-alien" modifier="Peter Hübel" created="201404060836" modified="201404060857" changecount="11">
 <pre>&lt;html&gt;
