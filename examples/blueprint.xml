@@ -1769,8 +1769,7 @@
 			    }
 			  };
 
-			})(jQuery);
-			//]]>
+			})(jQuery); // ]]>
             </xeno:copy>
         </jquery.cluetip.js>
         <![CDATA[Pretty Printing for XML]]>
@@ -2339,8 +2338,7 @@ $.fn.netropyForm = function(params) {
                         }
                     </style>
                     <script src="/jquery" type="text/javascript"></script>
-                    <script type="text/javascript">
-//<![CDATA[
+                    <script type="text/javascript">//<![CDATA[
                         $(function () {
                             install_handlers();
                             runHighScoreScript();
@@ -2963,7 +2961,7 @@ $.fn.netropyForm = function(params) {
                         <a href="" id="mobile_ip"> </a>
                     </p>
                     <p>
-                        The core engine is programmed in <em>modern C++</em>, and (when augmented with streaming compiler technology and a network layer based on the <a href="http://think-async.com/" target="_blank">asio C++ library</a>) gives you a full stack platform called the <em>XENOmat</em>.
+                        The core engine is programmed in <em>modestly modern C++</em><sup>*</sup>, and (when augmented with streaming compiler technology and a network layer based on the <a href="http://think-async.com/" target="_blank">asio C++ library</a>) gives you a full stack platform called the <em>XENOmat</em>.
                     </p>
                     <p>
                         In terms of <em>speed</em>, <em>low overhead</em> and <em>robustness</em> it is well suited for <em>embedded applications</em> and critical <em>infrastructure</em>.
@@ -2971,10 +2969,11 @@ $.fn.netropyForm = function(params) {
                     </p>
 <pre style="margin-left: .5em; font-family: 'Andale Mono', monospace; font-size: 9pt;"><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">top - 08:44:09 up 39 days,  4:57, 11 users,  load average: 0.20, 0.34, 0.56</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">Tasks:<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  4 </span>total,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  1 </span>running,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">  3 </span>sleeping,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">   0 </span>stopped,<span style="font-variant-ligatures: no-common-ligatures; color: #00f900" class="">   0 </span>zombie</div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">%Cpu(s):</span>  0.7 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">us,</span>  0.9 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">sy,</span>  0.3 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">ni,</span> 98.1 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">id,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">wa,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">hi,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">si,</span>  0.0 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">st</span></div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">KiB Mem: </span>  4048128 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">total,</span>  3680340 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">used,</span>   367788 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">free,</span>   612588 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">buffers</span></div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""><span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">KiB Swap:</span>  8385532 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">total,</span>   585036 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">used,</span>  7800496 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">free,</span>   912056 <span style="font-variant-ligatures: no-common-ligatures; color: #29f914" class="">cached</span></div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0); min-height: 14px;" class=""><br class=""/></div><div style="margin: 0px; color: rgb(0, 0, 0); background-color: rgb(41, 249, 20);" class="">  PID USER      PR  NI  VIRT RES  SHR  S  %CPU %MEM    TIME+  COMMAND                              </div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class=""> 4091 web1108   39  19  5040 4568 2944 S   0.0  0.1   0:00.03 xenomat</div><div style="margin: 0px; color: rgb(0, 249, 0); background-color: rgb(0, 0, 0);" class=""> 4092 web1108   39  19 23184 2568 2124 R   0.0  0.1   0:00.01 top</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">10589 web1108   39  19 79944 3700 2720 S   0.0  0.1   0:05.54 sshd</div><div style="margin: 0px; color: rgb(41, 249, 20); background-color: rgb(0, 0, 0);" class="">10590 web1108   39  19 20600 4536 2860 S   0.0  0.1   0:00.08 bash</div>
 </pre>
-                    <p>That's right, it's the smallest one. This site is served by a single threaded 32-bit Debian build. To confirm, check the online <a href="/pipe/top/">resource usage</a>.</p>
-<!--
-<iframe src="/pipe/ps/"></iframe>
--->
+                    <p>That's right, it's the smallest one. This site is served by a single threaded 32-bit Debian build. Check the online <a href="/pipe/top/">resource usage</a> (may take up to 10 seconds).</p>
+                    <!--
+                    <iframe src="/pipe/ps/"></iframe>
+                    -->
+                    <p><sup>*</sup><i>The API relies on a few C++11 features with fallbacks using the <a href="boost.org"><i>boost</i></a> libraries</i>.</p>
                     <h3>History</h3>
                     <p>
                         Starting out as a private <a href="/manual#netropy" target="_top">research project</a> in <em>2004</em>, it evolved to a full blown product for building <a href="http://en.wikipedia.org/wiki/HATEOAS" _target="_blank">HATEOAS</a> applications in <em>2009</em> (you can tell from the <em>so-last-decade</em> styling here), and eventually matured into the present full stack reactive realtime processing platform during early <em>2014</em>.
@@ -3053,7 +3052,8 @@ $.fn.netropyForm = function(params) {
                         </li>
                     </ul>
                     <h3>Source and example code</h3>
-                    <p>Starting to show up on <a href="https://github.com/huebel/xenomat">github</a>.</p>
+                    <p>Most of <em>netropy</em> is open source, licensed under the Netropy No Bullshit Licence (N<sup>2</sup>BL), which is basically a liberal BSD-style license.</p>
+                    <p>The C++ API and examples are starting to show up on <a href="https://github.com/huebel/xenomat">github</a>.</p>
                     <h3>Contact</h3>
                     <p>mailto:<a href="mailto:netropy@protonmail.ch">netropy@protonmail.ch</a></p>
                 </body>
@@ -3065,249 +3065,7 @@ $.fn.netropyForm = function(params) {
         <reboot>
             <xeno:reset goto="/hello/world" allow="*" type="text/plain">Netropy Server is restarting, please refresh in a second...</xeno:reset>
         </reboot>
-        <build>
-            <xeno:build start="order-form" storage="./build-dir" ticket-tackle="/html/body/form/action">
-                <order-form>
-                    <xeno:copy type="text/html">
-                        <html xmlns="http://www.w3.org/1999/xhtml">
-
-                        <head>
-                            <title>Order your own Netropy Space</title>
-                            <style media="all" type="text/css">
-                                /* @import '/styles/'; */
-                                
-                                .ticket_machine {
-                                    display: none;
-                                }
-                                
-                                span#ticket {
-                                    font-size: 4em;
-                                    border: 1px solid #676;
-                                    color: white;
-                                    background: #bcb;
-                                    padding-left: 0.1em;
-                                    padding-right: 0.1em;
-                                }
-                                
-                                div#blueprints {
-                                    float: left;
-                                }
-                                
-                                div#build_area {
-                                    float: right;
-                                }
-                            </style>
-                            <script src="/jquery" type="text/javascript">
-                                <!-- w00t -->
-                            </script>
-                            <script src="/interface" type="text/javascript">
-                                <!-- w00t -->
-                            </script>
-                            <script type="text/javascript">
-                                //<![CDATA[
-                                var load_blueprint = function (form, blueprint_url) {
-                                    with(form.build_blueprint) {
-                                            value = "Loading " + blueprint_url + "...";
-                                            $.ajax({
-                                                type: "GET",
-                                                url: blueprint_url,
-                                                processData: false,
-                                                contentType: "text/plain",
-                                                complete: function (xhr) {
-                                                    if (xhr.status == 200) {
-                                                        value = xhr.responseText;
-                                                    } else {
-                                                        value = "Could not load " + blueprint_url + ": " + xhr.statusText;
-                                                    }
-                                                }
-                                            })
-                                        } // with
-                                    return false;
-                                }
-                                $(document).ready(function () {
-                                    $("#blueprints noinput").each(function () {
-                                        $(this).click(function () {
-                                            // local context
-                                            var blueprint_url = this.getAttribute("onclick");
-                                            with(this.form.build_blueprint) {
-                                                    value = "Loading " + blueprint_url + "...";
-                                                    $.ajax({
-                                                        type: "GET",
-                                                        url: blueprint_url,
-                                                        processData: false,
-                                                        contentType: "text/plain",
-                                                        complete: function (xhr) {
-                                                            if (xhr.status == 200) {
-                                                                value = xhr.responseText;
-                                                            } else {
-                                                                value = "Could not load " + blueprint_url + ": " + xhr.statusText;
-                                                            }
-                                                        }
-                                                    })
-                                                } // with
-                                        });
-                                        return false;
-                                    });
-                                    $("#server_order_form").submit(function () {
-                                        $.ajax({
-                                            type: this.getAttribute("method"),
-                                            url: this.getAttribute("action"),
-                                            data: this.build_blueprint.value, // $("#build_blueprint").attr("value"),
-                                            processData: false,
-                                            contentType: "text/xml",
-                                            complete: function (xhr) {
-                                                if (xhr.status == 201 && confirm('By clicking "OK" and downloading the executable "netropy.exe" you accept the terms of license for this software!')) {
-                                                    // Do the redirection
-                                                    document.location = xhr.getResponseHeader('Location');
-                                                }
-                                            }
-                                        });
-                                        return false;
-                                    });
-                                });//]]>
-                            </script>
-                        </head>
-
-                        <body>
-                            <form action="pickup" id="server_order_form" method="post">
-                                <h1>Order your own server</h1>
-                                <div class="ticket_machine">
-                                    Please pick a number: <span id="ticket">42</span>
-                                </div>
-                                <div id="blueprints">
-                                    <h3>Pick a ready made blueprint</h3> Copy
-                                    <input class="copy_blueprint" id="this_server" name="this_server" onclick="load_blueprint(this.form, '/blueprint/plain/')" type="button" value="this server" /> or
-                                    <input class="copy_blueprint" id="the_sandbox" name="the_sandbox" onclick="load_blueprint(this.form, '/sandbox/blueprint/plain/')" type="button" value="the /sandbox/" />
-                                </div>
-                                <div id="build_area">
-                                    <h3>or paste your own blueprint here...</h3>
-                                    <textarea cols="80" name="build_blueprint" rows="25">Just like
-                                        <some-xml/> (you go UTF-8 all the way!)</textarea>
-                                    and
-                                    <input type="submit" value="BUILD" /> or
-                                    <input type="reset" value="RESET" /> this form.
-                                </div>
-                            </form>
-                        </body>
-
-                        </html>
-                    </xeno:copy>
-                </order-form>
-                <pickup>
-                    <xeno:disk disposition="attachment; filename=netropy.exe" mode="dynamic" mount="./build-dir" />
-                </pickup>
-            </xeno:build>
-        </build>
-        <visualise>
-            <xeno:copy type="text/html">
-                <html xmlns="http://www.w3.org/1999/xhtml">
-
-                <head>
-                    <title>Netropy Server - and JavaScript in your browser...</title>
-                    <script src="/jquery" type="text/javascript">
-                        <!-- WOW -->
-                    </script>
-                    <script src="/interface" type="text/javascript">
-                        <!-- WOW -->
-                    </script>
-                    <style media="all" type="text/css">
-                        @import '/styles';
-                        div.space {
-                            width: 40em;
-                            height: 10em;
-                            border: 1px solid black;
-                            padding: 0.5em;
-                        }
-                        
-                        #serviceList {
-                            width: 20em;
-                            border: 1px solid #6CAF00;
-                            /*
-                              width: 400px;
-                                position: absolute;
-                                left: 10px;
-                                top: 10px;
-                            */
-                        }
-                        
-                        #serviceList dt {
-                            line-height: 20px;
-                            background-color: #80df20;
-                            border-top: 2px solid #DAFF9F;
-                            border-bottom: 2px solid #6CAF00;
-                            padding: 0 10px;
-                            font-weight: bold;
-                            color: #fff;
-                        }
-                        
-                        #serviceList dd {
-                            overflow: auto;
-                        }
-                        
-                        #serviceList p {
-                            margin: 16px 10px;
-                        }
-                        
-                        #serviceList dt.myAccordionHover {
-                            background-color: #90ef30;
-                        }
-                        
-                        #serviceList dt.myAccordionActive {
-                            background-color: #6CAF00;
-                            border-top: 2px solid #80df20;
-                            border-bottom: 2px solid #000;
-                        }
-                    </style>
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            $('#serviceList').Accordion({
-                                headerSelector: 'dt',
-                                panelSelector: 'dd',
-                                activeClass: 'myAccordionActive',
-                                hoverClass: 'myAccordionHover',
-                                panelHeight: 200,
-                                speed: 300
-                            });
-                        });
-                    </script>
-                </head>
-
-                <body>
-                    <div id="jquery-plug">
-                        <p>
-                            <strong>
-								<a href="http://www.jquery.com" target="_blank">jQuery</a>
-							</strong> is the JavaScript framework of choice for this platform, due to its extremely small footprint (only ~16Kb).
-                        </p>
-                        <div class="space">
-                            The big void...
-                            <dl id="serviceList">
-                                <dt blueprint="/blueprint/plain/" class="service">This &lt;xeno:space/&gt;</dt>
-                                <dd/>
-                                <dt blueprint="/sandbox/blueprint/plain/" class="service">Just the all /sandbox/es</dt>
-                            </dl>
-                            <div class="service">
-                                <!-- WOW -->
-                            </div>
-                        </div>
-                        <p>
-                            Return to <a href="/">home sweet home</a>.
-                        </p>
-                    </div>
-                </body>
-
-                </html>
-            </xeno:copy>
-        </visualise>
         <pipe>
-<![CDATA[
-            <cat>
-                <xeno:pipe type="text/xml" mode="async" encoding="gzip">
-            cat < blueprint.xml 
-      			| gzip -c
-                </xeno:pipe>
-            </cat>
-]]>
             <ps>
                 <xeno:pipe><![CDATA[ps -Al && exit]]></xeno:pipe>
             </ps>
