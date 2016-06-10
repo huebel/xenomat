@@ -1,7 +1,5 @@
 function XENO(root, frame) {
 
-    debugger;
-    
     // Hack to determine window dimensions
     function width() {
         return window.innerWidth 
