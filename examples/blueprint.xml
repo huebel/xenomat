@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xeno:space name="netropy retrofixture" xmlns="http://netropy.huebel.freeshells.org:8901/2016/04/16" xmlns:xeno="xeno:XENOmat">
+<xeno:space name="netropy retrofixture" xmlns="http://netropy.huebel.freeshells.org:8901/2016/06/11" xmlns:xeno="xeno:XENOmat">
     <xeno:http port="8901" logo="alien" title="Server Error">
     <alien>
     <style>a.button { display: inline-block; color: white; background: blue; border: none; padding: 1em; margin: 2em auto; border-radius: 5px; text-decoration: none; font-size: 24pt; font-weight: bold; }</style>
