@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blueprint Viewer</title>
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!--link href="../scratch/scratch.css" type="text/css" media="screen" rel="stylesheet" /-->
+    <link href="blueprint.css" type="text/css" media="screen" rel="stylesheet"/>
+    <script src="blueprint.js" type="text/javascript">//</script>
+</head>
+
+<body>
+    <script id="application">
+        function print() {
+            // console.log(arguments)
+        }
+        // print("application")
+        function run(elementWithScriptText) {
+            print("run:", elementWithScriptText)
+            var source = elementWithScriptText.textContent
+            print("script: " + source)
+            eval(source)
+        }
+    </script>
+    <div id="control-panel">
+        <form name="loader" onfocus="var loader = this;" onblur="delete loader;" action="javascript:run(this)">
+            <!-- No, absolutely NO text is allowed in this form! Except for inside the script tag -->
+            <fieldset>
+                <legend>Examples</legend>
+                <select name="examples" onchange="this.form.location=this.value; this.form.submit()">
+                    <option value="https://raw.githubusercontent.com/huebel/xenomat/master/examples/scratch.xml">Scratchpad</option>
+                    <option value="blueprint.xml" selected>The blueprint of this server</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Resource</legend>
+                <input name="location" type="text" value="" maxchars="255"/>
+                <!-- input name="source" type="file" onload="this.form.location=this.value"/ -->
+                <button type="submit">Load</button>
+            </fieldset>
+            <fieldset>
+                <legend>Layout</legend>
+                <select name="layout">
+                    <option value="RadialTree">Radial Tree</option>
+                    <option value="RadialCluster" selected>Radial Cluster</option>
+                    <option value="Tree">Tree</option>
+                    <option value="Cluster">Cluster</option>
+                </select>
+            </fieldset>
+            <fieldset>
+                <legend>Hints</legend>
+                <aside>
+                Hit ⏎ to load resource. Click on a node to show its context and content, ⇧-click to hide. 
+                To toggle display, click on background.<br/>
+                To toggle a node, ⌘-(or ⌥ or ⌃)-click it. Try it, you'll find out. Nothing will break.
+                </aside>
+            </fieldset>
+            <script>
+                // In this script, 'this' will be the form when invoked.
+                // To wit move this statement below: alert("invoked by: "+this)
+                this.onsubmit = function () {
+                    var url = encodeURI(loader.location.value.trim())
+                    var frame = this.document.getElementById("display")
+                    XENO.load(url, frame)
+                }
+                loader.examples.onchange = function () {
+                    this.form.location.value = this.value
+                    this.form.location.focus()
+                    this.form.submit()
+                }
+            </script>
+        </form>
+    </div>
+    <div id="workspace">
+        <!-- inside of display will be displayed when there is no node selected -->
+        <div id="display" caption="Display">
+            <div>No Context</div>
+        <!-- well, not really...
+            <div>No Context</div>
+            -->
+        </div>
+    </div>
+</body>
+<script>
+    // Setup initial document
+    with (document.forms[0]) {
+        location.value = examples.value
+        location.focus()
+    }
+    document.getElementById("display").style.height = "33.333%"
+</script>
+
+<script src="/js/d3.min.js">//</script>
+<script src="/js/interact.js">//</script>
+<script type="text/javascript">//<![CDATA[
+
+var xeno = undefined
+
+debugger;
+XENO.load = function(url, frame) {
+
+d3.xml(url, "application/xml", function (xml) {
+
+    if (!xml) throw "shit, can only understand xml"
+
+    var service_ns = {
+        "xeno": true,
+        "netropy": true,
+        "gins": true,
+        "tpa": true,
+    }
+
+    function is_service(xml) {
+        return !!(xml.prefix in service_ns)
+    }
+
+    function further(xml, depth, ancestors) {
+//        if (depth && is_service(xml)) {
+//            return []
+//        }
+        // default simply recurse down
+        if (!is_service(xml)) {
+            // var ancestors = ancestors.slice()
+            ancestors.push(xml.tagName)
+        }
+        var depth = depth+1
+        return [].slice.apply(xml.children).map(function (x) {
+            return build(x, depth, ancestors)
+        })
+    }
+
+    function build(xml, depth, ancestors) {
+        var depth = depth || 0
+        var ancestors = ancestors && ancestors.slice() || ['']
+        var children = further(xml, depth, ancestors)
+        return {
+            name: xml.getAttribute("name") || xml.tagName,
+            children: children,
+            size: children.reduce(function (p, c) {
+                return p + c.size
+            }, 1),
+            depth: depth,
+            path: ancestors.join("/"),
+            origin: xml,
+            type: xml.getAttribute("type"),
+            // Methods
+            is_leaf: function () {
+                return this.size === 1
+            },
+            code: function () {
+                var xmlString = (new XMLSerializer()).serializeToString(this.origin);
+                // xmlString = vkbeautify.xml(xmlString, 2);
+                // console.log("XML:", xmlString)
+                return xmlString
+            },
+            text: function () {
+                return this.origin.textContent
+            },
+            toggle: function(modify) {
+                if (this.children) {
+                    // Remove visible children
+                    this.children = null
+                    // Modification: collapsing all children on all levels
+                    if (modify) children.map(function (x) {
+                        x.toggle(modify)
+                    })
+                } else {
+                    this.children = children
+                    // Modification: just expand the next level
+                    // by collapsing all children
+                    if (modify) children.map(function (x) {
+                        x.toggle(modify)
+                    })
+                }
+            },
+            click: function (toggle, modify) {
+                if (toggle) {
+                    // Structural change
+                    this.toggle(modify)
+                    if (xeno) {
+                        xeno.update()
+                    }
+                }
+                else {
+                    // Ensure display of node
+                    if (xeno) {
+                        xeno.display(this, this.path)
+                    }
+                }
+            }
+        }
+    }
+
+    root = build(xml.documentElement)
+    
+    root.click(true, true)
+    
+    xeno = XENO(root, frame)
+    xeno.display(root, url)
+})
+
+} // XENO.load
+
+//]]></script>
+
+
+
+<!-- interact.js test -->
+
+<script>
+
+function displayDragMoveListener(event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+    // translate the element
+    target.style.webkitTransform = target.style.transform =
+    'translate(' + x + 'px, ' + y + 'px)'
+    
+    // update the position attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+}
+
+function displayToggle(frame) {
+    var DISPLAY = "display"
+    if (frame.classList.contains(DISPLAY)) {
+        frame.classList.remove(DISPLAY)
+        delete frame.style.height // remove explicit set height
+    }
+    else {
+        frame.classList.add(DISPLAY)
+    }
+}
+
+function displayHide(frame) {
+    frame.style.opacity = .4;
+    d3.select(frame).selectAll("*").style("pointer-events", "none")//.style("display", "none")
+}
+
+function displayShow(frame) {
+    frame.style.opacity = 1;
+    d3.select(frame).selectAll("*").style("pointer-events", "all")//.style("display", "flex")
+}
+
+interact('#display').draggable({
+    onmove: displayDragMoveListener
+}).resizable({
+    edges: { left: true, right: true, bottom: true, top: true }
+}).on('dragstart', function(event) {
+    displayHide(event.target)
+}).on('resizestart', function(event) {
+    displayHide(event.target)
+}).on('dragend', function(event) {
+    displayShow(event.target)
+}).on('resizeend', function(event) {
+    displayShow(event.target)
+}).on('resizemove', function (event) {
+    var target = event.target,
+        x = (parseFloat(target.getAttribute('data-x')) || 0),
+        y = (parseFloat(target.getAttribute('data-y')) || 0)
+    // update the element's style
+    target.style.width  = event.rect.width + 'px';
+    target.style.height = event.rect.height + 'px';
+    // translate when resizing from top or left edges
+    x += event.deltaRect.left;
+    y += event.deltaRect.top;
+
+    target.style.webkitTransform = target.style.transform =
+    'translate(' + x + 'px,' + y + 'px)';
+
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+    // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+})
+
+interact('.node').on('hold', function(event) {
+    console.log(event);
+    var node = event.target.__data__;
+    var modify = event.shiftKey;
+    node.click(true, modify);
+})
+
+</script>
+
+<!-- RDS test
+
+
+<style type="text/css">
+
+#ghostpane {
+	background: #777;
+	opacity: 0;
+    pointer-events: none;
+
+	position: absolute;
+	width: 50%;
+	height: 50%;
+	top: 25%;
+	left: 25%;
+	margin: 0;
+	padding: 0;
+
+    z-index: 98;
+
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+	-ms-transition: all 0.25s ease-in-out;
+	-o-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+}
+
+#pane {
+    display: none;
+}
+</style>
+
+<div id="pane">
+	<div id="title">Resize, Drag or Snap Me!</div>
+</div>
+
+<script src="../js/RDS.js">//</script>
+
+<script>
+var workspace = document // .getElementById('workspace')
+var ghostpane = document.getElementById('ghostpane')
+RDS(workspace, display, ghostpane)
+</script>
+
+-->
+
+</body>
+
+</html>
