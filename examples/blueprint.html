@@ -51,9 +51,11 @@
             <fieldset>
                 <legend>Hints</legend>
                 <aside>
-                Hit ⏎ to load resource. Click on a node to show its context and content, ⇧-click to hide. 
-                To toggle display, click on background.<br/>
-                To toggle a node, ⌘-(or ⌥ or ⌃)-click it. Try it, you'll find out. Nothing will break.
+                Hit ⏎ to load resource. Click on a node to show its content, press and hold to expand or collapse.
+                To toggle a node, ⌘-(or ⌥ or ⌃)-click it.<br/>                
+                <!-- ⇧-click to hide. -->
+                To hide or show display, click on background. 
+                Try it, you'll find out. Nothing will break.
                 </aside>
             </fieldset>
             <script>
@@ -97,7 +99,6 @@
 
 var xeno = undefined
 
-debugger;
 XENO.load = function(url, frame) {
 
 d3.xml(url, "application/xml", function (xml) {
