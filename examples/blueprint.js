@@ -282,7 +282,7 @@ function XENO(root, frame) {
 **/
         function iframe(caption, type) {
             // Update the display with the name
-            frame.setAttribute("caption", caption || title || "No Name")
+            frame.setAttribute("title", caption || title || "No Name")
             
             //console.log("IFRAME", frame.dataset.caption, caption, title, this, node)
             
