@@ -93,7 +93,11 @@ var xeno = undefined
 
 XENO.load = function(url, frame) {
 
+  d3.select('html').classed('waiting', true)
+
   d3.xml(url, "application/xml", function (xml) {
+
+    d3.select('html').classed('waiting', false)
 
     if (!xml) throw "shit, can only understand xml"
 
