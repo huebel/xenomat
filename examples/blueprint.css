@@ -116,17 +116,23 @@ svg {
 #control-panel button, 
 #control-panel select {
     height: 28px;
-    -webkit-appearance: none;
     padding: 3px 9px;
     margin: 0px;
     box-sizing: border-box;
     border-radius: 4px;
 }
 
-#control-panel button, #control-panel select {
+#control-panel button, 
+#control-panel select {
     border: 2px outset #CCC;
     font-size: inherit;
     background-color: inherit;
+}
+
+#control-panel select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 #display {
