@@ -8,20 +8,16 @@
   </head>
   <body>
     <script id="application">//<![CDATA[
-        function print() {
-            // console.log(arguments)
-        }
         // print("application")
         function run(elementWithScriptText) {
-            print("run:", elementWithScriptText)
+            //print("run:", elementWithScriptText)
             var source = elementWithScriptText.textContent
-            print("script: " + source)
+            //print("script: " + source)
             eval(source)
         }//]]>
     </script>
     <div id="control-panel">
         <form name="loader" onfocus="var loader = this;" onblur="delete loader;" action="javascript:run(this)">
-            <!-- No, absolutely NO text is allowed in this form! Except for inside the script tag -->
             <fieldset>
                 <legend>Examples</legend>
                 <select name="examples" onchange="this.form.location=this.value; this.form.submit()">
