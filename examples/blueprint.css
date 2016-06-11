@@ -161,7 +161,7 @@ svg {
     min-height: 1em;
     padding: 0pt 2pt;
     margin: 0;
-    content: '▶ 'attr(caption);
+    content: '▶ 'attr(title);
     display: block;
     width: 100%;
     height: 1em;
