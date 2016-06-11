@@ -165,7 +165,7 @@ svg {
     max-height: 100% !IMPORTANT;
 }
 #display.display:before {
-    content: '▼ 'attr(caption);
+    content: '▼ 'attr(title);
 }
 #display div,
 #display iframe {
