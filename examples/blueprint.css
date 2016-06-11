@@ -2,6 +2,10 @@ html {
     box-sizing: border-box;
     font: 11pt sans-serif;
 }
+html.waiting {
+    pointer-events: none;
+    cursor: wait;
+}
 body {
     overflow-x: hidden;
     margin: .5em;
