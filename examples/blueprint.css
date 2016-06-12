@@ -20,7 +20,7 @@ form {
 fieldset {
     display: inline-block;
     float: left;
-    border: 2px groove #AAA;
+    border: 2pt groove #CCC;
     margin: 0 .5em .5em .5em;
     padding: .5em;
     vertical-align: bottom;
@@ -50,6 +50,19 @@ svg {
     user-select: none;
     margin: 0;
     padding: 0;
+}
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
 }
 
 svg {
@@ -113,22 +126,31 @@ svg {
 #workspace {
     display: block;
     width: 100%;
-    box-sizing: border-box;
 }
 
-#control-panel input, 
+#workspace {
+    overflow-x: scroll;
+}
+
 #control-panel button, 
 #control-panel select {
-    height: 28px;
+    height: 27px;
     padding: 3px 9px;
     margin: 0px;
-    box-sizing: border-box;
-    border-radius: 4px;
+    border-radius: 0px;
+}
+
+#control-panel input {
+    height: 23px;
+    position: relative;
+    padding: 0px 6px;
+    bottom: 1px;
+    border: 1pt inset #ccc;
 }
 
 #control-panel button, 
 #control-panel select {
-    border: 2px outset #CCC;
+    border: 1pt outset #CCC;
     font-size: inherit;
     background-color: inherit;
 }

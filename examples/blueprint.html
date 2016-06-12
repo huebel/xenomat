@@ -22,7 +22,9 @@
                 <legend>Examples</legend>
                 <select name="examples" onchange="this.form.location=this.value; this.form.submit()">
                     <option value="https://raw.githubusercontent.com/huebel/xenomat/master/examples/scratch.xml">Scratchpad</option>
-                    <option value="blueprint.xml" selected="selected">The blueprint of this server</option>
+                    <option value="/blueprint/raw/" selected="selected">The blueprint of this server</option>
+                    <option value="/blueprint/raw/hello/world">Hello World</option>
+                    <option value="/blueprint/raw/northwind/products/real">SQL</option>
                 </select>
             </fieldset>
             <fieldset>
@@ -43,10 +45,8 @@
             <fieldset>
                 <legend>Hints</legend>
                 <aside>
-                Hit ⏎ to load resource. Click on a node to show its content, press and hold to expand or collapse.
-                To toggle a node, ⌘-(or ⌥ or ⌃)-click it.<br/>                
-                To hide or show display, click on background. 
-                Try it, you'll find out. Nothing will break.
+                Hit ⏎ to load resource. Click on a node to show its content, press and hold to expand or collapse.<br/>
+                ⇧-⌘-(or ⌃ or ⌥)-click a node to expand all levels. To hide or show display, click on background.
                 <!-- ⇧-click to hide. -->
                 </aside>
             </fieldset>
@@ -70,9 +70,10 @@
         <!-- inside of display will be displayed when there is no node selected -->
         <div id="display" title="Display">
             <div>No Context</div>
-        <!-- well, not really...
-            <div>No Context</div>
-            -->
+            <!-- iframe will be added here -->
+        </div>
+        <div class="svg-container">
+            <!-- graph will be added here -->
         </div>
     </div>
     
@@ -94,10 +95,12 @@ var xeno = undefined
 XENO.load = function(url, frame) {
 
   d3.select('html').classed('waiting', true)
+  d3.select('input').attr('disabled', 'disabled')
 
   d3.xml(url, "application/xml", function (xml) {
 
     d3.select('html').classed('waiting', false)
+    d3.select('input').attr('disabled', null)
 
     if (!xml) throw "shit, can only understand xml"
 
@@ -154,21 +157,28 @@ XENO.load = function(url, frame) {
             text: function () {
                 return this.origin.textContent
             },
+            collapse: function(modify) {
+                // Remove visible children
+                this.children = null
+                // Modification: collapsing all children on all levels
+                if (modify) children.map(function (x) {
+                    x.collapse(modify)
+                })
+            },
+            expand: function(modify) {
+                // Visible children are all
+                this.children = children
+                // Modification: just expand the next level
+                // by collapsing all children
+                if (modify) children.map(function (x) {
+                    x.expand(modify)
+                })
+            },
             toggle: function(modify) {
                 if (this.children) {
-                    // Remove visible children
-                    this.children = null
-                    // Modification: collapsing all children on all levels
-                    if (modify) children.map(function (x) {
-                        x.toggle(modify)
-                    })
+                    this.collapse(modify)
                 } else {
-                    this.children = children
-                    // Modification: just expand the next level
-                    // by collapsing all children
-                    if (modify) children.map(function (x) {
-                        x.toggle(modify)
-                    })
+                    this.expand(modify)
                 }
             },
             click: function (toggle, modify) {
@@ -211,8 +221,9 @@ function displayDragMoveListener(event) {
         y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
 
     // translate the element
-    target.style.webkitTransform = target.style.transform =
-    'translate(' + x + 'px, ' + y + 'px)'
+    target.style.webkitTransform 
+        = target.style.transform 
+        = 'translate(' + x + 'px, ' + y + 'px)'
     
     // update the position attributes
     target.setAttribute('data-x', x);
@@ -271,12 +282,38 @@ interact('#display').draggable({
     // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
 })
 
-interact('.node').on('hold', function(event) {
-    console.log(event);
+interact('.node')
+/*
+  .on('up', function(event) {
+    console.log("UP", event.target);
+    event.stopPropagation();
+    event.preventDefault();
+}).on('down', function(event) {
+    console.log("DOWN", event.target);
+    event.stopPropagation();
+    event.preventDefault();
+})
+*/
+.on('hold', function(event) {
     var node = event.target.__data__;
     var modify = event.shiftKey;
     node.click(true, modify);
+    event.stopPropagation();
+    event.preventDefault();
+}).on('tap', function (event) {
+    var node = event.target.__data__;
+    var modify = event.shiftKey;
+    var toggle = event.metaKey || event.altKey || event.ctrlKey
+    node.click(toggle, modify);
+    event.stopPropagation();
+    event.preventDefault();
 })
+
+interact('#workspace .svg-container svg')
+  .on('tap', function(event) {
+    if (xeno) xeno.toggleDisplay();
+})
+
 //]]></script>
   </body>
 </html>

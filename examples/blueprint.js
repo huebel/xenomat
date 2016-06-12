@@ -17,9 +17,12 @@ function XENO(root, frame) {
     
     var width = width(), // was: 500,
         height = height() // was: 500;
+        
 
     var diameter = Math.min(width - 200, height) // was: 300;
     var duration = 750 // was: 2000;
+
+    if (width > height) height = width, diameter = width - 200
 
     // Use the selection as default for layout
     var layout_options = d3.select("form").node().layout
@@ -46,7 +49,7 @@ function XENO(root, frame) {
 
     // Radial systems
 
-    var radialRootTransform = "translate(" + (width / 2) + "," + (height / 2) + ")scale(1,0.666)"
+    var radialRootTransform = "translate(" + (width / 2) + "," + (100 + height * 0.333) + ")scale(1,0.666)"
 
     function radialNodeTransform(d) {
         if (d.parent)
@@ -179,12 +182,6 @@ function XENO(root, frame) {
             .attr("r", 0) // nodeRadius)
             .style("stroke", nodeStroke)
             .style("fill", nodeFill)
-            .on("click", function (d) {
-                var toggle = d3.event.metaKey || d3.event.altKey || d3.event.ctrlKey
-                var modify = d3.event.shiftKey
-                d.click(toggle, modify)
-                d3.event.stopPropagation()
-            })
 
         new_nodes.append("text")
             .attr("dx", function (d) {
@@ -252,12 +249,18 @@ function XENO(root, frame) {
         })
 
     // There can only be one... kill old svg and make a new
-    var svg = d3.select("body").select("svg").remove();
-    svg = d3.select("body").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .on("click", toggleDisplay)
-        .append("g")
+    
+    d3.select("#workspace .svg-container svg").remove()
+    var svg = d3.select("#workspace .svg-container")
+        .append("svg")
+            // responsive SVG needs these 2 attributes and no width and height attr
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 "+width+" "+height)
+            // class to make it responsive
+            .classed("svg-content-responsive", true)
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
 
     var svg_links = svg.append("g").attr("class", "links")
     var svg_nodes = svg.append("g").attr("class", "nodes")
@@ -304,27 +307,27 @@ function XENO(root, frame) {
             }
             // Remove old iframe (this get's rid of the source as well)
             else if (iframe) {
-                console.log("HIDE")
+                //console.log("HIDE")
                 frame.removeChild(iframe)
                 delete frame.style.height
             }
         }
 
         var code = d3.select(frame)
-        /***
+/*        
         var same = (node && node.display === frame)
         if (same) {
             // TODO: what about repeated clicks?
-            // delete node.display
+            delete node.display
             // Make iframe invisible
-            // frame.classList.remove("display")
+            frame.classList.remove("display")
             // toggleDisplay()
-        } 
+        }
         else 
-        ***/
+*/
         if (node) {
             // Show content in iframe
-            var type = node.type
+            var type = node.type || getMimeType(node)
             iframe(title || node.name, type)
             node.display = frame
             frame.classList.add("display")
@@ -333,8 +336,15 @@ function XENO(root, frame) {
             iframe(title)
         }
     }
+    
+    function getMimeType(node) {
+        if (node.origin.tagName == 'html') return 'text/html';
+        if (node.origin.tagName == 'svg') return 'image/svg+xml';
+        return undefined;
+    }
 
     function toggleDisplay() {
+        //console.log("XENO.toggleDisplay")
         var DISPLAY = "display"
         if (frame.classList.contains(DISPLAY)) {
             frame.classList.remove(DISPLAY)
