@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Blueprint Viewer</title>
+    <title>Blueprint Navigator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="blueprint.css" type="text/css" media="screen" rel="stylesheet"/>
     <script src="blueprint.js" type="text/javascript"></script>
@@ -17,10 +17,10 @@
         }//]]>
     </script>
     <div id="control-panel">
-        <form name="loader" onfocus="var loader = this;" onblur="delete loader;" action="javascript:run(this)">
+        <form name="loader" action="javascript:;">
             <fieldset>
                 <legend>Examples</legend>
-                <select name="examples" onchange="this.form.location=this.value; this.form.submit()">
+                <select name="examples">
                     <option value="https://raw.githubusercontent.com/huebel/xenomat/master/examples/scratch.xml">Scratchpad</option>
                     <option value="/blueprint/plain/" selected="selected">The blueprint of this server</option>
                     <option value="/blueprint/plain/hello/world">Hello World</option>
@@ -30,7 +30,6 @@
             <fieldset>
                 <legend>Resource</legend>
                 <input name="location" type="text" value="" maxlength="255"/>
-                <!-- input name="source" type="file" onload="this.form.location=this.value"/ -->
                 <button type="submit">Load</button>
             </fieldset>
             <fieldset>
@@ -51,19 +50,18 @@
                 </aside>
             </fieldset>
             <script>//<![CDATA[
-                // In this script, 'this' will be the form when invoked.
-                // To wit move this statement below: alert("invoked by: "+this)
-                this.onsubmit = function () {
+                // Hookup <form name="loader" ...
+                loader.onsubmit = function (event) {
                     var url = encodeURI(loader.location.value.trim())
-                    var frame = this.document.getElementById("display")
+                    var frame = document.getElementById("display")
                     XENO.load(url, frame)
                 }
                 loader.examples.onchange = function () {
-                    this.form.location.value = this.value
-                    this.form.location.focus()
-                    this.form.submit()
-                }//]]>
-            </script>
+                    loader.location.value = loader.examples.value
+                    loader.location.focus()
+                    loader.submit()
+                }
+       //]]></script>
         </form>
     </div>
     <div id="workspace">
