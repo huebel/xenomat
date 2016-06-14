@@ -45,7 +45,7 @@
             <fieldset>
                 <legend>Hints</legend>
                 <aside>
-                Hit ⏎ to load resource. Click on a node to show its content, press and hold to expand or collapse.<br/>
+                Hit ⏎ to load resource. Click on a node to show its content in the display, press and hold the node to expand or collapse.<br/>
                 ⇧-⌘-(or ⌃ or ⌥)-click a node to expand all levels. To hide or show display, click on background.
                 <!-- ⇧-click to hide. -->
                 </aside>
@@ -250,7 +250,9 @@ function displayShow(frame) {
     d3.select(frame).selectAll("*").style("pointer-events", "all")//.style("display", "flex")
 }
 
-interact('#display').draggable({
+interact('#display').on('tap', function(event) {
+  if (xeno) xeno.toggleDisplay();
+}).draggable({
     onmove: displayDragMoveListener
 }).resizable({
     edges: { left: true, right: true, bottom: true, top: true }
@@ -278,34 +280,23 @@ interact('#display').draggable({
 
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
-    // target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
+    // for debug: target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
 })
 
-interact('.node')
-/*
-  .on('up', function(event) {
-    console.log("UP", event.target);
+interact('.node').on('tap', function (event) {
     event.stopPropagation();
     event.preventDefault();
-}).on('down', function(event) {
-    console.log("DOWN", event.target);
-    event.stopPropagation();
-    event.preventDefault();
-})
-*/
-.on('hold', function(event) {
-    var node = event.target.__data__;
-    var modify = event.shiftKey;
-    node.click(true, modify);
-    event.stopPropagation();
-    event.preventDefault();
-}).on('tap', function (event) {
     var node = event.target.__data__;
     var modify = event.shiftKey;
     var toggle = event.metaKey || event.altKey || event.ctrlKey
     node.click(toggle, modify);
+}).on('hold', function(event) {
     event.stopPropagation();
     event.preventDefault();
+    var node = event.target.__data__;
+    var modify = event.shiftKey;
+    // holding will always toggle
+    node.click(true, modify);
 })
 
 interact('#workspace .svg-container svg')
