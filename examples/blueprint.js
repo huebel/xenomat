@@ -15,8 +15,9 @@ function XENO(root, frame) {
             || 800;
     }
     
-    var width = width(), // was: 500,
-        height = height() // was: 500;
+    // Substract padding 10px from dimensions
+    var width = width() - 20, // was: 500,
+        height = height() - 20 // was: 500; 
         
 
     var diameter = Math.min(width - 200, height) // was: 300;
@@ -102,19 +103,31 @@ function XENO(root, frame) {
 
         //console.log("LINKS", new_links[0].length, all_links[0].length, old_links[0].length)
 
-        old_links.remove()
-
         function startPath(d) {
             var from = d.source.y + "," + d.source.x,
                 to = d.target.y + "," + d.target.x
-                //return "M" + to + "L" + from
-            return "M" + from + "L" + to
+            return "M" + to + "L" + from
+            // return "M" + from + "L" + to
         }
+
+        function startParent(d) {
+            var from = d.source.y + "," + d.source.x,
+                to = d.target.y + "," + d.target.x
+            if (d.target.parent) 
+                to = d.target.parent.y + "," + d.target.parent.x
+            return "M" + to + "L" + from
+            // return "M" + from + "L" + to
+        }
+
+        old_links.transition()
+            .duration(duration)
+            .style("opacity", 0.0)
+            .remove()
 
         new_links = new_links.append("path")
             .attr("class", "link")
             .style("stroke", linkStroke)
-            .attr("d", startPath)
+            .attr("d", startParent) // linkPath) // 
             .style("opacity", 0.0)
 
         all_links.transition()
@@ -128,7 +141,10 @@ function XENO(root, frame) {
 
         //console.log("NODES", new_nodes[0].length, all_nodes[0].length, old_nodes[0].length)
 
-        old_nodes.remove()
+        old_nodes.transition()
+            .duration(duration)
+            .style("opacity", 0.0)
+            .remove()
 
         function rgbToHex(r, g, b) {
             return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -195,8 +211,8 @@ function XENO(root, frame) {
                 return d.name
             })
 
-        new_nodes.transition()
-            .duration(duration)
+        //new_nodes.transition()
+          //  .duration(duration)
 
         all_nodes.transition()
             .duration(duration)
@@ -213,11 +229,6 @@ function XENO(root, frame) {
 
     var root; // store data in a variable accessible by all functions
 
-    var diagonal = d3.svg.diagonal()
-        .projection(function (d) {
-            return [d.y, d.x];
-        });
-
     var nodeWidth = 100,
         nodeHeight = 18
 
@@ -231,10 +242,10 @@ function XENO(root, frame) {
     var cluster = d3.layout.cluster()
         .size([height, width - 250])
 
-    var radialDiagonal = d3.svg.diagonal.radial()
+    var diagonal = d3.svg.diagonal()
         .projection(function (d) {
-            return [d.y, d.x / 180 * Math.PI];
-        })
+            return [d.y, d.x];
+        });
 
     var radialTree = d3.layout.tree()
         .size([360, diameter / 2])
@@ -246,6 +257,11 @@ function XENO(root, frame) {
         .size([360, diameter / 2])
         .separation(function (a, b) {
             return (a.parent == b.parent ? 1 : 2) / a.depth;
+        })
+
+    var radialDiagonal = d3.svg.diagonal.radial()
+        .projection(function (d) {
+            return [d.y, d.x / 180 * Math.PI];
         })
 
     // There can only be one... kill old svg and make a new
@@ -283,7 +299,7 @@ function XENO(root, frame) {
             return s;
         }
 **/
-        function iframe(caption, type) {
+        function iframe(caption, type, url) {
             // Update the display with the name
             frame.setAttribute("title", caption || title || "No Name")
             
@@ -355,54 +371,6 @@ function XENO(root, frame) {
         }
     }    
     
-    /* DRAG'n'DROP */
-/***
-    function dragDisplay(event) {
-        console.log("DRAG", event.target)
-    }
-
-    function dragStartDisplay(event) {
-        console.log("DRAG start", this, event.target)
-        event.target.style.opacity = 0.31415926
-        event.dataTransfer.setData('text/plain', this.title)
-        event.effectAllowed = 'move';
-    }
-    
-    function dragEnterDisplay(event) {
-        console.log("DRAG enter", this, event.target)
-        event.preventDefault();
-    }
-    
-    function dragOverDisplay(event) {
-        console.log("DRAG over", this, event.target)
-        event.dataTransfer.dropEffect = 'move'  // See the section on the DataTransfer object.
-        event.preventDefault() // Necessary. Allows us to drop.
-    }
-
-    function dragEndDisplay(event) {
-        console.log("DRAG end", event)
-        event.target.style.opacity = 1
-    }
-    
-    function dropDisplay(event) {
-        console.log("DROP", event)
-    }
-
-    frame.draggable = true
-        
-    // workspace.addEventListener('drag', dragDisplay, false)
-    
-    frame.addEventListener('dragstart', dragStartDisplay, false)
-    
-    workspace.addEventListener('dragenter', dragEnterDisplay, false)
-    workspace.addEventListener('dragover', dragOverDisplay, false)
-    workspace.addEventListener('drop', dropDisplay, false)
-    
-    frame.addEventListener('dragend', dragEndDisplay, false)
-    //workspace.addEventListener('dragstop', dragEndDisplay, false)
-    
-***/
-
     // Interface to XENO:
     return {
         update: function () {

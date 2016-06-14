@@ -63,6 +63,7 @@ svg {
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
+    padding: 10px;
 }
 
 svg {
