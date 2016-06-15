@@ -30,36 +30,44 @@
         or the vibrating solenoids in your mobile phone.
         
         <aside>
-        A as note to implementors, we can simply recall our best practices, 
-        and interpret Bateson's words in a ressource centred fashion. As when 
-        we are fetching some resource via a cache, and do so to reduce both 
-        bandwith and needed (or rather wasted) computational power in cases, 
-        when "nothing really happened" i.e. no information really has changed. 
+        A as note to implementors, we may interpret Bateson's definition in 
+        the context of our best practices, in a ressource centred fashion. 
+        The case is, when we are fetching some resource via a cache, and 
+        we do so in order to reduce both bandwith and needed (or rather wasted) 
+        computational power in cases, when "nothing really happened" i.e. no 
+        information really has changed.
         
-        Burning battery power without actually making a difference is not anything
-        you'd want. At all. Ever. Systems exposing that behaviour actually are in 
-        a state of indifference, a condition which not surprisingly also seems to 
-        lead to burnout syndromes in human social systems.
+        Burning battery power without actually making a difference is not 
+        something you'd want. At all. Ever. Systems exposing that behaviour 
+        actually are in a state of in-difference, a condition which also 
+        (not surprisingly) seems to lead to burnout syndromes in human social 
+        systems.
         </aside>
-        
-        Given that definition of "information", you would then need to have a way 
-        to describe the system. A kind of blueprint with sufficient information 
-        for enabling someone or something to actually build the system, or for some 
-        software to emulate the processes needed for the system to actually fulfill 
-        its purpose.
+
+        Given Bateson's definition of "information", you would then need to 
+        have a way to describe the system. A kind of blueprint with sufficient 
+        information for enabling someone or something to actually build the 
+        system, or for some software to emulate the processes needed for the 
+        system to actually fulfill its purpose.
 
         Commonly contemporary object-oriented programmers create some kind 
         of "model" by writing definitions of concepts in special languages
         like Python, Java, C#, Ruby, and (more or less) briefly describe a 
         system in terms of interacting objects.
 
-        Enough has been written about those subjects already, and shall not 
-        be discussed further in this text as we shall take another approach to 
-        computation.
+        Other approaches exist too. A system may be described by functions,
+        taking input, calculating output. Some languages even blur the 
+        distiction between objects and functions.
 
-        That other approach, which even predates programming languages as
-        we know them, was taken by Konrad Zuse, the German ingeneer who
-        built the first working electronic computer just before World War II. 
+        Enough has been written about those subjects already, and shall not 
+        be discussed further in this text as we shall take another approach 
+        to computation.
+
+        That other approach, which even predates most programming languages 
+        as we know them, was taken by Konrad Zuse, the German ingeneer who 
+        built the worlds first working electronic computer, just prior to 
+        World War II.
+
         He imagined what he called "Rechnender Raum" - a "computing universe" - 
         where actions in the real world is thought of as discrete changes in
         state and transfer of information. This is a line of thought, which 
@@ -70,7 +78,7 @@
         that direction, which we'll try to explore in the next chapter.
         
         The key is to imagine the system as some kind of space, containg 
-        what we simply call
+        what we in simple language will call
         
         <places where-you-can="PUT">
             <information>
@@ -85,8 +93,9 @@ a space which are marked with a name.
 Travelling through that space, you will encounter the name of a place 
 twice: Once when entering the sector, and once when you exit the sector.
 For instance, you might consider the word from <here> to </here> as an 
-example of a very small sector. It might be useful to regard those marks 
-like the signs commonly found at city limits.
+example of a very small sector (named 'here'). It might be useful to 
+regard those named marks as some kind of signs, commonly found at 
+city limits.
 
 There may be <empty/> places as well.
 
@@ -114,7 +123,7 @@ They are directions of where to find different
         The place containing all places is simply called "the space".
                 
         That should be quite straight-forward, so let's leave the
-    </intro>
+    </intro>.
     
     <!-- coffee break -->
     
@@ -146,13 +155,20 @@ They are directions of where to find different
         <storage>
             <xeno:stash type="text/plain"> where you can put volatile information... </xeno:stash>
         </storage>
-        
+
     </services>
     
+     
     <!-- 
         For a running system we need the next place to display info
         you might think of it as a browser seen from the "other" side,
-        where any content you put into it shows up on the browser.
+        where any content you put into it shows up in a window.
+        
+        Whereas a browser is pulling a resource to display in a window,
+        the display service may be used for pushing content to a window
+        as well. A typical implementation will use some kind of WebView
+        depending on platform.
+        
      -->
     
     <display>
@@ -310,7 +326,7 @@ They are directions of where to find different
             </new>
             
             <version2>
-                <xeno:proto type="text/python" lang="python|klingon">
+                <xeno:proto type="text/python" lang="python">
                 class User:
                     fullname="Kurt Gödel"
                     username="abc123"

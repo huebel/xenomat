@@ -3032,7 +3032,7 @@ $.fn.netropyForm = function(params) {
                             <br/>Note the importance of the trailing slash on the url - it gives you a <a href="/hello/world/">different context</a> (the page can't resolve the stylesheet given by a relative link).
                         </li>
                         <li>
-                            <a href="http://netropy.huebel.freeshells.org:8901/download/blueprint.html" target="_top">Blueprint</a>
+                            <a href="/blueprint/" target="_top">Blueprint</a>
                             <br/>Get a graphical overview over this <a href="/manual#[[InformationSpaces]]" target="_top">&lt;xeno:space/&gt;</a>.
                             <br/><em>netropy</em> has full introspection, which lets you easily visualise your system with standard web components.
                             <br/>A plain XML version (the actual source file) can be viewed <a href="/download/blueprint.xml">here</a>.
