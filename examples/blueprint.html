@@ -123,9 +123,8 @@ XENO.load = function(url, frame) {
             // var ancestors = ancestors.slice()
             ancestors.push(xml.tagName)
         }
-        var depth = depth+1
         return [].slice.apply(xml.children).map(function (x) {
-            return build(x, depth, ancestors)
+            return build(x, depth+1, ancestors)
         })
     }
 

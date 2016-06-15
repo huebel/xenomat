@@ -354,8 +354,8 @@ function XENO(root, frame) {
     }
     
     function getMimeType(node) {
-        if (node.origin.tagName == 'html') return 'text/html';
-        if (node.origin.tagName == 'svg') return 'image/svg+xml';
+        if (node.origin.tagName == 'html') return 'text/html;charset=utf-8';
+        if (node.origin.tagName == 'svg') return 'image/svg+xml;charset=utf-8';
         return undefined;
     }
 
