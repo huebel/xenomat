@@ -52,10 +52,12 @@
             </fieldset>
             <script>//<![CDATA[
                 // Hookup <form name="loader" ...
-                loader.onsubmit = function (event) {
+                loader.onsubmit = function (event) {                    
                     var url = encodeURI(loader.location.value.trim())
                     var frame = document.getElementById("display")
                     XENO.load(url, frame)
+                    event.preventDefault()
+                    event.stopPropagation()
                 }
                 loader.examples.onchange = function () {
                     loader.location.value = loader.examples.value
