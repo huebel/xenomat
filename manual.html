@@ -1018,7 +1018,7 @@ and the result will be something like
   ...
 &lt;/products&gt;
 }}}
-You can execute the example right [[here|/northwind/products/]].
+You can execute the example right [[here|/northwind/products/]] or check the [[used SQL|/blueprint/raw/northwind/products/real]].
 !!!Attributes
 *''database''&lt;br/&gt;(required) name of an ODBC data source.
 *''style''&lt;br/&gt;(optional) URL to a stylesheet to refer to in the result.
@@ -2627,6 +2627,782 @@ Its (es) all about a StructuredAccess to information, to language. This way we c
 &lt;&lt;tiddler ErrorCodes&gt;&gt;
 !!ToDo
 &lt;&lt;tiddler ToDo&gt;&gt;</pre>
+</div>
+<div title="On the verbosity of XML" modifier="Peter Hübel" created="201606032224" modified="201606040157" changecount="30">
+<pre>Lets look at a HAR log from Chrome. JSON, as you can see. These are the data used for displaying the Network info in Developer Tools:
+&lt;html&gt;&lt;div style=&quot;height: 50vh; overflow: scroll;&quot;&gt;
+&lt;img src=&quot;images/fast.png&quot; width=&quot;99%&quot; style=&quot;border: 1px solid #ABC;&quot;/&gt;
+Given only a few resources, there is quite a lot of data:
+&lt;pre&gt;
+{
+  &quot;log&quot;: {
+    &quot;version&quot;: &quot;1.2&quot;,
+    &quot;creator&quot;: {
+      &quot;name&quot;: &quot;WebInspector&quot;,
+      &quot;version&quot;: &quot;537.36&quot;
+    },
+    &quot;pages&quot;: [
+      {
+        &quot;startedDateTime&quot;: &quot;2016-06-03T22:13:57.609Z&quot;,
+        &quot;id&quot;: &quot;page_1&quot;,
+        &quot;title&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;,
+        &quot;pageTimings&quot;: {
+          &quot;onContentLoad&quot;: 15458.580000035,
+          &quot;onLoad&quot;: 15458.465000032447
+        }
+      }
+    ],
+    &quot;entries&quot;: [
+      {
+        &quot;startedDateTime&quot;: &quot;2016-06-03T22:13:57.609Z&quot;,
+        &quot;time&quot;: 7579.862000013236,
+        &quot;request&quot;: {
+          &quot;method&quot;: &quot;GET&quot;,
+          &quot;url&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Accept-Encoding&quot;,
+              &quot;value&quot;: &quot;gzip, deflate, sdch&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Host&quot;,
+              &quot;value&quot;: &quot;netropy.huebel.freeshells.org:8901&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Language&quot;,
+              &quot;value&quot;: &quot;en-US,en;q=0.8,de;q=0.6,da;q=0.4&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Upgrade-Insecure-Requests&quot;,
+              &quot;value&quot;: &quot;1&quot;
+            },
+            {
+              &quot;name&quot;: &quot;User-Agent&quot;,
+              &quot;value&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept&quot;,
+              &quot;value&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cache-Control&quot;,
+              &quot;value&quot;: &quot;max-age=0&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cookie&quot;,
+              &quot;value&quot;: &quot;txtMainTab=More; txtMoreTab=Orphans&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            }
+          ],
+          &quot;queryString&quot;: [],
+          &quot;cookies&quot;: [
+            {
+              &quot;name&quot;: &quot;txtMainTab&quot;,
+              &quot;value&quot;: &quot;More&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            },
+            {
+              &quot;name&quot;: &quot;txtMoreTab&quot;,
+              &quot;value&quot;: &quot;Orphans&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            }
+          ],
+          &quot;headersSize&quot;: 493,
+          &quot;bodySize&quot;: 0
+        },
+        &quot;response&quot;: {
+          &quot;status&quot;: 200,
+          &quot;statusText&quot;: &quot;OK&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Access-Control-Allow-Origin&quot;,
+              &quot;value&quot;: &quot;*&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Server&quot;,
+              &quot;value&quot;: &quot;XENOmat/2.4.8 (Linux)&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;Keep-Alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Keep-Alive&quot;,
+              &quot;value&quot;: &quot;timeout=10&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Length&quot;,
+              &quot;value&quot;: &quot;15646&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Type&quot;,
+              &quot;value&quot;: &quot;text/html;charset=utf-8&quot;
+            }
+          ],
+          &quot;cookies&quot;: [],
+          &quot;content&quot;: {
+            &quot;size&quot;: 15646,
+            &quot;mimeType&quot;: &quot;text/html&quot;,
+            &quot;compression&quot;: 0
+          },
+          &quot;redirectURL&quot;: &quot;&quot;,
+          &quot;headersSize&quot;: 192,
+          &quot;bodySize&quot;: 15646,
+          &quot;_transferSize&quot;: 15838
+        },
+        &quot;cache&quot;: {},
+        &quot;timings&quot;: {
+          &quot;blocked&quot;: 0.479000038467348,
+          &quot;dns&quot;: 1148.5279999906227,
+          &quot;connect&quot;: 1831.75599999958,
+          &quot;send&quot;: 0.05299999611997919,
+          &quot;wait&quot;: 1714.43499997258,
+          &quot;receive&quot;: 2884.611000015866,
+          &quot;ssl&quot;: -1
+        },
+        &quot;connection&quot;: &quot;892766&quot;,
+        &quot;pageref&quot;: &quot;page_1&quot;
+      },
+      {
+        &quot;startedDateTime&quot;: &quot;2016-06-03T22:14:02.324Z&quot;,
+        &quot;time&quot;: 2863.8439999776892,
+        &quot;request&quot;: {
+          &quot;method&quot;: &quot;GET&quot;,
+          &quot;url&quot;: &quot;http://netropy.huebel.freeshells.org:8901/styles&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Accept-Encoding&quot;,
+              &quot;value&quot;: &quot;gzip, deflate, sdch&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Host&quot;,
+              &quot;value&quot;: &quot;netropy.huebel.freeshells.org:8901&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Language&quot;,
+              &quot;value&quot;: &quot;en-US,en;q=0.8,de;q=0.6,da;q=0.4&quot;
+            },
+            {
+              &quot;name&quot;: &quot;User-Agent&quot;,
+              &quot;value&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept&quot;,
+              &quot;value&quot;: &quot;text/css,*/*;q=0.1&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Referer&quot;,
+              &quot;value&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cookie&quot;,
+              &quot;value&quot;: &quot;txtMainTab=More; txtMoreTab=Orphans&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cache-Control&quot;,
+              &quot;value&quot;: &quot;max-age=0&quot;
+            }
+          ],
+          &quot;queryString&quot;: [],
+          &quot;cookies&quot;: [
+            {
+              &quot;name&quot;: &quot;txtMainTab&quot;,
+              &quot;value&quot;: &quot;More&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            },
+            {
+              &quot;name&quot;: &quot;txtMoreTab&quot;,
+              &quot;value&quot;: &quot;Orphans&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            }
+          ],
+          &quot;headersSize&quot;: 466,
+          &quot;bodySize&quot;: 0
+        },
+        &quot;response&quot;: {
+          &quot;status&quot;: 200,
+          &quot;statusText&quot;: &quot;OK&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Access-Control-Allow-Origin&quot;,
+              &quot;value&quot;: &quot;*&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Server&quot;,
+              &quot;value&quot;: &quot;XENOmat/2.4.8 (Linux)&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;Keep-Alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Keep-Alive&quot;,
+              &quot;value&quot;: &quot;timeout=10&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Length&quot;,
+              &quot;value&quot;: &quot;1149&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Type&quot;,
+              &quot;value&quot;: &quot;text/css&quot;
+            }
+          ],
+          &quot;cookies&quot;: [],
+          &quot;content&quot;: {
+            &quot;size&quot;: 1149,
+            &quot;mimeType&quot;: &quot;text/css&quot;,
+            &quot;compression&quot;: 0
+          },
+          &quot;redirectURL&quot;: &quot;&quot;,
+          &quot;headersSize&quot;: 176,
+          &quot;bodySize&quot;: 1149,
+          &quot;_transferSize&quot;: 1325
+        },
+        &quot;cache&quot;: {},
+        &quot;timings&quot;: {
+          &quot;blocked&quot;: 0.743000011425465,
+          &quot;dns&quot;: 0.591999967582525,
+          &quot;connect&quot;: 1336.355999985242,
+          &quot;send&quot;: 0.1139999949398316,
+          &quot;wait&quot;: 322.4490000284302,
+          &quot;receive&quot;: 1203.5899999900691,
+          &quot;ssl&quot;: -1
+        },
+        &quot;connection&quot;: &quot;892780&quot;,
+        &quot;pageref&quot;: &quot;page_1&quot;
+      },
+      {
+        &quot;startedDateTime&quot;: &quot;2016-06-03T22:14:02.324Z&quot;,
+        &quot;time&quot;: 10711.25899994513,
+        &quot;request&quot;: {
+          &quot;method&quot;: &quot;GET&quot;,
+          &quot;url&quot;: &quot;http://netropy.huebel.freeshells.org:8901/jquery&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Accept-Encoding&quot;,
+              &quot;value&quot;: &quot;gzip, deflate, sdch&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Host&quot;,
+              &quot;value&quot;: &quot;netropy.huebel.freeshells.org:8901&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Language&quot;,
+              &quot;value&quot;: &quot;en-US,en;q=0.8,de;q=0.6,da;q=0.4&quot;
+            },
+            {
+              &quot;name&quot;: &quot;User-Agent&quot;,
+              &quot;value&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept&quot;,
+              &quot;value&quot;: &quot;*/*&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Referer&quot;,
+              &quot;value&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cookie&quot;,
+              &quot;value&quot;: &quot;txtMainTab=More; txtMoreTab=Orphans&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cache-Control&quot;,
+              &quot;value&quot;: &quot;max-age=0&quot;
+            }
+          ],
+          &quot;queryString&quot;: [],
+          &quot;cookies&quot;: [
+            {
+              &quot;name&quot;: &quot;txtMainTab&quot;,
+              &quot;value&quot;: &quot;More&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            },
+            {
+              &quot;name&quot;: &quot;txtMoreTab&quot;,
+              &quot;value&quot;: &quot;Orphans&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            }
+          ],
+          &quot;headersSize&quot;: 451,
+          &quot;bodySize&quot;: 0
+        },
+        &quot;response&quot;: {
+          &quot;status&quot;: 200,
+          &quot;statusText&quot;: &quot;OK&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Access-Control-Allow-Origin&quot;,
+              &quot;value&quot;: &quot;*&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Server&quot;,
+              &quot;value&quot;: &quot;XENOmat/2.4.8 (Linux)&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;Keep-Alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Keep-Alive&quot;,
+              &quot;value&quot;: &quot;timeout=10&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Length&quot;,
+              &quot;value&quot;: &quot;92647&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Type&quot;,
+              &quot;value&quot;: &quot;application/javascript&quot;
+            }
+          ],
+          &quot;cookies&quot;: [],
+          &quot;content&quot;: {
+            &quot;size&quot;: 92647,
+            &quot;mimeType&quot;: &quot;application/javascript&quot;,
+            &quot;compression&quot;: 0
+          },
+          &quot;redirectURL&quot;: &quot;&quot;,
+          &quot;headersSize&quot;: 191,
+          &quot;bodySize&quot;: 92647,
+          &quot;_transferSize&quot;: 92838
+        },
+        &quot;cache&quot;: {},
+        &quot;timings&quot;: {
+          &quot;blocked&quot;: 0.666999956592917,
+          &quot;dns&quot;: 0.48200000310316304,
+          &quot;connect&quot;: 1336.4920000312839,
+          &quot;send&quot;: 0.05299999611997919,
+          &quot;wait&quot;: 339.26999999675013,
+          &quot;receive&quot;: 9034.29499996128,
+          &quot;ssl&quot;: -1
+        },
+        &quot;connection&quot;: &quot;892781&quot;,
+        &quot;pageref&quot;: &quot;page_1&quot;
+      },
+      {
+        &quot;startedDateTime&quot;: &quot;2016-06-03T22:14:02.468Z&quot;,
+        &quot;time&quot;: 1353.2439999980852,
+        &quot;request&quot;: {
+          &quot;method&quot;: &quot;GET&quot;,
+          &quot;url&quot;: &quot;http://www.leutert.com/media/oilgas/images/artificial-lift/pdm/fg-thumbs/pdm_display.jpg&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Cookie&quot;,
+              &quot;value&quot;: &quot;wb_9296_session_id=93a3ntqlphqhhveq2r7u9n1gt5&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Encoding&quot;,
+              &quot;value&quot;: &quot;gzip, deflate, sdch&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Host&quot;,
+              &quot;value&quot;: &quot;www.leutert.com&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Language&quot;,
+              &quot;value&quot;: &quot;en-US,en;q=0.8,de;q=0.6,da;q=0.4&quot;
+            },
+            {
+              &quot;name&quot;: &quot;User-Agent&quot;,
+              &quot;value&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept&quot;,
+              &quot;value&quot;: &quot;image/webp,image/*,*/*;q=0.8&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cache-Control&quot;,
+              &quot;value&quot;: &quot;max-age=0&quot;
+            },
+            {
+              &quot;name&quot;: &quot;If-None-Match&quot;,
+              &quot;value&quot;: &quot;\&quot;e02b27cd-1049-4f712f41f3300\&quot;&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;If-Modified-Since&quot;,
+              &quot;value&quot;: &quot;Tue, 15 Apr 2014 11:18:04 GMT&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Referer&quot;,
+              &quot;value&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;
+            }
+          ],
+          &quot;queryString&quot;: [],
+          &quot;cookies&quot;: [
+            {
+              &quot;name&quot;: &quot;wb_9296_session_id&quot;,
+              &quot;value&quot;: &quot;93a3ntqlphqhhveq2r7u9n1gt5&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            }
+          ],
+          &quot;headersSize&quot;: 622,
+          &quot;bodySize&quot;: 0
+        },
+        &quot;response&quot;: {
+          &quot;status&quot;: 304,
+          &quot;statusText&quot;: &quot;Not Modified&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Date&quot;,
+              &quot;value&quot;: &quot;Fri, 03 Jun 2016 22:14:03 GMT&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Server&quot;,
+              &quot;value&quot;: &quot;nginx/1.8.1&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;ETag&quot;,
+              &quot;value&quot;: &quot;\&quot;e02b27cd-1049-4f712f41f3300\&quot;&quot;
+            }
+          ],
+          &quot;cookies&quot;: [],
+          &quot;content&quot;: {
+            &quot;size&quot;: 4169,
+            &quot;mimeType&quot;: &quot;image/jpeg&quot;
+          },
+          &quot;redirectURL&quot;: &quot;&quot;,
+          &quot;headersSize&quot;: 148,
+          &quot;bodySize&quot;: 0,
+          &quot;_transferSize&quot;: 148
+        },
+        &quot;cache&quot;: {},
+        &quot;timings&quot;: {
+          &quot;blocked&quot;: 0.888000009581447,
+          &quot;dns&quot;: 1193.3369999751485,
+          &quot;connect&quot;: 80.64300002297,
+          &quot;send&quot;: 0.09799998952007627,
+          &quot;wait&quot;: 69.5030000060799,
+          &quot;receive&quot;: 8.774999994785276,
+          &quot;ssl&quot;: -1
+        },
+        &quot;connection&quot;: &quot;892792&quot;,
+        &quot;pageref&quot;: &quot;page_1&quot;
+      },
+      {
+        &quot;startedDateTime&quot;: &quot;2016-06-03T22:14:03.821Z&quot;,
+        &quot;time&quot;: 9137.228999985382,
+        &quot;request&quot;: {
+          &quot;method&quot;: &quot;GET&quot;,
+          &quot;url&quot;: &quot;http://netropy.huebel.freeshells.org:8901/download/images/xenobot.png&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Accept-Encoding&quot;,
+              &quot;value&quot;: &quot;gzip, deflate, sdch&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Host&quot;,
+              &quot;value&quot;: &quot;netropy.huebel.freeshells.org:8901&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Language&quot;,
+              &quot;value&quot;: &quot;en-US,en;q=0.8,de;q=0.6,da;q=0.4&quot;
+            },
+            {
+              &quot;name&quot;: &quot;User-Agent&quot;,
+              &quot;value&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept&quot;,
+              &quot;value&quot;: &quot;image/webp,image/*,*/*;q=0.8&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Referer&quot;,
+              &quot;value&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cookie&quot;,
+              &quot;value&quot;: &quot;txtMainTab=More; txtMoreTab=Orphans&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cache-Control&quot;,
+              &quot;value&quot;: &quot;max-age=0&quot;
+            }
+          ],
+          &quot;queryString&quot;: [],
+          &quot;cookies&quot;: [
+            {
+              &quot;name&quot;: &quot;txtMainTab&quot;,
+              &quot;value&quot;: &quot;More&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            },
+            {
+              &quot;name&quot;: &quot;txtMoreTab&quot;,
+              &quot;value&quot;: &quot;Orphans&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            }
+          ],
+          &quot;headersSize&quot;: 497,
+          &quot;bodySize&quot;: 0
+        },
+        &quot;response&quot;: {
+          &quot;status&quot;: 200,
+          &quot;statusText&quot;: &quot;OK&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.0&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Content-Length&quot;,
+              &quot;value&quot;: &quot;50577&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Server&quot;,
+              &quot;value&quot;: &quot;XENOmat/2.4.8 (Linux)&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Type&quot;,
+              &quot;value&quot;: &quot;image/png&quot;
+            }
+          ],
+          &quot;cookies&quot;: [],
+          &quot;content&quot;: {
+            &quot;size&quot;: 50577,
+            &quot;mimeType&quot;: &quot;image/png&quot;,
+            &quot;compression&quot;: 0
+          },
+          &quot;redirectURL&quot;: &quot;&quot;,
+          &quot;headersSize&quot;: 98,
+          &quot;bodySize&quot;: 50577,
+          &quot;_transferSize&quot;: 50675
+        },
+        &quot;cache&quot;: {},
+        &quot;timings&quot;: {
+          &quot;blocked&quot;: 0.484000018332154,
+          &quot;dns&quot;: 0.43399998685345,
+          &quot;connect&quot;: 1366.1790000041944,
+          &quot;send&quot;: 0.1049999846100036,
+          &quot;wait&quot;: 2036.9490000303,
+          &quot;receive&quot;: 5733.077999961091,
+          &quot;ssl&quot;: -1
+        },
+        &quot;connection&quot;: &quot;892801&quot;,
+        &quot;pageref&quot;: &quot;page_1&quot;
+      },
+      {
+        &quot;startedDateTime&quot;: &quot;2016-06-03T22:14:13.067Z&quot;,
+        &quot;time&quot;: 175.4320000181906,
+        &quot;request&quot;: {
+          &quot;method&quot;: &quot;GET&quot;,
+          &quot;url&quot;: &quot;http://netropy.huebel.freeshells.org:8901/escapa/highscore&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Cookie&quot;,
+              &quot;value&quot;: &quot;txtMainTab=More; txtMoreTab=Orphans&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Encoding&quot;,
+              &quot;value&quot;: &quot;gzip, deflate, sdch&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Host&quot;,
+              &quot;value&quot;: &quot;netropy.huebel.freeshells.org:8901&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Language&quot;,
+              &quot;value&quot;: &quot;en-US,en;q=0.8,de;q=0.6,da;q=0.4&quot;
+            },
+            {
+              &quot;name&quot;: &quot;User-Agent&quot;,
+              &quot;value&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept&quot;,
+              &quot;value&quot;: &quot;*/*&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Referer&quot;,
+              &quot;value&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;
+            },
+            {
+              &quot;name&quot;: &quot;X-Requested-With&quot;,
+              &quot;value&quot;: &quot;XMLHttpRequest&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cache-Control&quot;,
+              &quot;value&quot;: &quot;max-age=0&quot;
+            }
+          ],
+          &quot;queryString&quot;: [],
+          &quot;cookies&quot;: [
+            {
+              &quot;name&quot;: &quot;txtMainTab&quot;,
+              &quot;value&quot;: &quot;More&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            },
+            {
+              &quot;name&quot;: &quot;txtMoreTab&quot;,
+              &quot;value&quot;: &quot;Orphans&quot;,
+              &quot;expires&quot;: null,
+              &quot;httpOnly&quot;: false,
+              &quot;secure&quot;: false
+            }
+          ],
+          &quot;headersSize&quot;: 495,
+          &quot;bodySize&quot;: 0
+        },
+        &quot;response&quot;: {
+          &quot;status&quot;: 200,
+          &quot;statusText&quot;: &quot;OK&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Access-Control-Allow-Origin&quot;,
+              &quot;value&quot;: &quot;*&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Server&quot;,
+              &quot;value&quot;: &quot;XENOmat/2.4.8 (Linux)&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;Keep-Alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Keep-Alive&quot;,
+              &quot;value&quot;: &quot;timeout=10&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Length&quot;,
+              &quot;value&quot;: &quot;61&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Content-Type&quot;,
+              &quot;value&quot;: &quot;text/javascript&quot;
+            }
+          ],
+          &quot;cookies&quot;: [],
+          &quot;content&quot;: {
+            &quot;size&quot;: 61,
+            &quot;mimeType&quot;: &quot;text/javascript&quot;,
+            &quot;compression&quot;: 0
+          },
+          &quot;redirectURL&quot;: &quot;&quot;,
+          &quot;headersSize&quot;: 181,
+          &quot;bodySize&quot;: 61,
+          &quot;_transferSize&quot;: 242
+        },
+        &quot;cache&quot;: {},
+        &quot;timings&quot;: {
+          &quot;blocked&quot;: 0.645000021904707,
+          &quot;dns&quot;: -1,
+          &quot;connect&quot;: -1,
+          &quot;send&quot;: 0.0429999781772491,
+          &quot;wait&quot;: 167.23200003616503,
+          &quot;receive&quot;: 7.511999981943603,
+          &quot;ssl&quot;: -1
+        },
+        &quot;connection&quot;: &quot;892781&quot;,
+        &quot;pageref&quot;: &quot;page_1&quot;
+      }
+    ]
+  }
+}
+
+&lt;/pre&gt;&lt;/div&gt;&lt;/html&gt;
+Now the interesting part is the request of the small image shown above:
+&lt;html&gt;&lt;div&gt;&lt;pre&gt;
+        &quot;request&quot;: {
+          &quot;method&quot;: &quot;GET&quot;,
+          &quot;url&quot;: &quot;http://netropy.huebel.freeshells.org:8901/download/images/xenobot.png&quot;,
+          &quot;httpVersion&quot;: &quot;HTTP/1.1&quot;,
+          &quot;headers&quot;: [
+            {
+              &quot;name&quot;: &quot;Accept-Encoding&quot;,
+              &quot;value&quot;: &quot;gzip, deflate, sdch&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Host&quot;,
+              &quot;value&quot;: &quot;netropy.huebel.freeshells.org:8901&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept-Language&quot;,
+              &quot;value&quot;: &quot;en-US,en;q=0.8,de;q=0.6,da;q=0.4&quot;
+            },
+            {
+              &quot;name&quot;: &quot;User-Agent&quot;,
+              &quot;value&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Accept&quot;,
+              &quot;value&quot;: &quot;image/webp,image/*,*/*;q=0.8&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Referer&quot;,
+              &quot;value&quot;: &quot;http://netropy.huebel.freeshells.org:8901/&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cookie&quot;,
+              &quot;value&quot;: &quot;txtMainTab=More; txtMoreTab=Orphans&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Connection&quot;,
+              &quot;value&quot;: &quot;keep-alive&quot;
+            },
+            {
+              &quot;name&quot;: &quot;Cache-Control&quot;,
+              &quot;value&quot;: &quot;max-age=0&quot;
+            }
+          ],
+        },
+&lt;/pre&gt;&lt;/div&gt;&lt;/html&gt;
+</pre>
 </div>
 <div title="PageTemplate" modifier="Peter Hübel" created="200905140844" modified="201404060809" changecount="43">
 <pre>&lt;!--{{{--&gt;

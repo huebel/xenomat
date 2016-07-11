@@ -24,14 +24,15 @@
         
         Four our purposes this conception mainly means abstaining from using 
         complicated language, which more often than not really adds any value 
-        in solving the problems at hand, but it is also worth to remember, that 
-        even being able to grasp information, there has to be something that 
-        reacts on these "differences". Be it flashing lights, howling sirens,
-        or the vibrating solenoids in your mobile phone.
+        in solving the problems at hand. But it is also essential to remember, 
+        that for anything being able to grasp information, to make use of it 
+        in some way, there has to be some sort of mechanism that will react on 
+        these "differences". Be it flashing lights, howling sirens, or the 
+        vibrating solenoids in your mobile phone.
         
         <aside>
-        A as note to implementors, we may interpret Bateson's definition in 
-        the context of our best practices, in a ressource centred fashion. 
+        A as note to implementors, we may interpret Bateson's definition in a
+        ressource centred fashion, simply using our best DevOps practices.
         The case is, when we are fetching some resource via a cache, and 
         we do so in order to reduce both bandwith and needed (or rather wasted) 
         computational power in cases, when "nothing really happened" i.e. no 
