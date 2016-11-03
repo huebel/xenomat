@@ -46,7 +46,7 @@
     <p>Or, you can just try going to the <a href="/">home page</a>.</p>
     <p>For a site map, you could read the <a href="/blueprint/raw/">blueprint</a>, but the raw code can be a bit hard on the eyes.</p>
     <p>Actually, you might prefer a <a href="/blueprint/plain/">plain text</a> version, or use your browsers option to view sources.</p>
-    <p>Google Chrome or Mozilla Firefox users may go to the <a href="view-source:http://netropy.huebel.freeshells.org:8901/blueprint/">source directly</a>.</p>
+    <p>Google Chrome or Mozilla Firefox users may go to the <a href="view-source:/blueprint/">source directly</a>.</p>
     <script defer="defer" type="text/javascript">//<![CDATA[
     (function(window){
       var alien_lid = window.document.getElementById('xeno-alien-lid');
@@ -106,8 +106,7 @@
     </greenstyles>
         <![CDATA[jQuery]]>
         <jquery>
-            <!--xeno:disk mode="dynamic" method="send" mount="jquery-1.9.1.min.js"/-->
-            <xeno:copy init="http://code.jquery.com/jquery-1.9.1.min.js" type="application/javascript"/>
+            <xeno:disk mode="dynamic" method="send" mount="js/jquery-1.9.1.min.js"/>
         </jquery>
         <js>
             <xeno:disk mount="js"/>
@@ -2055,7 +2054,8 @@ $.fn.netropyForm = function(params) {
                 <xeno:disk mount="blueprint.css" mode="static" method="mmap" type="text/css" />
             </blueprint.css>
             <blueprint.js>
-                <xeno:copy init="http://rawgit.com/huebel/xenomat/master/examples/blueprint.js" type="text/javascript" />
+                <!--xeno:copy init="http://rawgit.com/huebel/xenomat/master/examples/blueprint.js" type="text/javascript" /-->
+                <xeno:disk mount="blueprint.js" mode="static" method="mmap" type="application/javascript" />
             </blueprint.js>
             <plain>
                 <xeno:blueprint type="text/plain" />
@@ -3045,7 +3045,7 @@ $.fn.netropyForm = function(params) {
                             <a href="/northwind/products/">Sample application</a>
                             <br/> Using <a href="/manual#%5B%5B%3Cxeno%3Asql%2F%3E%5D%5D" target="_top">&lt;xeno:sql/&gt;</a> service to retrieve data from an Access™ database and letting the browser XSL-Transform the resulting XML to XHTML.
                             <br/><em>Currently not working as this is not a Windows host, and the Linux port of the service (covering sqlite3, postgres, and mysql) is not completed. The jury is still out on which strategy to choose.</em>
-                            <br/>But you might have a look at the <a href="view-source:http://netropy.huebel.freeshells.org:8901/blueprint/northwind/products/">source</a> to see how <em>netropy</em> connects to <a href="/blueprint/raw/northwind/products">SQL</a>.
+                            <br/>But you might have a look at the <a href="view-source:/blueprint/northwind/products/">source</a> to see how <em>netropy</em> connects to <a href="/blueprint/raw/northwind/products">SQL</a>.
                         </li>
                         <li>
                             <a href="/escapa/">Escapa!</a>
@@ -3053,7 +3053,7 @@ $.fn.netropyForm = function(params) {
                             <br/>A fast paced javascript game with a running highscore
                             <br/>stored in an Excel™ spreadsheet. 
                             <strong>Current highscore: <span id="highscore">None so far...</span></strong>
-                            <br/>Again you might have a look at the <a href="view-source:http://netropy.huebel.freeshells.org:8901/blueprint/escapa/">source</a> to see how you can build applications with <em>netropy</em>.
+                            <br/>Again you might have a look at the <a href="view-source:/blueprint/escapa/">source</a> to see how you can build applications with <em>netropy</em>.
                         </li>
                         <li>
                           <a href="/abalone/">New project</a><br/>Something with balls ;-)
