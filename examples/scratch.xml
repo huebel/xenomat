@@ -4,46 +4,128 @@
     <!-- HOW TO BUILD AN INFORMATION SYSTEM FROM (ALMOST) SCRATCH -->
 
     <intro>
-        If you were to start from scratch, what would you really need, in
-        order to build an information system that uses minimal resources? 
+        If you were to start from scratch, what would you "really need" in
+        order to build an information system that uses minimal resources?
         
         There are many reasons to focus on the use of resources, one of 
-        them being energy savings in mobile or remote devices, and another
-        being the inherent value of having a well defined cost of computation.
-                
-        The core question we need to address first, is: What is this thing
-        called "information" actually? For the purpose of this text, we'll 
-        use a definition given by the late polymath Gergory Bateson:
-
-            Information is a difference, that makes a difference.
-
-        We shall not be diving into a deeper discussion of the philosophical
-        implications of that sentence (interested readers might pick up af 
-        copy of Bateson's "Steps to an Ecology of Mind: Collected Essays in 
-        Anthropology", where the subject is discussed in a couple of essays).
+        them being energy savings in mobile or remote devices. Another reason
+        is the inherent value of having a well defined cost of computation.
         
-        Four our purposes this conception mainly means abstaining from using 
-        complicated language, which more often than not really adds any value 
-        in solving the problems at hand. But it is also essential to remember, 
-        that for anything being able to grasp information, to make use of it 
-        in some way, there has to be some sort of mechanism that will react on 
-        these "differences". Be it flashing lights, howling sirens, or the 
-        vibrating solenoids in your mobile phone.
+        Also the resources used for developing such a system are a big factor
+        in the age of IoT, and increasing complexity in building systems 
+        drains out a lot of potential from the IT sector.
+        
+        Much of this complexity comes from a wrong line of thinking.
+        
+        In order to grasp the problem that a fresh start on the concept of
+        "computing" would solve, we have to define more precisely, what our 
+        quest is.
+        
+        Minimal resource usage, check. Information system?... Well, we do
+        computers, don't we? System is some kind of robot. But information?
+        Well, that depends...
+        
+        <!-- What is information? -->
+        
+        The core question we need to address first, is: What is the stuff
+        called "information" actually?
+        
+        Throughout history, philosophers and scientists have come up with 
+        different definitions. A classic paper on the subject was written 
+        by Claude Shannon back in 1948, in which "information" is thought 
+        of as a set of possible messages sent over a channel.
+        
+        Titled "A Mathematical Theory of Communication", Shannon's theory
+        as well as the field of 'information theory' it spawned, still is
+        quite narrow in its scope of defining what information is: It has 
+        its focus solely on individual pieces of technology, within given
+        systems.
+        
+        In contrast, the broad interdisciplinary field named 'information 
+        science' has a different take on 'information systems'. I focuses
+        on understanding problems of the stakeholders involved from their
+        point of view, and then using information and other technology to 
+        tackle those systemic problems.
+        
+        For the purpose of this text, we shall be using a definition given 
+        by the late British scientist and polymath Gergory Bateson. In his
+        "Steps to an Ecology of Mind: Collected Essays in Anthropology", 
+        Bateson makes number of attempts to understand the mental processes 
+        that are involved in making sense of surrounding world, and in that 
+        context, he defines the basic unit of information as being 
+        "a difference, that makes a difference".
+
+        <!-- Doing simple stuff with information -->
+        
+        For our purposes, this conception of information, also gives us the 
+        right to abstain from using complicated language. 
+        
+        Keeping things simple has always been a good rule for making artefacts 
+        that actually do work. The ingenious Charles Babbage failed miserably
+        to do so, in his plan to build an analytic engine. 
+        
+        Also using complicated wording seldom add any value at all in solving 
+        the problems at hand. Doing so anyway is an anti pattern, and the 
+        equivalent thing to adding several abstraction layers, that do nothing 
+        but passing the data, just for the sake of it.
         
         <aside>
-        A as note to implementors, we may interpret Bateson's definition in a
-        ressource centred fashion, simply using our best DevOps practices.
-        The case is, when we are fetching some resource via a cache, and 
-        we do so in order to reduce both bandwith and needed (or rather wasted) 
-        computational power in cases, when "nothing really happened" i.e. no 
+        Some of you developers may remember the first Windows NT, where the 
+        "beautifully layered" architecture based on the Hardware Abstraction 
+        Layer (HAL). It took all performance out of the system, until Microsoft
+        finally started to break it up again with APIs for direct access to 
+        the hardware. Then it kicked to the metal again.
+        
+        This anti pattern is also found in system architectures, when forcing an 
+        asynchronous style of messaging on some protocols. Only for the developers
+        to find themselves adding a lot of boilerplate code, with the sole purpose 
+        of being sure that everything is synchronised. Doh!
+        
+        Becasue, mostly, humans like to have information presented in order,
+        and need (often enforced by national laws) some minimum amount of 
+        information to make a decision how to proceed within the system.
+        
+        Hence such (inter)actions simply must be synchronised ("for the record").
+        </aside>
+        
+        <!-- How to represent information -->
+        
+        As a last note on the concept of "information" as we like to use it in
+        the "real world", it is essential to remember that in order to grasp 
+        information, in order to be able of making use of available information, 
+        there has to be some sort of mechanism which will react on these 
+        "differences".
+
+        This goes for any stakeholder in a system, whether it is a human being
+        or some cloud service.
+        
+        In the field of computer systems, that basic difference is the bit.
+        The smallest piece of information we can communicate is the difference 
+        between "something" and "nothing". A sound from a speaker, as opposed
+        to silence, or a light that suddenly starts flashing, when it was lit
+        constantly before. Or some pixels on a display, which constantly change
+        to form letters and symbols, which can be read by literate humans. As 
+        you do now.
+        
+                       Differences are, what convey meaning.
+                       
+        <aside>
+        A as note to developers, we can interpret Bateson's definition in a
+        ressource centred fashion and simply adhere to our best DevOps practices.
+        
+        One of those practices is fetching resources via a cache. We do this 
+        in order to reduce both bandwith and needed (or rather wasted) 
+        computational power in cases, when "nothing really happened", when no 
         information really has changed.
         
         Burning battery power without actually making a difference is not 
         something you'd want. At all. Ever. Systems exposing that behaviour 
-        actually are in a state of in-difference, a condition which also 
-        (not surprisingly) seems to lead to burnout syndromes in human social 
-        systems.
+        actually can be seen to be in some state of in-difference, a condition 
+        which also (not surprisingly) seems to lead to human burnout syndromes 
+        in social systems.
         </aside>
+
+                       The representation is all there is.
 
         Given Bateson's definition of "information", you would then need to 
         have a way to describe the system. A kind of blueprint with sufficient 
@@ -51,67 +133,89 @@
         system, or for some software to emulate the processes needed for the 
         system to actually fulfill its purpose.
 
-        Commonly contemporary object-oriented programmers create some kind 
-        of "model" by writing definitions of concepts in special languages
-        like Python, Java, C#, Ruby, and (more or less) briefly describe a 
+        As in time of writing, contemporary object-oriented programmers commonly
+        create some kind of "model" by writing definitions of concepts in special 
+        languages like Python, Java, C#, Ruby, and (more or less) briefly describe a 
         system in terms of interacting objects.
 
         Other approaches exist too. A system may be described by functions,
         taking input, calculating output. Some languages even blur the 
-        distiction between objects and functions.
-
-        Enough has been written about those subjects already, and shall not 
-        be discussed further in this text as we shall take another approach 
-        to computation.
-
-        That other approach, which even predates most programming languages 
-        as we know them, was taken by Konrad Zuse, the German ingeneer who 
-        built the worlds first working electronic computer, just prior to 
-        World War II.
-
-        He imagined what he called "Rechnender Raum" - a "computing universe" - 
-        where actions in the real world is thought of as discrete changes in
-        state and transfer of information. This is a line of thought, which 
-        we can identify as a precursor to a branch in the field of physics 
-        that now mostly is known as "Digital Physics".
+        distinction between objects and functions.
         
-        Without getting into gritty details of DP, it will be an approach in 
-        that direction, which we'll try to explore in the next chapter.
+        An interesting angle on the subject can be found in the area of actor 
+        languages. Communicating entities, described pretty much like some 
+        script for a play in a theatre or a movie:
         
-        The key is to imagine the system as some kind of space, containg 
-        what we in simple language will call
+            OCTAVIAN to LADY GAGA (drawing his sword):
+            Fear not, mylady, I'm drawing this sword with cryptonite crayons!
+            
+        All in all, on the internet there is a whole bunch of esoteric languages, 
+        so feel free to dive into that on your own. Enough has been written about 
+        those subjects already, and we shall not further in this text discuss it,
+        as we anyway are going to take a different approach on computation.
+        
+        <!-- The power of spatial metaphors -->
+
+        This other approach, which even predates most programming languages 
+        as we know them, was originally concepted by Georg Friederich Leibnitz in
+        the 16th century, but only much later, just prior to World War II, taken
+        into reality by Konrad Zuse, the German ingeneer who built the worlds first 
+        working electronic computer around that time.
+
+        Zuse imagined that the universe was something he called "Rechnender Raum" - 
+        a "computing universe" - where actions in the real world are thought of as 
+        discrete changes in state and transfer of information. This is a line of 
+        thought, which we can identify as a precursor to a relative new branch in 
+        the field of physics that now mostly is known as "Digital Physics".
+        
+        Without getting into gritty details of DP, one of the findings in that
+        area is the possibility of constructing energy conserving logic. This
+        turns out to be useful for our quest, as the concepts of energy and
+        information are strongly connected. Look up Edward Fredkin and his work
+        on conservative logic, if you are interested in that area.
+        
+        It will be an approach in that direction, which we'll try to explore in 
+        the following sections, and the key is to imagine the system as some kind 
+        of space, where "there is information" or where "information can be found".
+        
+        We can put information into that space, and we can get information out of
+        there.
+        
+        To be able for find information more easily, we could (and will) subdivide 
+        that space into what we (as we keep our wow of using simple language) call
         
         <places where-you-can="PUT">
             <information>
 
-For instance, the information in this document is stored in a file on 
-some storage media in some sort of computer. The spatial metaphor is
-omniprevalent in the age of the internet.
+Now, the spatial metaphor is omniprevalent in the age of the internet.
+For instance, the information in this document you are reading right now 
+is stored in a file on some storage media in some sort of computer.
 
-So what exactly is meant by "places", are those bounded sectors within 
-a space which are marked with a name.
+Let's for a short moment assume this document is the whole world, so our "space"
+is the text you are reading. Moving through that space, you will encounter the 
+name of a place twice: Once when entering the sector, and once when you exit 
+the sector.
 
-Travelling through that space, you will encounter the name of a place 
-twice: Once when entering the sector, and once when you exit the sector.
 For instance, you might consider the word from <here> to </here> as an 
-example of a very small sector (named 'here'). It might be useful to 
-regard those named marks as some kind of signs, commonly found at 
+example of a very small sector (named "here"). 
+
+It might be useful to regard those named marks as some kind of city sign, commonly found at 
 city limits.
 
 There may be <empty/> places as well.
 
-This text, this very paragraph, is located in a place called "information", 
-and you reached it by starting reading a place called "intro", then going 
-to "places" and finally to "information", where the author put this for you 
-to read.
+This text, this very paragraph, is located in a place called "information"
+(see above) and you reached it by starting reading a place called "intro"
+(at the start of the document), then going to "places" and finally to "information", 
+where the author put this for you to read.
 
-Using a simple code, we can write the sequence of places entered by spelling 
-out their names, separated with a slash. 
+Using a simple notation, we can write the sequence of places entered by spelling 
+out their names, separated with a slash:
 
 <path>/intro/places/information/</path>
 
-Again it may be useful to think of the slashes as doors, through which you 
-have entered the places. It's just like what you often see as part of the 
+It may be useful to think of those slashes as gates or doors, through which you 
+have entered the places. A path is just like what you often see as part of the 
 "internet address" in your web browser, and it means roughly the same. 
 They are directions of where to find different
 
