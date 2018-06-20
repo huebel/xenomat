@@ -81,7 +81,7 @@ bool whatsmyip::get_ip_address(std::string& addr) const
 #ifndef NDEBUG
 			std::cerr << " > " << line << std::endl;
 #endif
-			/* skip */ ;
+			/* skip */;
 		if (line.size()) {
 #ifndef NDEBUG
 			std::cerr << "FOUND > " << line;
