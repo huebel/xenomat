@@ -34,7 +34,7 @@ whatsmyip::~whatsmyip()
 	TRACELN("whatsmyip::~whatsmyip");
 }
 
-void whatsmyip::invoke(xeno::client& visitor, xeno::sequens& route)
+void whatsmyip::invoke(xeno::contact& visitor, xeno::sequens& route)
 {
 	std::string my_addr;
 	if (get_ip_address(my_addr)) {
