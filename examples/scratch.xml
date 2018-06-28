@@ -33,11 +33,11 @@
         
         In order to grasp this very problem, that a fresh start on the concept 
         of "computing" would solve, we have to define more precisely, what our
-        quest is. What is our goal?
+        quest is. What does our goal imply?
         
-        Minimal resource usage, check. Information system?... Well, we do
-        computers, don't we? System is some kind of robot. But information?
-        Well, that depends...
+        Minimal resource usage, check. We have that covered by having a well
+        defined cost of computation and by following a few basic principles. 
+        But information systems? Well, that depends...
         
         <!-- So, what is information? -->
         
@@ -154,8 +154,8 @@
 
         As in time of writing, contemporary object-oriented programmers commonly
         create some kind of "model" by writing definitions of concepts in special 
-        languages like Python, Java, C#, Ruby, and (more or less) briefly describe a 
-        system in terms of interacting objects.
+        languages like Python, Java, C#, Ruby, and (more or less) briefly describe 
+        a system in terms of interacting objects.
 
         Other approaches exist too. A system may be described by functions,
         taking input, calculating output. Some languages even blur the 
@@ -163,10 +163,10 @@
         
         An interesting angle on the subject can be found in the area of actor 
         languages. Communicating entities, where a program is described pretty 
-        much as a script for a play in a theatre or a movie:
+        much as a script for acting out a play in a theatre or a movie:
         
-            OCTAVIAN to LADY GAGA (drawing his sword):
-            Fear not, mylady, I'm quite good with my magic crayons!
+          BRAIN to LIVER: are you guys sleeping or what? I have blurry vision.
+          LIVER to BRAIN: then stop slamming those G&T's down.
             
         All in all, on the internet there is a whole bunch of esoteric languages, 
         so feel free to dive into that on your own. Enough has been written about 
@@ -178,33 +178,33 @@
         This other approach (which even predates most programming languages, as 
         we know them) was originally concepted by Gottfried Wilhelm Leibniz back
         in the 16th century. Only much later, just prior to World War II, it was 
-        taken into reality by Konrad Zuse, the German ingeneer who (with mostly 
-        patience and little resources) built the worlds first working electronic 
-        computer. Tens of thousands of electrical switches, each of which were 
-        painstakingly handcrafted out of copper and iron.
+        taken into reality by Konrad Zuse, the German engineer who (with focused
+        patience and quite limited resources) did build some of the worlds first 
+        working electronic computers. Several thousand electrical switches, each 
+        of which were painstakingly handcrafted out of copper and iron.
 
-        But that machine, and others he built, was not his only achievement. 
-        Zuse imagined that the universe could be described at something he 
-        called "Rechnender Raum" - a "computing universe" - where actions in the 
-        real world are thought of as discrete changes in state and transfer of 
-        information. This is a line of thought, which we can easily identify as 
-        a precursor to a relative new branch in the field of physics, a field
-        which now mostly is known as "Digital Physics".
+        But those machines he built, was not his only achievements. Zuse imagined 
+        that the universe could be described at what he called "Rechnender Raum".
+        A "computing universe," where actions in the real world are thought of as 
+        discrete changes in state and transfer of information. This is a thought, 
+        which we can easily be identified as a precursor to a relative new branch 
+        in the science of physics, known as "Digital Physics", or "DP" for short.
         
-        Without getting into gritty details of DP, one of the findings in that
-        particular area is the possibility of constructing energy conserving 
-        digital logic machines.
+        Without getting into the nitty-gritty details of DP, one of the important
+        findings in this particular area are the class of cellular automata built 
+        on "conservative logic," a basis for developing energy conserving digital 
+        logic machines.
         
         This turns out to be useful for our quest, as the concepts of energy and
-        information are strongly connected. Look up Edward Fredkin and his work
-        on conservative logic, or Stephen Wolframs work on cellular automata, if 
-        you are interested in that area.
+        information are strongly related. Look up Edward Fredkin and his work on 
+        conservative logic, or Stephen Wolframs work on cellular automata if you 
+        are interested in that area.
         
-        It will be an approach in that direction, which we shall explore in the 
-        following sections, and the key is to imagine the system as some kind of 
-        space, where "there is information" or where "information can be found".
+        We will attempt an approach in this direction in the following sections. 
+        Let us begin by imagening the system as some kind of imaginary space, in
+        which "there is information" or where "information can be found". 
         
-        We can put information into that space, and we can get information out of
+        And we can put information into that space, and we can get information out of
         there.
         
         <!-- Organising and navigating space -->
@@ -215,14 +215,15 @@
         <places where-you-can="PUT">
             <information>
 
-Now, the spatial, geographical metaphor is very present, in our age of the internet.
-For instance, the information in this document you are reading right now is stored 
-in a file on some storage media, located inside some sort of computer.
+Now, the spatial, geographical metaphor is very present in this Age of the Internet.
+For instance, the information in this very XML document you are reading right now is 
+stored in a file on some storage media, located inside some sort of computer. It's a 
+place on the internet.
 
 Trying to be a nitpick, one might argue that actually, the information is not stored
 IN, but ON some storage media. Harddisks use som kind of magnetic surface to store 
-the information. But event then, the concept of "on" as well is something which most
-humans realte to geography.
+the information. But even then, the concept of "on" is something which most humans 
+would realte to a spatial experience.
 
 Let's for a short moment assume this document is the whole world, so our "space"
 is the text you are reading. Moving through that space, you will encounter the 
@@ -232,8 +233,8 @@ the sector.
 For instance, you might consider the word from <here> to </here> as an 
 example of a very small sector (named "here"). 
 
-It might be useful to regard those named marks as some kind of city sign, commonly 
-found at city limits.
+It might be useful to regard those marks around the name "here" as some 
+kind of place-sign, commonly found at city limits.
 
 There may be <empty/> places as well. No need to write <empty></empty>. That would
 simply be a sign, telling you that this point is called "empty", and there is nothing 
@@ -251,8 +252,8 @@ to speak, by spelling out their names, separated with a slash:
 
 It may be useful to think of those slashes as gates or doors, through which you 
 have entered the places. A path is just like what you often see as part of the 
-"internet address" in your web browser, and it means roughly the same. 
-They are directions of where to find different
+"internet address" in your web browser, and it means roughly the same. A path
+gives directions of where to find different
 
             </information>
             
@@ -268,8 +269,8 @@ They are directions of where to find different
     <!-- coffee break -->
     
     <services>
-        The least an information system should be able to do, besides keeping
-        information in different places, would be making that information
+        The minimum an information system should be able to do (besides keep
+        information in different places) would be to render that information
         accessible to those who need it. The system must fulfil its purpose.
 
         So throughout an "information space", there should be located a number 
@@ -305,12 +306,12 @@ They are directions of where to find different
     <!-- 
         For a running system we need the next place to display information.
         You might think of it as a browser seen from the "other" side,
-        where any content you put into it shows up in a window.
+        where any content you put into it shows up on a surface somewhere.
         
-        Whereas a browser is pulling a resource to display in a window,
-        the display service may be used for pushing content to a window
-        as well. A typical implementation will use some kind of WebView
-        depending on platform.
+        Whereas a browser is requesting - that is pulling - a resource to 
+        display in a window, the display service may be used for pushing 
+        content to a window as well. A typical implementation will use some 
+        kind of WebView, dependent on the platform.
 
         If we put some info into that place, it would show up on a display,
         just as if you had retreived the info with a browser.
@@ -342,9 +343,9 @@ They are directions of where to find different
             The text between elements could be TW markup...
             
             So this section is largely random thoughts and description 
-            of not implemented features.
+            of *not* implemented features.
             
-            Scratchpad...
+            !Scratchpad...
         </tiddlywiki>
 
         <!-- freeze the blueprint from the point referenced -->
