@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="/extras" type="text/css"?>
+<!DOCTYPE html>
+<xeno:space name="Experiments in styling" xmlns="this:." xmlns:xeno="xeno:XENOmat">
+	<xeno:http port="8901"/>
+	<blueprint>
+		<xeno:blueprint type="text/xml"/>
+	</blueprint>
+	<extras contenteditable="true">
+		<xeno:copy type="text/css">
+@namespace xeno url(xeno:XENOmat);
+*,
+xeno|* {
+	display: block;
+	clear: right;
+	color: black;
+	background-color: whitesmoke;
+	font-size: 14pt;
+	font-family: sans-serif;
+	font-weight: 100;
+	margin: .314em;
+	padding: .5pt;
+	border: .5pt solid #333C;
+}
+*:before,
+xeno|*:before {
+	display: block;
+	padding: .314em;
+}
+xeno|*:before {
+	background-color: #ABBA;
+	font-weight: bolder;
+}
+xeno|space:before{
+	content: attr(name) ' (' attr(xmlns) ')';
+	color: #EEE;
+	background-color: #9A9;
+	font-size: larger;
+}
+blueprint:before{content:'blueprint';}
+extras:before{content:'extras';}
+hello:before{content:'hello';}
+reset:before{content:'reset';}
+world:before{content:'world';}
+
+xeno|http:before{content:'xeno:http';}
+xeno|copy:before{content:'xeno:copy';}
+xeno|blueprint:before{content:'xeno:blueprint';}
+xeno|reset:before{content:'xeno:reset';}
+
+xeno|*:after {
+	content: none;
+}
+xeno|space extras {
+	content: none;
+}
+xeno|*:active {
+	transform: rotate(5deg);
+	transform-origin: 50% 50%;
+}
+xeno|space *:hover,
+xeno|space xeno|*:hover {
+	color: white;
+	background-color: #ABBA;
+	margin-left: 0;
+	margin-right: 0;
+	x-transform: scale(1.01,1.01);
+	x-transform-origin: 50% 50%;
+}
+		</xeno:copy>
+		<reset><xeno:reset/></reset>
+	</extras>
+	<hello>
+		<world>
+			<xeno:copy>Yup</xeno:copy>
+		</world>
+	</hello>
+<and><this><is><a><very><long><path>Whatever...
+</path></long></very></a></is></this></and>
+</xeno:space>

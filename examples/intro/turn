@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+vi $1
+killall -QUIT xenomt
+../xenomat -d . $1
