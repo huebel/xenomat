@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <?xml-stylesheet href="/extras" type="text/css"?>
 <!DOCTYPE html>
-<xeno:space name="Experiments in styling" xmlns="this:." xmlns:xeno="xeno:XENOmat">
+<xeno:space name="Experiments in styling" xmlns:xeno="xeno:XENOmat">
 	<xeno:http port="8901"/>
 	<blueprint>
 		<xeno:blueprint type="text/xml"/>
@@ -39,9 +39,15 @@ xeno|space:before{
 }
 blueprint:before{content:'blueprint';}
 extras:before{content:'extras';}
-hello:before{content:'hello';}
 reset:before{content:'reset';}
+hello:before{content:'hello';}
 world:before{content:'world';}
+this:before{content:'this';}
+is:before{content:'is';}
+a:before{content:'a';}
+very:before{content:'very';}
+long:before{content:'long';}
+path:before{content:'path';}
 
 xeno|http:before{content:'xeno:http';}
 xeno|copy:before{content:'xeno:copy';}
@@ -60,12 +66,10 @@ xeno|*:active {
 }
 xeno|space *:hover,
 xeno|space xeno|*:hover {
-	color: white;
-	background-color: #ABBA;
-	margin-left: 0;
-	margin-right: 0;
-	x-transform: scale(1.01,1.01);
-	x-transform-origin: 50% 50%;
+	border: .5pt solid transparent;
+	box-shadow: 0pt 0pt 10pt 5pt rgba(0,0,0,0.5);
+	transform: translate(1px,1px);
+	transform-origin: 50% 50%;
 }
 		</xeno:copy>
 		<reset><xeno:reset/></reset>
