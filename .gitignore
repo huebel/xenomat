@@ -1,4 +1,14 @@
+/PiRelease/
+/MacDebug/
+/MacRelease/
+/WinDebug/
+/WinRelease/
 /Debug/
 /Release/
-manual-backup
+manual.html_backup
 .DS_Store
+.metadata
+examples/intro/huebel
+examples/intro/huebel-utf8
+examples/intro/huebel-utf8-utf8
+kill-it
