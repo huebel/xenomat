@@ -32,7 +32,7 @@ xeno|*:before {
 	font-weight: bolder;
 }
 xeno|space:before{
-	content: attr(name) ' (' attr(xmlns) ')';
+	content: attr(name);
 	color: #EEE;
 	background-color: #9A9;
 	font-size: larger;
@@ -67,9 +67,12 @@ xeno|*:active {
 xeno|space *:hover,
 xeno|space xeno|*:hover {
 	border: .5pt solid transparent;
-	box-shadow: 0pt 0pt 10pt 5pt rgba(0,0,0,0.5);
-	transform: translate(1px,1px);
-	transform-origin: 50% 50%;
+	box-shadow: -.5pt -.5pt 2pt 2pt rgba(0,0,0,0.5);
+	transform: translate(.5pt,.5pt);
+}
+xeno|copy {
+	white-space: pre-line;
+	tab-size: 4;
 }
 		</xeno:copy>
 		<reset><xeno:reset/></reset>
