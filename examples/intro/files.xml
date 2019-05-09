@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xeno:space name="files" xmlns:xeno="xeno:XENOmat">
+	<xeno:http port="8901" timeout="2000"/>
+	<favicon.ico></favicon.ico>
+	<!-- Some test to test the variants of <xeno:disk/> -->
+	<test>
+		<mmap>
+			<xeno:disk method="mmap" mount="files.xml"/>
+		</mmap>
+		<stream>
+			<xeno:disk method="stream" mount="files.xml"/>
+		</stream>
+		<load>
+			<xeno:disk method="load" mount="files.xml"/>
+		</load>
+		<send>
+			<xeno:disk method="send" mount="files.xml"/>
+		</send>
+		<download>
+      <xeno:disk method="mmap" mount="files.xml" disposition="attachment;filename=files.xml"/>
+		</download>
+    <static>
+      <mmap>
+        <xeno:disk mode="static" method="mmap" mount="files.xml"/>
+      </mmap>
+      <load>
+        <xeno:disk mode="static" method="load" mount="files.xml"/>
+      </load>
+      <download>
+        <xeno:disk mode="static" method="mmap" mount="files.xml" disposition="attachment;filename=mmap-files.xml"/>
+      </download>
+    </static>		
+		<dynamic>
+	    <mmap>
+	      <xeno:disk mode="dynamic" method="mmap" mount="files.xml"/>
+	    </mmap>
+	    <stream>
+	      <xeno:disk mode="dynamic" method="stream" mount="files.xml"/>
+	    </stream>
+	    <load>
+	      <xeno:disk mode="dynamic" method="load" mount="files.xml"/>
+	    </load>
+	    <send>
+	      <xeno:disk mode="dynamic" method="send" mount="files.xml"/>
+	    </send>
+	    <download>
+	      <xeno:disk mode="dynamic" method="load" mount="files.xml" disposition="attachment;filename=load-files.xml"/>
+	    </download>		
+		</dynamic>
+		<xeno:copy type="text/html">
+		  <base href="/test/"/>
+		  <h2>Manual &lt;xeno:disk/&gt; Test</h2>
+		  <h3>static</h3>
+		  <a href="static/mmap">mmap</a>
+      <a href="static/load">load</a>
+      <a href="static/download">download (mmap)</a>
+      <h2>dynamic</h2>
+      <a href="dynamic/mmap">mmap</a>
+      <a href="dynamic/stream">stream</a>
+      <a href="dynamic/load">load</a>
+      <a href="dynamic/send">send</a>
+      <a href="dynamic/download">download (load)</a>
+		</xeno:copy>
+	</test>
+	<!-- And for a SimpleHTTPServer you can just -->
+	<xeno:disk/>
+</xeno:space>
