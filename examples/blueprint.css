@@ -13,18 +13,22 @@ body {
 }
 
 form {
-    display: block;
+    display: table;
+    width: 100%;
     margin-bottom: .5em;
 }
 
 fieldset {
-    display: inline-block;
+    display: table-cell;
     float: left;
     border: 2pt groove #CCC;
     margin: 0 .5em .5em .5em;
     padding: .5em;
-    vertical-align: bottom;
-    height: 3em;
+    vertical-align: top;
+}
+
+fieldset:last-child-of-type {
+    width: 100%;
 }
 
 fieldset legend {
@@ -36,18 +40,22 @@ fieldset aside {
     font-size: smaller;
 }
 
+fieldset div {
+    font-size: smaller;
+}
+
 input, select {
     font-size: 10pt;
 }
 
 form,
 svg {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    -webkit-touch-callout: text;
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
     margin: 0;
     padding: 0;
 }
@@ -60,6 +68,7 @@ svg {
     vertical-align: top;
     overflow: hidden;
 }
+
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
@@ -73,7 +82,7 @@ svg {
     position: relative;
 }
 
-svg {
+#workspace {
     background-color: #444;
     background-image: radial-gradient(#181819 2px, rgba(11, 11, 12, 0) 2px), radial-gradient(#181819 2px, rgba(11, 11, 12, 0) 2px), radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 2px), radial-gradient(rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0) 2px);
     background-repeat: repeat, repeat, repeat, repeat;
@@ -84,6 +93,15 @@ svg {
 .node {
     cursor: pointer;
     pointer-events: all;
+    transition: opacity 0.75s linear;
+}
+
+.node.fadein {
+    opacity: 1;
+}
+
+.node.fadeout {
+    opacity: 0;
 }
 
 .node circle {
@@ -117,7 +135,20 @@ svg {
     fill: none;
     stroke: tan;
     stroke-width: 1.5px;
+    transition: opacity 0.75s linear;
 }
+
+.link.fadein {
+    opacity: 1;
+    transition-delay: 0.75s;
+}
+
+.link.fadeout {
+    opacity: 0;
+    transition: none;
+}
+
+
 
 /*** 
   DISPLAY 
@@ -133,6 +164,7 @@ svg {
     overflow-x: scroll;
 }
 
+#control-panel .exit-button,
 #control-panel button, 
 #control-panel select {
     height: 27px;
@@ -162,7 +194,22 @@ svg {
     appearance: none;
 }
 
-#display {
+#control-panel .exit-button {
+    position: absolute;
+    top: 6px; right: 6px;
+    padding: 6px;
+    margin: 6px;
+    width: 27px;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    border: 1pt outset #ccc;
+}
+#control-panel .exit-button:active {
+    border-style: inset;
+}
+
+div#display {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -176,9 +223,15 @@ svg {
     max-height: 2em !IMPORTANT;
     background-color: #ABA;
     border: 2px outset #ABA;
-    z-index: 99;
     overflow: hidden;
     box-sizing: border-box;
+    box-shadow: 0 0 1em #ABA;
+    opacity: 0.25; 
+}
+#display:focus,
+#display:focus-within {
+    opacity: 1.0 !IMPORTANT;
+    z-index: 99;
 }
 #display:before {
     color: #FFFFED;
@@ -223,6 +276,7 @@ svg {
 }
 #display iframe {
     height: 100%;
+    pointer-events: all;
 }
 
 test {

@@ -9,6 +9,7 @@
 #define XENO_DUMP_H_
 
 #include <cassert>
+#include "xeno.h"
 
 namespace xeno {
 

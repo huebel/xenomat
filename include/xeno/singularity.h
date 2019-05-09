@@ -10,7 +10,7 @@
 
 #include "xeno.h"
 
-namespace xeno XENO_EXPORT {
+namespace xeno XENO_NAMESPACE_EXPORT {
 
 template <typename T, typename T2 = int, T2 UNDEFINED = 0>
 struct XENO_EXPORT singularity {

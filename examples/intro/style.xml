@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <?xml-stylesheet href="/extras" type="text/css"?>
-<!DOCTYPE html>
 <xeno:space name="Experiments in styling" xmlns:xeno="xeno:XENOmat">
 	<xeno:http port="8901"/>
 	<blueprint>
-		<xeno:blueprint type="text/xml"/>
 	</blueprint>
-	<extras contenteditable="true">
-		<xeno:copy type="text/css">
+	<extras>
+		<xeno:copy type="text/css" id="style">
 @namespace xeno url(xeno:XENOmat);
 *,
 xeno|* {
@@ -48,6 +46,9 @@ a:before{content:'a';}
 very:before{content:'very';}
 long:before{content:'long';}
 path:before{content:'path';}
+just:before{content:'just';}
+to:before{content:'to';}
+test:before{content:'test';}
 
 xeno|http:before{content:'xeno:http';}
 xeno|copy:before{content:'xeno:copy';}
@@ -82,6 +83,7 @@ xeno|copy {
 			<xeno:copy>Yup</xeno:copy>
 		</world>
 	</hello>
-<and><this><is><a><very><long><path>Whatever...
-</path></long></very></a></is></this></and>
+	<and><this><is><a><very><long><path><just><to><test>{ garbage: 'collector'; }
+	</test></to></just></path></long></very></a></is></this></and>
+  <xeno:blueprint type="text/xml"/>
 </xeno:space>

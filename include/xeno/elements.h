@@ -4,7 +4,7 @@
 #include "xeno.h"
 #include "document.h"
 
-namespace xeno XENO_EXPORT {
+namespace xeno XENO_NAMESPACE_EXPORT {
 
 inline xeno::context& move_elements(xeno::context& dst, const xeno::contens& src)
 {
@@ -67,29 +67,63 @@ inline const xeno::context& find_child_element(const xeno::context& src, Predica
 	return src;
 }
 
-//template <>
-//inline xeno::context& find_child_element(xeno::context& src, const std::string& name)
-//{
-//	return xeno::find_child_element<>(src, [&name](const xeno::context& e) {
-//		return name == e.qname();
-//	});
-//}
-//
-//template <>
-//inline const xeno::context& find_child_element(const xeno::context& src, const std::string& name)
-//{
-//	return find_child_element(src, [&name](const xeno::context& e){
-//		return name == e.qname();
-//	});
-//}
-//
-//template <>
-//inline xeno::context& find_child_element(xeno::context& src, const char* const name)
-//{
-//	return find_child_element(src, [&name](const xeno::context& e){
-//		return 0 == ::strcmp(name,e.qname());
-//	});
-//}
+#ifdef XENO_USE_LAMBDAS
+
+template <>
+inline xeno::context& find_child_element(xeno::context& src, const std::string& name)
+{
+	return xeno::find_child_element<>(src, [&name](const xeno::context& e) {
+		return name == std::string(e.qname()); // @suppress("Operator")
+	});
+}
+
+template <>
+inline const xeno::context& find_child_element(const xeno::context& src, const std::string& name)
+{
+	return find_child_element(src, [&name](const xeno::context& e){
+		return name == std::string(e.qname()); // @suppress("Operator")
+	});
+}
+
+template <>
+inline xeno::context& find_child_element(xeno::context& src, const char* const name)
+{
+	return find_child_element(src, [&name](const xeno::context& e){
+		return 0 == std::strcmp(name, e.qname());
+	});
+}
+
+template <>
+inline const xeno::context& find_child_element(const xeno::context& src, const char* const name)
+{
+	return find_child_element(src, [&name](const xeno::context& e){
+		return 0 == std::strcmp(name, e.qname());
+	});
+}
+
+#else
+
+struct name_match {
+	name_match(const std::string& qname) : qname(qname) {}
+	bool operator()(const xeno::context& ctx) const { return qname == ctx.qname(); }
+	const std::string& qname;
+};
+
+inline xeno::context& find_child_element(xeno::context& src, const std::string& name) {
+	return find_child_element(src, name_match(name));
+}
+inline const xeno::context& find_child_element(const xeno::context& src, const std::string& name) {
+	return find_child_element(src, name_match(name));
+}
+inline xeno::context& find_child_element(xeno::context& src, const char* const name) {
+	return find_child_element(src, name_match(name));
+}
+inline const xeno::context& find_child_element(const xeno::context& src, const char* const name) {
+	return find_child_element(src, name_match(name));
+}
+
+#endif//XENO_USE_LAMBDAS
+
 
 template <typename ElementAction>
 inline xeno::context& for_each_element(xeno::context& s, ElementAction action)

@@ -1,95 +1,115 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>Blueprint Navigator</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA" type="image/x-icon" />    
-    <link href="blueprint.css" type="text/css" media="screen" rel="stylesheet"/>
-    <script src="blueprint.js" type="text/javascript"></script>
-  </head>
-  <body>
-    <script id="application">//<![CDATA[
-        // print("application")
-        function run(elementWithScriptText) {
-            //print("run:", elementWithScriptText)
-            var source = elementWithScriptText.textContent
-            //print("script: " + source)
-            eval(source)
-        }//]]>
-    </script>
-    <div id="control-panel">
-        <form name="loader" action="javascript:;">
-            <fieldset>
-                <legend>Examples</legend>
-                <select name="examples">
-                    <option value="https://raw.githubusercontent.com/huebel/xenomat/master/examples/scratch.xml">Scratchpad</option>
-                    <option value="/blueprint/plain/" selected="selected">The blueprint of this server</option>
-                    <option value="/blueprint/plain/hello/world">Hello World</option>
-                    <option value="/blueprint/plain/northwind/products/real">SQL</option>
-                </select>
-            </fieldset>
-            <fieldset>
-                <legend>Resource</legend>
-                <input name="location" type="text" value="" maxlength="255"/>
-                <button type="submit">Load</button>
-            </fieldset>
-            <fieldset>
-                <legend>Layout</legend>
-                <select name="layout">
-                    <option value="RadialTree">Radial Tree</option>
-                    <option value="RadialCluster" selected="selected">Radial Cluster</option>
-                    <option value="Tree">Tree</option>
-                    <option value="Cluster">Cluster</option>
-                </select>
-            </fieldset>
-            <fieldset>
-                <legend>Hints</legend>
-                <aside>
-                Hit ⏎ to load resource. Click on a node to show its content in the display, press and hold the node to expand or collapse.<br/>
-                ⇧-⌘-(or ⌃ or ⌥)-click a node to expand all levels. To hide or show display, click on background.
-                <!-- ⇧-click to hide. -->
-                </aside>
-            </fieldset>
-            <script>//<![CDATA[
-                // Hookup <form name="loader" ...
-                loader.onsubmit = function (event) {                    
-                    var url = encodeURI(loader.location.value.trim())
-                    var frame = document.getElementById("display")
-                    XENO.load(url, frame)
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-                loader.examples.onchange = function () {
-                    loader.location.value = loader.examples.value
-                    loader.location.focus()
-                    loader.submit()
-                }
-       //]]></script>
-        </form>
-    </div>
-    <div id="workspace">
-        <!-- inside of display will be displayed when there is no node selected -->
-        <div id="display" title="Display">
-            <div>No Context</div>
-            <!-- iframe will be added here -->
-        </div>
-        <div class="svg-container">
-            <!-- graph will be added here -->
-        </div>
-    </div>
-    
-<script>
-    // Setup initial document
-    with (document.forms[0]) {
-        location.value = examples.value
-        location.focus()
-    }
-    document.getElementById("display").style.height = "33.333%"
-</script>
+	<head>
+	  <base href="/blueprint/viewer/"/>
+		<title>Blueprint Navigator</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="shortcut icon"
+			href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA0c7LAICAgAD%2F%2F%2F8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzMwAzMwAAADEjADEjAAAAMhMAMhMAAAAzMwAzMwAAADIjADIjAAAAMiMAMiMAAAAyIwAyIwAAADIjADIjAAAAMiMAMiMgAAAyIwAyIwAAADIhMxIjAAAAMiIiIhMAAAAyIyIhMAAAADMzMzMAAAAAAAAAAAAAD%2F%2FwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOGHAADhhwAA4YcAAOAHAADgBwAA4A8AAOAfAAD%2F%2FwAA"
+			type="image/x-icon"/>
+		<link href="blueprint.css" rel="stylesheet" type="text/css" media="screen"/>
+		<script src="blueprint.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<script id="application">
+			// print("application")
+			function run(elementWithScriptText) {
+			//print("run:", elementWithScriptText)
+			var source = elementWithScriptText.textContent
+			//print("script: " + source)
+			eval(source)
+			}
+		</script>
+		<div id="control-panel">
+			<form id="loader" name="loader" action="javascript:;">
+				<fieldset>
+					<legend>Examples</legend>
+					<select id="examples" name="examples">
+						<option value="https://raw.githubusercontent.com/huebel/xenomat/master/examples/scratch.xml">Scratchpad</option>
+						<option value="/blueprint/plain/" selected="selected">The blueprint of this server</option>
+						<option value="/blueprint/plain/hello">Hello World</option>
+						<option value="/intro/empty.xml">Intro 1: Empty Space</option>
+						<option value="/intro/entry.xml">Intro 2: Accessing via HTTP</option>
+						<option value="/intro/brand.xml">Intro 3: How to brand your server</option>
+            <option value="/intro/style.xml">Intro 4: Experiments into styling XML</option>
+						<option value="/intro/wiki.xml">Intro 5: TiddlyWiki experiments</option>
+						<option value="/blueprint/plain/northwind/products/">SQL</option>
+					</select>
+				</fieldset>
+				<fieldset>
+					<legend>Resource</legend>
+					<input id="place" name="place" type="text" value="" maxlength="255"/>
+					<button type="submit">Load</button>
+				</fieldset>
+				<fieldset>
+					<legend>Layout</legend>
+					<select name="layout">
+						<option value="RadialTree">Radial Tree</option>
+						<option value="RadialCluster" selected="selected">Radial Cluster</option>
+						<option value="Tree">Tree</option>
+						<option value="Cluster">Cluster</option>
+					</select>
+				</fieldset>
+				<fieldset>
+					<legend>Hints</legend>
+					<button onclick="this.nextElementSibling.style.visibility='visible'">Show</button>
+					<aside id="hints" name="hints" style="display:block;visibility:none;position:absolute;">
+	          <span>Hit ⏎ to load resource.</span>
+	          <span>Double tap on a node to show its content in the display.</span>
+						<span>Press and hold a node to expand (or collapse) one level of its descenants.</span>
+						<span>⇧-⌘-(or ⌃ or ⌥)-click a node to expand or collapse all levels.</span>
+						<span>To hide or show the display, double tap on the background.</span>
+          </aside>
+				</fieldset>
+				<fieldset>
+				  <legend>Navigation</legend>
+				  <button onclick="window.history.back()">BACK</button>
+          <button type="submit" form="loader">SUBMIT</button>
+          <button type="reset" form="loader">RESET</button>
+          <button onclick="location.reload()">RELOAD</button>
+          <button onclick="fetch('/reboot/silent')">REBOOT</button>
+          <button onclick="location.href='/'">&times;</button>
+				</fieldset>
+			</form>
+		</div>
+		<div id="workspace">
+			<!-- inside of display will be displayed when there is no node selected -->
+			<div id="display" title="Display" tabindex="0">
+				<div>No Context</div>
+				<!-- iframe will be added here -->
+			</div>
+			<div class="svg-container">
+				<!-- graph will be added here -->
+			</div>
+		</div>
 
-<script src="/js/d3.min.js"></script>
-<script src="/js/interact.js"></script>
-<script type="text/javascript">//<![CDATA[
+    <script>
+    // Hookup form#loader ...
+    document.getElementById("loader").onsubmit = function (event) {
+        var url = encodeURI(this.place.value.trim())
+        var frame = document.getElementById("display")
+        window.XENO.load(url, frame)
+        event.preventDefault()
+        event.stopPropagation()
+    }
+    document.getElementById("examples").onchange = function () {
+      with (this.form) {
+        place.value = examples.value
+        place.focus()
+      }
+    }
+    </script>
+		<script>
+			// Setup initial document
+			with (document.forms[0]) {
+				place.value = examples.value
+				place.focus()
+			}
+			document.getElementById("display").style.height = "33.333%"
+		</script>
+
+		<script src="/js/d3.min.js"></script>
+		<script src="/js/interact.js"></script>
+		<script type="text/javascript" defer="defer">//<![CDATA[
 
 var xeno = undefined
 
@@ -149,9 +169,11 @@ XENO.load = function(url, frame) {
                 return this.size === 1
             },
             code: function () {
-                var xmlString = (new XMLSerializer()).serializeToString(this.origin);
+                var xmlString = this.origin.outerHTML
+                // var xmlString = new XMLSerializer().serializeToString(this.origin).trim()
                 // xmlString = vkbeautify.xml(xmlString, 2);
                 // console.log("XML:", xmlString)
+                // console.log("TYPE:", typeof(xmlString))
                 return xmlString
             },
             text: function () {
@@ -212,7 +234,7 @@ XENO.load = function(url, frame) {
 
 //]]></script>
 
-<script>//<![CDATA[
+		<script>//<![CDATA[
 
 function displayDragMoveListener(event) {
     var target = event.target,
@@ -242,30 +264,46 @@ function displayToggle(frame) {
 }
 
 function displayHide(frame) {
-    frame.style.opacity = .4;
+    // frame.style.opacity = .4;
     d3.select(frame).selectAll("*").style("pointer-events", "none")//.style("display", "none")
 }
 
 function displayShow(frame) {
-    frame.style.opacity = 1;
+    // frame.style.opacity = 1;
     d3.select(frame).selectAll("*").style("pointer-events", "all")//.style("display", "flex")
 }
 
-interact('#display').on('tap', function(event) {
-  if (xeno) xeno.toggleDisplay();
-}).draggable({
+function displayFocus(frame) {
+    console.log("FOCUS");
+    // frame.style.opacity = 1;
+    frame.focus();
+}
+
+
+interact('#display')
+//.on('tap', function(event) {
+//  // if (xeno) xeno.toggleDisplay();
+//  displayToggle(event.target);
+//})
+.draggable({
     onmove: displayDragMoveListener
-}).resizable({
+})
+.resizable({
     edges: { left: true, right: true, bottom: true, top: true }
-}).on('dragstart', function(event) {
+})
+.on('dragstart', function(event) {
     displayHide(event.target)
-}).on('resizestart', function(event) {
+})
+.on('resizestart', function(event) {
     displayHide(event.target)
-}).on('dragend', function(event) {
+})
+.on('dragend', function(event) {
     displayShow(event.target)
-}).on('resizeend', function(event) {
+})
+.on('resizeend', function(event) {
     displayShow(event.target)
-}).on('resizemove', function (event) {
+})
+.on('resizemove', function (event) {
     var target = event.target,
         x = (parseFloat(target.getAttribute('data-x')) || 0),
         y = (parseFloat(target.getAttribute('data-y')) || 0)
@@ -284,14 +322,19 @@ interact('#display').on('tap', function(event) {
     // for debug: target.textContent = Math.round(event.rect.width) + '×' + Math.round(event.rect.height);
 })
 
-interact('.node').on('tap', function (event) {
+interact('.node')
+.on('doubletap', function (event) {
+    if (display) display.focus();
+})
+.on('tap', function (event) {
     event.stopPropagation();
     event.preventDefault();
     var node = event.target.__data__;
     var modify = event.shiftKey;
     var toggle = event.metaKey || event.altKey || event.ctrlKey
     node.click(toggle, modify);
-}).on('hold', function(event) {
+})
+.on('hold', function(event) {
     event.stopPropagation();
     event.preventDefault();
     var node = event.target.__data__;
@@ -301,10 +344,13 @@ interact('.node').on('tap', function (event) {
 })
 
 interact('#workspace .svg-container svg')
-  .on('tap', function(event) {
-    if (xeno) xeno.toggleDisplay();
+.on('doubletap', function(event) {
+  if (display) display.focus();
+})
+.on('tap', function(event) {
+  if (display) display.blur();
 })
 
 //]]></script>
-  </body>
+	</body>
 </html>

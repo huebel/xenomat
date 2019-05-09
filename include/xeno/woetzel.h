@@ -12,13 +12,11 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include "xeno.h"
+
 // CORE
 
-#ifndef XENO_EXPORT
-#define XENO_EXPORT __attribute__ ((visibility ("default")))
-#endif
-
-namespace xeno XENO_EXPORT {
+namespace xeno XENO_NAMESPACE_EXPORT {
 
 template <class IO>
 struct io_object {
@@ -76,27 +74,28 @@ struct io_enum_traits {
 #define IO_CLASS(T) template<typename IO> T(IO& io)
 #define IO_CLASS_IMPL(T) template<typename IO> T::T(IO& io)
 
-#define IO_BASE(B) 		   B(io)
+#define IO_BASE(B) 		    B(io)
 
-#define IO_ATTR(m)         m(io.io_attr(#m,m))
-#define IO_ATTR_NUL(m)     m(io.io_attr_nul(#m,m))
-#define IO_ATTR_DEF(m,val) m(io.io_attr_def(#m,m,val))
-#define IO_ATTR_OPT(m)     m(io.io_attr_def(#m,m,m))
+#define IO_ATTR(m)          m(io.io_attr(#m,m))
+#define IO_ATTR_NUL(m)      m(io.io_attr_nul(#m,m))
+#define IO_ATTR_DEF(m,val)  m(io.io_attr_def(#m,m,val))
+#define IO_ATTR_OPT(m)      m(io.io_attr_def(#m,m,m))
 // For IO_ENUM you can make a specialisation of the io_enum_traits template above
-#define IO_ENUM(m)    m(io.io_enum(#m,m))
-#define IO_TEXT(m)    m(io.io_text(#m,m))
-#define IO_INNER(m)   m(io.io_text(m))
-#define IO_INNER_NUL(m) \
-					  m(io.io_text_nul(m))
-#define IO_INNER_DEF(m,val) \
-					  m(io.io_text_def(m,val))
-#define IO_LINK(m)    m(io.io_link(#m,m))
-#define IO_PART(m)    m(io.io_part(#m,m))
-#define IO_STD(c)  	  c(io.io_std(c))
+#define IO_ENUM(m)          m(io.io_enum(#m,m))
+#define IO_TEXT(m)          m(io.io_text(#m,m))
+#define IO_INNER(m)         m(io.io_text(m))
+#define IO_INNER_NUL(m)     m(io.io_text_nul(m))
+#define IO_INNER_DEF(m,val) m(io.io_text_def(m,val))
+#define IO_LINK(m)          m(io.io_link(#m,m))
+#define IO_PART(m)          m(io.io_part(#m,m))
+#define IO_STD(c)  	        c(io.io_std(c))
+
 #define IO_INIT {
-#define IO_ARRAY(c)   io.io_list(#c, &c[0], c+(sizeof(c)/sizeof(c[0])));
-#define IO_VECTOR(c)  io.io_list(#c, c);
-// #define IO_LIST(c)    IO_VECTOR(c)
+
+#define IO_ARRAY(c)         io.io_list(#c, &c[0], c+(sizeof(c)/sizeof(c[0])));
+#define IO_VECTOR(c)        io.io_list(#c, c);
+// #define IO_LIST(c)         IO_VECTOR(c)
+
 #define IO_END }
 
 

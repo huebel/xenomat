@@ -119,31 +119,35 @@ function XENO(root, frame) {
             // return "M" + from + "L" + to
         }
 
-        old_links.transition()
+        old_links
+            .attr("class", "link fadeout")
+            .transition()
             .duration(duration)
-            .style("opacity", 0.0)
+            // .style("opacity", 0.0)
             .remove()
 
         new_links = new_links.append("path")
-            .attr("class", "link")
+            .attr("class", "link fadein")
             .style("stroke", linkStroke)
             .attr("d", startParent) // linkPath) // 
-            .style("opacity", 0.0)
+            // .style("opacity", 0.0)
 
         all_links.transition()
             .duration(duration)
             .style("stroke", linkStroke)
             .attr("d", linkPath) //get the new cluster path
-            .style("opacity", 0.5)
+            // .style("opacity", 0.5)
 
         var old_nodes = all_nodes.exit()
         var new_nodes = all_nodes.enter()
 
         //console.log("NODES", new_nodes[0].length, all_nodes[0].length, old_nodes[0].length)
 
-        old_nodes.transition()
+        old_nodes
+            .attr("class", "node fadeout")
+            .transition()
             .duration(duration)
-            .style("opacity", 0.0)
+            // .style("opacity", 0.0)
             .remove()
 
         function rgbToHex(r, g, b) {
@@ -190,9 +194,10 @@ function XENO(root, frame) {
         }
 
         new_nodes = new_nodes.append("g")
-            .attr("class", "node")
+            .attr("class", "node fadein")
+            .attr("tabindex", "0") // make focusable
             .attr("transform", nodeTransform)
-            .style("opacity", 0.2)
+            // .style("opacity", 0.2)
 
         new_nodes.append("circle")
             .attr("r", 0) // nodeRadius)
@@ -217,7 +222,7 @@ function XENO(root, frame) {
         all_nodes.transition()
             .duration(duration)
             .attr("transform", nodeTransform)
-            .style("opacity", 1.0)
+            //.style("opacity", 1.0)
 
         all_nodes.select("circle")
             .transition()
@@ -291,14 +296,13 @@ function XENO(root, frame) {
     function display(node, title) {
 /**
         console.log("DISPLAY", title, this, node)
-        
         function render(lang) {
             var s = node.context.code()
             s = s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             s = "<code class='lang-" + lang + "'>" + s + "</code>";
             return s;
         }
-**/
+**/       
         function iframe(caption, type, url) {
             // Update the display with the name
             frame.setAttribute("title", caption || title || "No Name")
@@ -310,16 +314,30 @@ function XENO(root, frame) {
             if (node) {
                 if (!iframe) {
                     iframe = document.createElement("iframe")
-                    //iframe.setAttribute("tabindex", "0")
+                    iframe.setAttribute("tabindex", "0")
+                    //iframe.setAttribute("onload", "this.contentWindow.focus()") 
                 }
-                if (!iframe) throw "TEST FAILED"
-                iframe.src = "data:"+(type||"text/plain;charset=utf8")+","+encodeURI(node.code())
+                if (!iframe) throw "Could not create an iframe"
+                var data = encodeURIComponent(node.code())
+                //var preamble = '<!DOCTYPE html>'
+                //function wrapDiv(s) { return "<div>" + s + "</div>"}
+                iframe.src = "data:" + (type||"text/plain;charset=utf8") + "," + data // preamble + wrapDiv(data)
                 // Last child is always the iframe
                 if (iframe !== frame.lastElementChild) {
                     frame.appendChild(iframe)
                 }
                 // Make iframe visible
                 frame.classList.add("display")
+                // Install a monitor to check when the iframe gets focus
+                var monitor = setInterval(function poll(){
+                  var elem = document.activeElement;
+                  if (elem === iframe){
+                      clearInterval(monitor);
+                      //frame.focus();
+                      iframe.focus();
+                      monitor = setInterval(poll, 100);
+                  }
+                }, 100);
             }
             // Remove old iframe (this get's rid of the source as well)
             else if (iframe) {
@@ -381,3 +399,6 @@ function XENO(root, frame) {
     }
 
 } // XENO
+
+// https://raw.githubusercontent.com/anonyco/BestBase64EncoderDecoder/master/atobAndBtoaTogether.min.js
+!function(e){"use strict";function h(b){var a=b.charCodeAt(0);if(55296<=a&&56319>=a)if(b=b.charCodeAt(1),b===b&&56320<=b&&57343>=b){if(a=1024*(a-55296)+b-56320+65536,65535<a)return d(240|a>>>18,128|a>>>12&63,128|a>>>6&63,128|a&63)}else return d(239,191,189);return 127>=a?b:2047>=a?d(192|a>>>6,128|a&63):d(224|a>>>12,128|a>>>6&63,128|a&63)}function k(b){var a=b.charCodeAt(0)<<24,f=l(~a),c=0,e=b.length,g="";if(5>f&&e>=f){a=a<<f>>>24+f;for(c=1;c<f;++c)a=a<<6|b.charCodeAt(c)&63;65535>=a?g+=d(a):1114111>=a?(a-=65536,g+=d((a>>10)+55296,(a&1023)+56320)):c=0}for(;c<e;++c)g+="\ufffd";return g}var m=Math.log,n=Math.LN2,l=Math.clz32||function(b){return 31-m(b>>>0)/n|0},d=String.fromCharCode,p=atob,q=btoa;e.btoaUTF8=function(b,a){return q((a?"\u00ef\u00bb\u00bf":"")+b.replace(/[\x80-\uD7ff\uDC00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]?/g,h))};e.atobUTF8=function(b,a){a||"\u00ef\u00bb\u00bf"!==b.substring(0,3)||(b=b.substring(3));return p(b).replace(/[\xc0-\xff][\x80-\xbf]*/g,k)}}(""+void 0==typeof global?""+void 0==typeof self?this:self:global)//anonyco
