@@ -1,7 +1,7 @@
 /*
  * basic_service.cpp
  *
- *  Created on: 20.10.2013
+ *  Created on: 12.05.2019
  *      Author: Peter Hübel
  */
 
@@ -12,30 +12,34 @@
 
 namespace xeno {
 
-using basic_service = examples::basic_service;
-XENO_REGISTER(xeno, basic, basic_service);
+using basic_service = test::basic_service;
+XENO_REGISTER(test, basic, basic_service);
 
-namespace examples {
+namespace test {
 
 void basic_service::invoke(contact& visitor, sequens& route)
 {
 	TRACELN("basic_service::invoke");
 	if (route.empty()) {
-		visitor.status("204 No Content");
+		visitor.blame();
 	}
 	else {
-		xml_preample(visitor);
-		element& root = visitor.content().element().child("basic");
+		if (!type.defined()) xml_preample(visitor);
+		contens initial_route(route.head());
+		element& root = visitor.content().element().child(route.heading());
+		route = route.tail();
 		while (!route.empty()) {
+			if (route.heading("fuck")) {
+				root.text("Well f*ck a duck... No rude language, if you please!");
+				break;
+			}
 			root.elem(route.heading());
 			route = route.tail();
 		}
-		visitor.status("200 OK");
+		root.push_back(initial_route);
+		visitor.content_type(type.c_str()).status("200 OK");
 	}
 }
 
-} // namespace examples
+} // namespace test
 } // namespace xeno
-
-
-

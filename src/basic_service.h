@@ -1,7 +1,7 @@
 /*
  * basic_service.h
  *
- *  Created on: 20.10.2013
+ *  Created on: 12.05.2019
  *      Author: Peter Hübel
  */
 
@@ -11,33 +11,38 @@
 #include <xeno/service.h>
 
 namespace xeno {
-namespace examples {
+namespace test {
 
 class basic_service : public xeno::service<basic_service, const xeno::element> {
 public:
+
 	// The service has a complete context for initialisation,
-	// the origin is 'const' so we may *not* make selfattribution
+	// the origin is 'const' so this service can *not* do any
+	// selfattribution.
 	basic_service(Context& origin)
 	:	Origin(origin)
-//	,	origin(origin)
+	,	type("@type", origin, type::XML)
 	{
 	}
-	// when we return, we know that the cpu must flush the cache soon anyway, so we force it to do it now.
-	// hence the retur type, giving the context to use for further processing (mostly the same visitor, just a frame above the transport)
-	// once you start serving, you serve.
-	// the machine gives you the context of the visitor,
-	// you may inspect it, alter it, and you may hand over a extend context
+
+	// The service is invoked via this call. See the implementation
+	// for an understanding of the "visitor" and its "route".
 	void invoke(xeno::contact& visitor, xeno::sequens& route);
-//	// the generator function - has a default implementation, which invokes a constructor taking a context as argument
+
+	// The generator function 'create' has a default implementation,
+	// which invokes a constructor taking a context as argument.
+	// Overwrite this function, if you need to decide before instan
+
 //	static xeno::action* create(xeno::context& location)
 //	{
 //		return new basic_service(location);
 //	}
+
 private:
-//	const xeno::context& origin;
+	attribute type;
 };
 
-} /* namespace examples */
+} /* namespace test */
 } /* namespace xeno */
 
 #endif /* BASIC_SERVICE_H_ */

@@ -105,7 +105,7 @@ bool whatsmyip::get_ip_address(std::string& addr) const
 				std::size_t end = line.find("IP Adress: ");
 				if (end != std::string::npos) {
 					// SUCCESS!
-					TRACELN("SUCCESS!");
+					TRACELN("\nSUCCESS!");
 					addr.assign(line.substr(end+11));
 					end = addr.find('<');
 					addr.erase(end);
@@ -120,9 +120,9 @@ bool whatsmyip::get_ip_address(std::string& addr) const
 	}
 	// Catch all
 	TRACELN("FAILED!");
-	addr.assign(std::string("could not connect to ")+host.c_str());
+	addr.assign(std::string("could not connect to ")+host.str());
 	return false;
 }
 
-} /* namespace examples */
+} /* namespace test */
 } /* namespace xeno */

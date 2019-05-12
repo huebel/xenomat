@@ -272,15 +272,15 @@ struct XENO_EXPORT contact : context
 	contact& content_type(const char* type);
 	contact& status(const char* status);
 	// Convenience methods for plain text documents
-	template <const char* TEXT, const char* TYPE = xeno::type::TEXT>
+	template <const char* const TEXT, const char* const TYPE = xeno::type::TEXT>
 	inline contact& accept_static_text(const char* status) {
 		return content_type(TYPE).text(TEXT).status(status);
 	}
-	template <const char* XML>
+	template <const char* const XML>
 	inline contact& accept_static_xml(const char* status) {
 		return accept_static_text<XML,xeno::type::XML>(status);
 	}
-	template <const char* SCRIPT>
+	template <const char* const SCRIPT>
 	inline contact& accept_static_script(const char* status) {
 		return accept_static_text<SCRIPT,xeno::type::ECMA>(status);
 	}

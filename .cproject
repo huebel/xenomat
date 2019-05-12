@@ -15,7 +15,7 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/xenomat/Debug"/>
                         						
-                        <entry flags="RESOLVED" kind="libraryFile" name="xenomat" srcPrefixMapping="" srcRootPath=""/>
+                        <entry flags="RESOLVED" kind="libraryFile" name="test" srcPrefixMapping="" srcRootPath=""/>
                         					
                     </externalSetting>
                     				
@@ -41,7 +41,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactExtension="dylib" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.macosx.so.debug.1888949587" name="Debug" parent="cdt.managedbuild.config.macosx.so.debug">
+                <configuration artifactExtension="so" artifactName="test" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.macosx.so.debug.1888949587" name="Debug" parent="cdt.managedbuild.config.macosx.so.debug">
                     					
                     <folderInfo id="cdt.managedbuild.config.macosx.so.debug.1888949587." name="/" resourcePath="">
                         						
@@ -90,6 +90,8 @@
                                     <additionalInput kind="additionalinput" paths="$(LIBS)"/>
                                     								
                                 </inputType>
+                                								
+                                <outputType id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.so.debug.output.1303605354" outputPrefix="xenomat-" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.so.debug.output"/>
                                 							
                             </tool>
                             							
@@ -203,7 +205,7 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/xenomat/Release"/>
                         						
-                        <entry flags="RESOLVED" kind="libraryFile" name="xenomat" srcPrefixMapping="" srcRootPath=""/>
+                        <entry flags="RESOLVED" kind="libraryFile" name="test" srcPrefixMapping="" srcRootPath=""/>
                         					
                     </externalSetting>
                     				
@@ -229,7 +231,7 @@
             			
             <storageModule moduleId="cdtBuildSystem" version="4.0.0">
                 				
-                <configuration artifactExtension="dylib" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.macosx.so.release.2023311598" name="Release" parent="cdt.managedbuild.config.macosx.so.release">
+                <configuration artifactExtension="so" artifactName="test" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.macosx.so.release.2023311598" name="Release" parent="cdt.managedbuild.config.macosx.so.release">
                     					
                     <folderInfo id="cdt.managedbuild.config.macosx.so.release.2023311598." name="/" resourcePath="">
                         						
@@ -276,6 +278,8 @@
                                     <additionalInput kind="additionalinput" paths="$(LIBS)"/>
                                     								
                                 </inputType>
+                                								
+                                <outputType id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.so.release.output.1956062476" outputPrefix="xenomat-" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.so.release.output"/>
                                 							
                             </tool>
                             							
@@ -383,8 +387,6 @@
         	
     </storageModule>
     	
-    <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
-    	
     <storageModule moduleId="cdtBuildSystem" version="4.0.0">
         		
         <project id="xenomat.cdt.managedbuild.target.macosx.so.2069652346" name="Shared Library" projectType="cdt.managedbuild.target.macosx.so"/>
@@ -436,6 +438,14 @@
             <resource resourceType="PROJECT" workspacePath="/xenomat"/>
             		
         </configuration>
+        	
+    </storageModule>
+    	
+    <storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+    	
+    <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+        		
+        <buildTargets/>
         	
     </storageModule>
     
