@@ -1,5 +1,0 @@
-#! /bin/sh
-XENO_PROJECT_LOC=~/workspace/gins-xeno
-cp $XENO_PROJECT_LOC/leutert/leutert_pdm.xml    /opt/gins/qreader/etc/netropy/
-cp $XENO_PROJECT_LOC/leutert/pdm-overview.html  /opt/gins/qreader/etc/netropy/
-LD_LIBRARY_PATH=$XENO_PROJECT_LOC/Release $XENO_PROJECT_LOC/xeno/bin/debian/netropy -d /opt/gins/qreader/etc/netropy/ /opt/gins/qreader/etc/netropy/leutert_pdm.xml

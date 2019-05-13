@@ -1,2 +1,0 @@
-alias xeno='open http://localhost:8901; ~/workspace/xenomat -d . '
-alias xenob='open http://localhost:8901/blueprint; ~/workspace/xenomat -d .'
