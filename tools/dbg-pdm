@@ -1,2 +1,0 @@
-#! /bin/sh
-LD_LIBRARY_PATH=~/workspace/gins-xeno/Debug ../bin/debian/netropy $* /opt/gins/qreader/etc/netropy/ ~/workspace/gins-xeno/leutert/leutert_pdm.xml

@@ -1,2 +1,0 @@
-#! /bin/sh
-LD_LIBRARY_PATH=~workspace/gins-xeno/Release ../bin/debian/netropy $* ~/workspace/gins-xeno build.xml

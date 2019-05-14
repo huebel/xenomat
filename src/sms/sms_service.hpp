@@ -1,29 +1,29 @@
 /*
- * basic_service.h
+ * basic_service.hpp
  *
  *  Created on: 12.05.2019
  *      Author: Peter Hübel
  */
 
-#ifndef BASIC_SERVICE_H_
-#define BASIC_SERVICE_H_
+#ifndef SMS_SERVICE_HPP_
+#define SMS_SERVICE_HPP_
 
 #include <xeno/service.h>
 
-namespace xeno {
-namespace test {
+namespace macbook {
 
-class basic_service : public xeno::service<basic_service, const xeno::element> {
+using namespace xeno;
+
+class sms_service : public xeno::service<sms_service, const xeno::element> {
 public:
 
 	// The service has a complete context for initialisation,
 	// the origin is 'const' so this service can *not* do any
 	// selfattribution.
-	basic_service(Context& origin)
-	:	Origin(origin)
-	,	type("@type", origin, type::XML)
-	{
-	}
+	sms_service(Context& origin);
+
+	// The destructor releases the accelerometer again.
+	~sms_service();
 
 	// The service is invoked via this call. See the implementation
 	// for an understanding of the "visitor" and its "route".
@@ -35,14 +35,13 @@ public:
 
 //	static xeno::action* create(xeno::context& location)
 //	{
-//		return new basic_service(location);
+//		return new sms_service(location);
 //	}
 
 private:
 	attribute type;
 };
 
-} /* namespace test */
-} /* namespace xeno */
+} /* namespace macbook */
 
-#endif /* BASIC_SERVICE_H_ */
+#endif /* SMS_SERVICE_HPP_ */

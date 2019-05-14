@@ -1,5 +1,0 @@
-#!/bin/sh
-echo ---------------
-echo xeno pid: `ps -Al | grep xeno | cut -c10-15 `
-echo ---------------
-tail /tmp/xeno.out

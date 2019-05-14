@@ -1,3 +1,3 @@
-# xenomat
+# macbook
 
-A scalable platform for microservices and IoT applications.
+A set of microservices for the XENOmat on a MacBook.

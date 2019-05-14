@@ -1,6 +1,0 @@
-#!/bin/sh
-echo "Installing XENO into ../bin ..."
-cp /home/user1/workspace/netropy/RPiRelease/netropyserver ../bin/pi/netropy
-cp /home/user1/workspace/netropy/Release/xenomat ../bin/debian/netropy
-cp /home/user1/workspace/netropy/Debug/xenomat ../bin/debian/netropy.debug
-cp /home/user1/workspace/netropy/ArmRelease/netropyserver ../bin/arm/netropy
