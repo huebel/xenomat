@@ -381,7 +381,7 @@ struct context_reader: io_object<context_reader> {
 	inline T* io_link(const char* name, T* ptr)
 	{
 		delete ptr;
-		const xeno::context* target = xeno::find_element(current(), name);
+		const xeno::element* target = xeno::find_element(current(), name);
 		if (target && !target->empty()) {
 			ptr = static_cast<T*>(static_cast<void*>(new char[sizeof(T)]));
 			::memset(ptr, 0, sizeof(T));
