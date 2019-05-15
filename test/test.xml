@@ -1,17 +1,24 @@
-<xeno:space xmlns:xeno="xeno:XENOmat" xmlns:macbook="xeno:xeno-macbook.so" xmlns:test="xeno:XENOmat">
+<xeno:space xmlns:xeno="xeno:XENOmat" xmlns:test="xeno:XENOmat">
   <backstage>
     <xeno:http port="8901" logo="nav">
       <nav>
       <style>a:before{content:attr(href)}</style>
-      <h1>MacBook Services</h1>
-      <p><a href="sms"/></p>
+      <p><a href="whatsmyip"/> <a href="clock/"/> <a href="uhr"/></p>
+      <p><a href="basic"/> <a href="basic-plain"/></p>
+      <p><a href="basic/some/long/path/"/> <a href="basic-plain/some/long/path"/></p>
+      <p><a href="baml"/> <a href="baml/title/fuck"/></p>
       <p><a href="backstage"/></p>
       </nav>
     </xeno:http>
-    <xeno:load lib="xeno-macbook.so"/>
+    <xeno:load lib="xenomat-test.so"/>
   	<xeno:plan type="text/xml"/>
   </backstage>
-  <sms><macbook:sms type="text/plain"/></sms>
+  <whatsmyip><test:ip/></whatsmyip>
+  <basic><test:basic/></basic>
+  <basic-plain><test:basic type="text/plain"/></basic-plain>
+  <baml>
+  	<test:basic type="text/html"/>
+  </baml>
   <clock><xeno:duct_tape doctype="svg"/><test:clock/></clock>
   <uhr><test:clock/></uhr>
 </xeno:space>

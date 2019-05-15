@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xeno:space name="entries" xmlns:xeno="xeno:XENOmat">
+    <xeno:http host="127.0.0.1" port="8901" logo="link" title="Localhost Only">
+	<link><style type="text/css">link{display: block;}</style><a href="http://127.0.0.1:8902/public">Public entry</a></link>
+    </xeno:http>
+    <xeno:space>
+       <xeno:http host="192.168.56.1" port="8902" title="Local IP"/>
+       <public><xeno:copy type="text/plain">Public plaintext</xeno:copy></public>
+    </xeno:space>
+    <accessible><from><localhost><only><xeno:copy type="text/plain">Privat plaintext</xeno:copy></only></localhost></from></accessible>
+</xeno:space>

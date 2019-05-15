@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xeno:space xmlns:xeno="xeno:XENOmat" xmlns:html="http://www.w3.org/1999/xhtml/">
+
+    <!-- HOW TO BUILD AN INFORMATION SYSTEM FROM (ALMOST) SCRATCH -->
+
+    <intro>
+        If you were to start from scratch, what would you "really need" in
+        order to build an information system that minimises resource usage?
+        
+        To answer that question with at least some accuracy, you'd have to
+        define what "information system" and "minimises resource usage" is
+        supposed to mean. So let's have a look at those terms isolated, at 
+        least at first. Starting with a conservative approach to a growing 
+        field of "green tech," let us discuss resources and their use.
+        
+        There are many reasons to focus on the use of resources, one of them 
+        being energy savings in mobile or remote devices. Another reason
+        is the inherent value of having a well defined cost of computation.
+        
+        Your smartphone does not function for free... It needs energy, and 
+        you have to charge it. If you happen to have a solar charger, you're 
+        home free, but certainly there is a price for having such a system
+        running. For the software ecosystem follows, that apps which drain 
+        our smartphones will be outperformed by apps that don't.
+        
+        Apart from electricity, the human and technical resources used for 
+        developing systems are a big factor in this age of IoT. Increasing 
+        complexity in "modern systems" literaly drains out a lot of potential 
+        from the IT sector. There still is a huge demand for developers and 
+        operators, and the complexity is ever increasing, as we see it.
+        
+        Now, it should be important to acknowledge, that much of this complexity 
+        comes from a wrong line of thinking.
+        
+        In order to grasp this very problem, that a fresh start on the concept 
+        of "computing" would solve, we have to define more precisely, what our
+        quest is. What does our goal imply?
+        
+        Minimal resource usage, check. We have that covered by having a well
+        defined cost of computation and by following a few basic principles. 
+        But information systems? Well, that depends...
+        
+        <!-- So, what is information? -->
+        
+        The core question we need to address first, is: What is the stuff
+        called 'information' actually? The 'system' part we shall address
+        later.
+        
+        Throughout history, philosophers and scientists have come up with 
+        different definitions. A classic paper on the subject was written 
+        by Claude Shannon back in 1948, in which 'information' is thought 
+        of as a set of possible messages sent over a channel.
+        
+        Titled "A Mathematical Theory of Communication", Shannon's theory
+        as well as the field of 'information theory' which it spawned, is
+        still quite narrow in its scope of defining what information is:
+        
+        It has its focus solely on individual pieces of technology within 
+        given systems.
+        
+        In contrast, the broad interdisciplinary field named 'information 
+        science' has a wider take on 'information systems'. It does focus
+        on understanding problems of the stakeholders involved from their
+        point of view, and then using information and other technology to 
+        tackle those systemic problems. It's about communication.
+        
+        For the purpose of this text, we shall be using a definition given 
+        by the late British scientist and polymath Gregory Bateson. In his
+        "Steps to an Ecology of Mind: Collected Essays in Anthropology", 
+        Bateson makes number of attempts to understand the mental processes 
+        that are involved in making sense of surrounding world, and in this 
+        context, he defines the basic unit of information as being 
+        "a difference, that makes a difference".
+
+        <!-- Doing simple stuff with information -->
+        
+        This conception of information is a nice fit for our purposes. It 
+        also gives us the right to abstain from using complicated language.
+        
+        Keeping things simple has always been a good rule for making artefacts 
+        that actually do work. Making things overly complex is a recipy for
+        failure, as the ingenious Charles Babbage miserably had to experience,
+        in his bold plan to build an analytic engine.
+        
+        Also, using complicated wording seldom will add any value at all in 
+        solving the problems at hand. Doing so anyway is a one of the worst
+        anti patterns - the equivalent to adding several abstraction layers, 
+        that do nothing but passing data between layers. Because we can.
+        
+        <aside>
+        Some of you developers may remember the first Windows NT, Microsofts 
+        at that time new operating system, whose architects had built on top
+        top of an Hardware Abstraction Layer (HAL). That decision sucked all 
+        performance out of the system, until Microsoft finally started to 
+        break it up again with APIs for direct access to the hardware. Then 
+        their OS'es started to kick to the metal again.
+        
+        This anti pattern is also found in many system architecture frameworks,
+        by which developers get coerced into using asynchronous communication 
+        patterns, even for implementing protocols which are of a rather
+        synchronous nature.
+
+        What mostly happens, is that developers find themselves adding a lot of 
+        boilerplate code with the sole purpose of being sure that everything is 
+        synchronised.
+        
+        Because. Humans mostly like to have information presented in order, and 
+        need (often enforced by national laws) a minimum of information to make 
+        a decision on how to proceed and succeed within the system.
+        
+        Hence such (inter)actions simply must be synchronised ("for the record")
+        for us in order to be able to decide anything on cause and effect.
+        </aside>
+        
+        <!-- How to represent information -->
+        
+        As a last note on the concept of "information" as we like to use it in
+        the "real world", it is essential to remember that in order to grasp 
+        information, to make use of available information, there has to be some 
+        sort of mechanism which will react on these "differences".
+
+        This goes for any stakeholder in a system, whether it is a human being
+        or some cloud service.
+        
+        In the field of computer systems, that basic difference is the bit.
+        The smallest piece of information we can communicate is the difference 
+        between "something" and "nothing". A sound from a speaker, as opposed
+        to silence, or a light that suddenly starts flashing, when it was lit
+        constantly before. Or some pixels on a display, which constantly change
+        to form letters and symbols, which can be read by literate humans. As 
+        you do now.
+        
+                       Differences are, what convey meaning.
+                       
+        <aside>
+        Developers can freely interpret Bateson's definition in a resource 
+        centred fashion, and adhere to a number of best DevOps practices.
+        
+        One of those practices is fetching resources via a cache. This is 
+        done in order to reduce both network bandwith and needed (or must
+        we say wasted?) computational power when "nothing really happened", 
+        when no information has changed.
+        
+        Burning battery power without actually making a difference is not 
+        something you'd want. At all. Ever. Systems exposing that behaviour 
+        actually can be seen to be in some state of in-difference, a condition 
+        which also (not surprisingly) seems to lead to human burnout syndromes 
+        in social systems.
+        </aside>
+
+                        The representation is all there is.
+
+        Using Bateson's definition of "information", you would then need to 
+        have a way to describe the system. A kind of blueprint with sufficient 
+        information for enabling someone or something to actually build the 
+        system, or for some software to emulate the processes needed for the 
+        system to actually fulfill its purpose.
+
+        As in time of writing, contemporary object-oriented programmers commonly
+        create some kind of "model" by writing definitions of concepts in special 
+        languages like Python, Java, C#, Ruby, and (more or less) briefly describe 
+        a system in terms of interacting objects.
+
+        Other approaches exist too. A system may be described by functions,
+        taking input, calculating output. Some languages even blur the 
+        distinction between objects and functions.
+        
+        An interesting angle on the subject can be found in the area of actor 
+        languages. Communicating entities, where a program is described pretty 
+        much as a script for acting out a play in a theatre or a movie:
+        
+          BRAIN to LIVER: are you guys sleeping or what? I have blurry vision.
+          LIVER to BRAIN: then stop slamming those G&amp;T's down.
+            
+        All in all, on the internet there is a whole bunch of esoteric languages, 
+        so feel free to dive into that on your own. Enough has been written about 
+        those subjects already, and we shall not further in this text discuss it,
+        as we anyway are going to take another, different approach on computation.
+        
+        <!-- The power of spatial metaphors -->
+
+        This other approach (which even predates most programming languages, as 
+        we know them) was originally concepted by Gottfried Wilhelm Leibniz back
+        in the 16th century. Only much later, just prior to World War II, it was 
+        taken into reality by Konrad Zuse, the German engineer who (with focused
+        patience and quite limited resources) did build some of the worlds first 
+        working electronic computers. Several thousand electrical switches, each 
+        of which were painstakingly handcrafted out of copper and iron.
+
+        But those machines he built, was not his only achievements. Zuse imagined 
+        that the universe could be described at what he called "Rechnender Raum".
+        A "computing universe," where actions in the real world are thought of as 
+        discrete changes in state and transfer of information. This is a thought, 
+        which we can easily be identified as a precursor to a relative new branch 
+        in the science of physics, known as "Digital Physics", or "DP" for short.
+        
+        Without getting into the nitty-gritty details of DP, one of the important
+        findings in this particular area are the class of cellular automata built 
+        on "conservative logic," a basis for developing energy conserving digital 
+        logic machines.
+        
+        This turns out to be useful for our quest, as the concepts of energy and
+        information are strongly related. Look up Edward Fredkin and his work on 
+        conservative logic, or Stephen Wolframs work on cellular automata if you 
+        are interested in that area.
+        
+        We will attempt an approach in this direction in the following sections. 
+        Let us begin by imagening the system as some kind of imaginary space, in
+        which "there is information" or where "information can be found". 
+        
+        We can put information into that space, and get information out of there 
+        as well.
+        
+        <!-- Organising and navigating space -->
+        
+        To easily locate that information, we shall (as we keep our wow of using 
+        simple language) divide the space into a number of
+        
+        <places where-you-can="PUT">
+            <information>
+
+Now, the spatial, geographical metaphor is very present in our "Age of the Internet."
+For instance, the information in this very XML document you are reading right now is 
+stored in a file on some storage media, located inside some sort of computer. It's a 
+place on the internet. Or was it "in the internet?"
+
+Let's for a short moment assume, this document is the whole world, so our "space" is 
+the text you are reading now. Moving through that world, you might at one point 
+notice the very monotony of its linear nature, it's just words, words... Until you
+notice a sign, which tells you have arrived at a new place.
+
+For instance, part of this sentence, the one single word between <here> and </here>, 
+is a canonical example of a very small place named "here."
+
+It might be useful to regard those marks around the name "here" as some kind of 
+place-sign, commonly found at city limits.
+
+There may be <empty/> places as well. No need to write <empty></empty>. That would
+simply be a sign, telling you that this point is called "empty", and there is nothing 
+in here. It starts and stops at the same location.
+
+Now, this text, this very paragraph, is located in a place called "information"
+(see above) and you reached it by starting reading a place called "intro"
+(at the start of the document), then going to "places" and finally to "information", 
+where the author put this for you to read.
+
+Using a simple notation, we can write the sequence of places entered, the "path" so 
+to speak, by spelling out their names, separated with a slash:
+
+<path>/intro/places/information/</path>
+
+It may be useful to think of those slashes as gates or doors, through which you 
+have entered the places. A path is just like what you often see as part of the 
+"internet address" in your web browser, and it means roughly the same. A path
+gives directions of where to find different
+
+            </information>
+            
+            in different
+
+        </places>.
+        
+        The place containing all places is simply called "the space".
+                
+        That should be quite straight-forward, so let's leave the
+    </intro>.
+    
+    <!-- coffee break -->
+    
+    <services>
+        The minimum an information system should be able to do (besides keep
+        information in different places) would be to render that information
+        accessible to those who need it. The system must fulfil its purpose.
+
+        So throughout an "information space", there should be located a number 
+        of locations, where there be services which can fulfil those needs of 
+        information.
+        
+        First, if we need to be able to enter the space from the outside, it 
+        might be useful to set up a service listening for HTTP requests on a 
+        given port:
+        
+        <xeno:http host="localhost" port="8901" Access-Control-Allow-Origin="*"/>
+        
+        And to deliver information stored on disk, really fast:
+        
+        <xeno:disk mount="/public/data" method="send"/>
+        
+        Information may also be present in the description itself, and simply 
+        needs to be copied:
+        
+        <message>
+            <xeno:copy type="text/plain">Hello world!</xeno:copy>
+        </message>
+        
+        And, to get started, you might need some simple
+        
+        <storage>
+            <xeno:stash type="text/plain"> where you can put volatile information... </xeno:stash>
+        </storage>
+
+    </services>
+    
+     
+    <!-- 
+        For a running system we need the next place to display information.
+        You might think of it as a browser seen from the "other" side,
+        where any content you put into it shows up on a surface somewhere.
+        
+        Whereas a browser is requesting - that is pulling - a resource to 
+        display in a window, the display service may be used for pushing 
+        content to a window as well. A typical implementation will use some 
+        kind of WebView, dependent on the platform.
+
+        If we put some info into that place, it would show up on a display,
+        just as if you had retreived the info with a browser.
+     -->
+    
+    <display>
+        <xeno:display type="text/xml+xhtml+svg"/>
+    </display>
+    
+    <!-- 
+        Also, we might want the system to be able to give a description 
+        of itself. We call that description a "blueprint":
+    -->
+    
+    <blueprint>
+        <!-- serve the fancy interpretation really fast -->
+        <xeno:disk mount="blueprint.html" method="send"/>
+        <!--
+        <xeno:copy src="blueprint.js"/>
+        -->
+        <service>
+            <!-- or use the built in service for raw data only about this section -->
+            <xeno:blueprint type="text/xml" src="/blueprint"/>
+        </service>
+    </blueprint>
+    
+    <wiki>
+        <tiddlywiki>
+            The text between elements could be TW markup...
+            
+            So this section is largely random thoughts and description 
+            of *not* implemented features.
+            
+            !Scratchpad...
+        </tiddlywiki>
+
+        <!-- freeze the blueprint from the point referenced -->
+        <xeno:blueprint freeze="/blueprint">
+            <!-- all the contact ever will get is a description of lines 9-15-->
+        </xeno:blueprint>
+
+        Freezing the blueprint means adding 
+        the used namespaces to the opening 
+        tag of the returned fragment, as well 
+        as tagging the default namespace on
+        the returned blueprint with the host (which is 
+        in the Host of the request per default)
+        or otherwise the value of the 'host' attribute.
+        
+        Par example:
+
+        <xeno:space>
+            <defaults>
+                <xeno:blueprint src="/" host="$Host" type="application/xml" style="xml"/>
+                    We deliver the whole blueprint of the enclosing space (starting with
+                    defaults in this space)
+                <xeno:blueprint src="/" host="fixed.domain.example.org"/>
+                    The source is taken from root and the namespace is tied to some fixed domain
+            </defaults>
+            <pure-development>
+                <xeno:blueprint freeze="/" host="Host" type="application/xml" style="xml"/>                
+            </pure-development>
+        </xeno:space>
+        
+        <xeno:blueprint freeze="/blueprint">
+        </xeno:blueprint>
+        
+    </wiki>
+    <musings>
+        <!-- Highly experimental, half finished sentences may occur -->
+        <objects>
+            <!-- An approach on object-oriented modelling -->
+            <new>
+                Given the following xeno:proto declaration, 
+                you get a prototypical structure served at
+
+                    /musings/objects/new/user
+
+                in a number of languages, e.g. JSON
+
+                    {
+                        fullname: "Kurt Gödel",
+                        username: "abc123",
+                        password: "********",
+                        bookmark: "/project/23/app/312/track/321/version/423",
+                        favorite: [
+                            "/project/23",
+                            "/project/342/app/23/track/321",
+                            "/project/23",
+                        ],
+                        
+                    }
+
+                or XML, which more or less is a plain copy of the protoypes
+                inner structure:
+                
+                <xeno:proto>
+                    <user
+                        fullname="Kurt Gödel"
+                        username="abc123"
+                        password="********">
+                        <!-- attributes may also be simple tags -->
+                        <bookmark>/project/23/app/312/track/321/version/423</bookmark>
+                        <!-- and more occurrences represent elements in a list/sequence -->
+                        <favorite>/project/23</favorite>
+                        <favorite>/project/342/app/23/track/321</favorite>
+                        <favorite role="admin">/project/23/edit</favorite>
+                        <!-- this class may be extended -->
+                        <xeno:extend/>
+                    </user>
+                    <!-- this model may be extended -->
+                    <xeno:extend/>
+                </xeno:proto>
+                
+                You can also source a prototype from another system
+                
+                <xeno:proto src="http://tpa.trifork.com/models/BundleTagIdentifier"/>
+
+                We may note as a fact, that the context, in which this object will be used, 
+                actually knows that these data are prototypical. As an example, when we fetch 
+                something from a place called /musings/objects/new/user/, then a bell should 
+                ring loud and clear.
+                
+                Knowing this, a form could use the default values given in the prototype 
+                as labels or placeholders. It also knows that it should "insert" the form 
+                data, rather than "update" it.
+                
+                <xeno:form name="user" action="/path/to/user/database/insert" proto="/musings/new/user">
+                    <input name="fullname" type="text" value="">Label (for this input)</input>
+                    <!-- script some action -->
+                    <script>
+                        // this.form.submit = ...;
+                        fullname.addEventHandler('focus', function() { 
+                            this.placeholder = this.textContent
+                            delete this.textContent
+                        }, false);
+                    </script>
+                </xeno:form>
+
+                A prototypical structure might be marked with some unique identification:
+                
+                <xeno:proto unique="uuid(@id)">
+                    <unique-object>
+                        <identity id="will-get-replaced-by-a-uuid"/>
+                    </unique-object>
+                </xeno:proto>
+
+                <xeno:proto unique="uuid(name)">
+                    <unique-named>
+                        <name>will get replaced by the hash</name>
+                    </unique-named>
+                </xeno:proto>
+                
+            </new>
+            
+            <version2>
+                <xeno:proto type="text/python" lang="python">
+                class User:
+                    fullname="Kurt Gödel"
+                    username="abc123"
+                    password="********"
+                    # attributes may also be simple tags
+                    bookmark="/project/23/app/312/track/321/version/423"
+                    # and more occurrences of elementname represent elements in a list/sequence -->
+                    favorite = [
+                        "/project/23",
+                        "/project/342/app/23/track/321",
+                        "...",
+                    ]
+                    <xeno:extend/>
+                    <!-- see below, also this model may be extended -->
+                </xeno:proto>            
+            </version2>
+            
+        </objects>
+        
+        <xeno:proto extend="this:/musings/objects/version2">
+            <app-user extend="user">
+                <identitiy provider="http://cookie-monster.com/kurt.goedel/"/>
+                <!-- the Python class User is extended with an identity field -->
+            </app-user>
+            <!-- no further extensions allowed -->
+        </xeno:proto>
+        
+        <xeno:proto extend="http://embedded-host:8901/leutert/pdm/channels">
+            <signals is="channels">
+            </signals>
+        </xeno:proto>
+
+        
+<!-- This is the cursor:
+        Select the line and move it up/down with CMD CTRL UP/DOWN
+        
+        This.is (the system which has been built by this blueprint)
+        That.at (the system which sent the contact into this space)
+        
+        -->
+        <echo>
+            <xeno:proto type="text/plain">You sent:\n<xeno:copy src="that:/*"/>
+            <!-- Comments like this are not included, contact gets delivered a copy of the 
+                 payload of the contact along with everything --> in plain text.
+            </xeno:proto>
+        </echo>
+        <whoami>
+            <!-- access the attributes of the contact (often HTTP headers) -->
+            <xeno:proto type="text/plain">
+                You are a visitor from <xeno:copy src="that:@Origin"/>.
+            </xeno:proto>
+        </whoami>
+        
+        <clone-origin>
+            
+        </clone-origin>
+
+        <database>
+            <admin>
+                <xeno:sql>SELECT 
+                    <fullname>FULLNAME</fullname>, 
+                    <username>USERNAME</username>,
+                    <password>PASSWORD</password>
+                          FROM USER WHERE FULLNAME="admin"
+                </xeno:sql>
+            </admin>
+        </database>
+        
+        
+        <xeno:sloppy>
+            <!-- paths within this sector will be interpreted sloppy -->
+            <context/>
+            <content alt="contest"/>
+            <consent/>
+            <consens/>
+            <contens alt="nonsens"/>
+        </xeno:sloppy>
+
+        <recursive ns="this">
+
+            In the context of a (name)space, a name is a string -- a finite sequence of characters.
+            <aside>The Halting Problem tells us, that we can not decide if we are dealing with a name, 
+            given only a sequence.</aside>
+
+            The namespace handling in a xeno:space gives us a mapping from (UTF-8) strings to integers.
+            Each place in a space has a name which then maps to an integer.
+            The set of integers mapping to places such comprise to an alphabet of valid symbols.
+
+            Once having this alphabet, the path from the root to a given element can be written as a 
+            sequence of integers. Just like a sequence of characters are interpreted as a word, 
+            a sequence of words will form a sentence. In a given (name)space, each place P therefore may
+            be designated by a sentence, which contains exactly the words necessary to get to P from 
+            anywhere within that (name)space. A contact from another (outer?) space will be able
+            to reach P with just one sentence.
+
+            Finding this sequence for each place in the space will then comprise to the set of sentences 
+            which are valid designations in that space.
+            
+            Now each place also has a number of other unique caracteristics. For one, there is the 
+            position of a place, as encountered in a linear traversal of the containing space. Counting
+            from 0 that gives us a unique integer for each place in the space, and hence a mapping for each
+            sentence.
+
+        </recursive>
+        
+        <![CDATA[
+        Mashup of form / user-agent / proxy / port
+        - quite experimental
+        ]]>
+        
+        <visitors>
+            <!-- a visiting contact has an origin - sending it via a subprotocol works like a proxy -->
+            <xeno:http proto="https" action="url:" Content-Type="application/x-www-form-urlencoded">
+                <!-- fullname=Kurt Gödel&copy=false -->
+            </xeno:http>
+            <!-- Forms as a special kind of contact? -->
+        </visitors>
+        
+        <!-- or rather -->
+        <user-agent>
+            <!-- a contact is sent to another context with part of the payload -->
+            <xeno:contact href="http://other.example.info" method="PUT" src="that:/data/for/other/system"/>
+        </user-agent>
+        
+        
+        <!-- accessible via ws://host:8901/musings/events/topics -->
+        <events>
+            <xeno:ws size="100" Access-Control-Allow-Origin="trusted.dom.ain">
+                <!-- max. 100 subscribers aka connections -->
+                <topics>
+                    <xeno:stash type="application/javascript">initialMessageForSubscribers</xeno:stash>
+                </topics>
+            </xeno:ws>
+        </events>
+    </musings>
+</xeno:space>

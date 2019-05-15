@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml-stylesheet href="/extras" type="text/css"?>
+<xeno:space name="Experiments in styling" xmlns:xeno="xeno:XENOmat">
+	<xeno:http port="8901"/>
+	<blueprint>
+	</blueprint>
+	<extras>
+		<xeno:copy type="text/css" id="style">
+@namespace xeno url(xeno:XENOmat);
+*,
+xeno|* {
+	display: block;
+	clear: right;
+	color: black;
+	background-color: whitesmoke;
+	font-size: 14pt;
+	font-family: sans-serif;
+	font-weight: 100;
+	margin: .314em;
+	padding: .5pt;
+	border: .5pt solid #333C;
+}
+*:before,
+xeno|*:before {
+	display: block;
+	padding: .314em;
+}
+xeno|*:before {
+	background-color: #ABBA;
+	font-weight: bolder;
+}
+xeno|space:before{
+	content: attr(name);
+	color: #EEE;
+	background-color: #9A9;
+	font-size: larger;
+}
+blueprint:before{content:'blueprint';}
+extras:before{content:'extras';}
+reset:before{content:'reset';}
+hello:before{content:'hello';}
+world:before{content:'world';}
+this:before{content:'this';}
+is:before{content:'is';}
+a:before{content:'a';}
+very:before{content:'very';}
+long:before{content:'long';}
+path:before{content:'path';}
+just:before{content:'just';}
+to:before{content:'to';}
+test:before{content:'test';}
+
+xeno|http:before{content:'xeno:http';}
+xeno|copy:before{content:'xeno:copy';}
+xeno|blueprint:before{content:'xeno:blueprint';}
+xeno|reset:before{content:'xeno:reset';}
+
+xeno|*:after {
+	content: none;
+}
+xeno|space extras {
+	content: none;
+}
+xeno|*:active {
+	transform: rotate(5deg);
+	transform-origin: 50% 50%;
+}
+xeno|space *:hover,
+xeno|space xeno|*:hover {
+	border: .5pt solid transparent;
+	box-shadow: -.5pt -.5pt 2pt 2pt rgba(0,0,0,0.5);
+	transform: translate(.5pt,.5pt);
+}
+xeno|copy {
+	white-space: pre-line;
+	tab-size: 4;
+}
+		</xeno:copy>
+		<reset><xeno:reset/></reset>
+	</extras>
+	<hello>
+		<world>
+			<xeno:copy>Yup</xeno:copy>
+		</world>
+	</hello>
+	<and><this><is><a><very><long><path><just><to><test>{ garbage: 'collector'; }
+	</test></to></just></path></long></very></a></is></this></and>
+  <xeno:blueprint type="text/xml"/>
+</xeno:space>

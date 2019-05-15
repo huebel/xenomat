@@ -1,0 +1,84 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="hrs" class="hand">
+<rect x="48" y="25" width="4" height="40"></rect>
+</g>
+<g id="min" class="hand">
+<rect x="48.5" y="10" width="3" height="50"></rect>
+</g>
+<g id="sec" class="hand">
+<rect x="49.5" y="15" width="1" height="50"></rect>
+<circle cx="50" cy="15" r="4"></circle>
+</g>
+<circle id="center" r="1.75" cx="50" cy="50"></circle>
+<defs>
+<radialGradient id="bulb" cx="50%" cy="50%" r="75%">
+  <stop offset="0%" style="stop-color:#fff;"/>
+  <stop offset="50%" style="stop-color:#555;"/>
+  <stop offset="100%" style="stop-color:#333;"/>
+</radialGradient>
+<!-- 
+The "sync" style defines the starting state of the       
+animation. A negative delay behaves like a fast forward.
+The formula for each hand is to subtract the number of
+seconds for a full cycle of the hand from the number of
+seconds until noon or midnight. The following CSS sets
+sets the time to 11:59:57 (AM or PM):
+
+#hrs {
+animation-delay: -43197s; /* Full cycle is 43200 seconds */
+}
+#min {
+animation-delay: -3597s; /* Full cycle is 3600 seconds */
+}
+#sec {
+animation-delay: -57s; /* Full cycle is 60 seconds */
+}
+-->
+<style>
+@keyframes sweep {
+  0% { transform: rotate(0deg); }
+97.5%{ transform: rotate(360deg); }
+100% { transform: rotate(360deg); }
+}
+@-webkit-keyframes sweep {
+  0% { -webkit-transform: rotate(0deg); }
+97.5%{ -webkit-transform: rotate(360deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes turn {
+  0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+@-webkit-keyframes turn {
+  0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+.hand {
+transform-origin: 50px 50px;
+-webkit-transform-origin: 50px 50px;
+}
+#sec {
+animation: sweep 60s linear infinite;
+-webkit-animation: sweep 60s linear infinite;
+}
+#min {
+animation: turn 3600s steps(60,end) infinite;
+-webkit-animation: turn 3600s steps(60,end) infinite;
+}
+#hrs {
+animation: turn 43200s linear infinite;
+-webkit-animation: turn 43200s linear infinite;
+}
+#hrs, #min {
+fill: black;
+stroke: lightgray;
+stroke-width: .2pt;
+}
+#sec {
+fill: red;
+}
+#center {
+fill: url(#bulb);
+}
+</style>
+</defs></svg>
