@@ -536,7 +536,6 @@ gives directions of where to find different
             </admin>
         </database>
         
-        
         <xeno:sloppy>
             <!-- paths within this sector will be interpreted sloppy -->
             <context/>
@@ -545,6 +544,12 @@ gives directions of where to find different
             <consens/>
             <contens alt="nonsens"/>
         </xeno:sloppy>
+        
+        <xeno:L337>
+            <h3ll0>
+                <w0rld><xeno:copy></xeno:copy></w0rld>
+            </h3ll0>
+        </xeno:L337>
 
         <recursive ns="this">
 
