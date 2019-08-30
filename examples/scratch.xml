@@ -7,13 +7,23 @@
         If you were to start from scratch, what would you "really need" in
         order to build an information system that minimises resource usage?
         
-        To answer that question with at least some accuracy, you'd have to
+        To answer that question with at least some accuracy, we must first
         define what "information system" and "minimises resource usage" is
-        supposed to mean. So let's have a look at those terms isolated, at 
-        least at first. Starting with a conservative approach to a growing 
-        field of "green tech," let us discuss resources and their use.
+        supposed to mean. We shall have a look at these terms in isolation
+        and begin by discussing resources and their use.
         
-        There are many reasons to focus on the use of resources, one of them 
+        There are many meanings to the word "resource", but common to them
+        is that they all are associated with some kind of costs. Hence our
+        focus on resource usage will be quite broad, and take into account
+        both the economics of software development and the energy usage of
+        the physical system.
+        
+        Planning, implementing, testing, deploying, and maintenance of any
+        system requires time, skilled people, and a working infrastructure.
+        
+        A running system requires energy.
+        
+        One of the most compelling reasons to focus on resource usage is that 
         being energy savings in mobile or remote devices. Another reason
         is the inherent value of having a well defined cost of computation.
         
