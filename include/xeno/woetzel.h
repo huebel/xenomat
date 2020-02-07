@@ -88,7 +88,6 @@ struct io_enum_traits {
 #define IO_INNER_DEF(m,val) m(io.io_text_def(m,val))
 #define IO_LINK(m)          m(io.io_link(#m,m))
 #define IO_PART(m)          m(io.io_part(#m,m))
-//#define IO_STD(c)  	        c(io.io_std(c))
 #define IO_VECTOR(e,c)      c(std::move(io.io_list(#e,#c, c)))
 #define IO_LIST(e,c)        IO_VECTOR(e,c)
 

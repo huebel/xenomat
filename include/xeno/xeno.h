@@ -15,7 +15,7 @@
 #include <iostream>
 
 // This is the version
-#define XENO_VERSION "2.5.0-XI" // @suppress("Obsolete object-like macro")
+#define XENO_VERSION "2.5.0-CE" // @suppress("Obsolete object-like macro")
 
 // This is the platform
 #if defined(XENO_WINDOWS)

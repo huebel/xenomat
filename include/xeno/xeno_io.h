@@ -257,7 +257,8 @@ struct context_reader: io_object<context_reader> {
 	T io_attr(const char* name, const T& /*val*/)
 	{
 		// TODO: make the IO_ATTR macro provide the @
-		std::string attr_name("@"); attr_name.append(name);
+		std::string attr_name("@");
+		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current());
 //		TRACE("R::io_attr(@%s,val) @ %s %s [%s]\n", name, current().qname(), attr.defined() ? "found" : "FAIL!", typeid(T).name());
 		assert(attr.defined() && !attr.empty());
@@ -268,7 +269,8 @@ struct context_reader: io_object<context_reader> {
 	template <typename T>
 	const T io_attr_nul(const char* name, const T& /*val*/)
 	{
-		std::string attr_name("@"); attr_name.append(name);
+		std::string attr_name("@");
+		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current());
 
 		if (attr.defined()) {
@@ -286,7 +288,8 @@ struct context_reader: io_object<context_reader> {
 	template <typename T>
 	const T io_attr_def(const char* name, const T& /*val*/, const T& def)
 	{
-		std::string attr_name("@"); attr_name.append(name);
+		std::string attr_name("@");
+		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current());
 //		TRACE("R::io_attr_def(@%s,val) @ %s %s\n", name, current().qname(), attr.defined() ? "found" : "FAIL!");
 		if (attr.defined() && !attr.empty()) {
@@ -297,7 +300,8 @@ struct context_reader: io_object<context_reader> {
 
 	const std::string& io_attr(const char* name, const std::string& /*str*/)
 	{
-		std::string attr_name("@"); attr_name.append(name);
+		std::string attr_name("@");
+		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current());
 //      TRACE("R::io_attr('@%s', str) @ %s %s\n", name, current().qname(), attr.defined() ? "found" : "FAIL!");
 		assert(attr.defined());
@@ -306,7 +310,8 @@ struct context_reader: io_object<context_reader> {
 
 	const std::string& io_attr_nul(const char* name, const std::string& /*str*/)
 	{
-		std::string attr_name("@"); attr_name.append(name);
+		std::string attr_name("@");
+		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current(), singularity<std::string>::undefined.c_str());
 		return attr.defined() ? attr : singularity<std::string>::undefined;
 
@@ -314,7 +319,8 @@ struct context_reader: io_object<context_reader> {
 
 	const std::string& io_attr_def(const char* name, const std::string& /*str*/, const std::string& def)
 	{
-		std::string attr_name("@"); attr_name.append(name);
+		std::string attr_name("@");
+		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current());
 		return attr.defined() ? attr : def;
 	}
@@ -322,7 +328,8 @@ struct context_reader: io_object<context_reader> {
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
 	const E io_enum(const char* name, const E& /*val*/)
 	{
-		std::string attr_name("@"); attr_name.append(name);
+		std::string attr_name("@");
+		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current());
 //		TRACE("R::io_enum(@%s,val) @ %s %s\n", name, current().qname(), attr.defined() ? attr.c_str() : "FAIL!");
 		assert(attr.defined() && !attr.empty());
