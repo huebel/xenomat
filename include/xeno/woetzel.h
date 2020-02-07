@@ -88,13 +88,13 @@ struct io_enum_traits {
 #define IO_INNER_DEF(m,val) m(io.io_text_def(m,val))
 #define IO_LINK(m)          m(io.io_link(#m,m))
 #define IO_PART(m)          m(io.io_part(#m,m))
-#define IO_STD(c)  	        c(io.io_std(c))
+//#define IO_STD(c)  	        c(io.io_std(c))
+#define IO_VECTOR(e,c)      c(std::move(io.io_list(#e,#c, c)))
+#define IO_LIST(e,c)        IO_VECTOR(e,c)
 
 #define IO_INIT {
 
-#define IO_ARRAY(c)         io.io_list(#c, &c[0], c+(sizeof(c)/sizeof(c[0])));
-#define IO_VECTOR(c)        io.io_list(#c, c);
-// #define IO_LIST(c)         IO_VECTOR(c)
+#define IO_ARRAY(e,c)       io.io_list(#e, #c, &c[0], c+(sizeof(c)/sizeof(c[0])));
 
 #define IO_END }
 

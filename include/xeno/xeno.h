@@ -51,11 +51,11 @@
 
 #if defined(XENO_CORE_BUILD)
 
-#define XENO_EXPORT __attribute__ ((weak)) __attribute__ ((visibility ("default")))
+#define XENO_EXPORT __attribute__ ((visibility ("default")))
 
 #else
 
-#define XENO_EXPORT __attribute__ ((visibility ("default")))
+#define XENO_EXPORT /* __attribute__ ((visibility ("hidden"))) */
 
 #endif
 
@@ -75,15 +75,15 @@ namespace xeno XENO_NAMESPACE_EXPORT {
 // Constants for MIME types
 // @suppress("Use std::array instead of C-Array.")
 struct XENO_EXPORT type {
-	static const char ANY[] XENO_EXPORT;
-	static const char TEXT[] XENO_EXPORT;
-	static const char CSS[] XENO_EXPORT;
-    static const char XSL[] XENO_EXPORT;
-	static const char XML[] XENO_EXPORT;
-	static const char HTML[] XENO_EXPORT;
-	static const char SVG[] XENO_EXPORT;
-	static const char ECMA[] XENO_EXPORT;
-	static const char BLOB[] XENO_EXPORT;
+	XENO_EXPORT static const char ANY[];
+	XENO_EXPORT static const char TEXT[];
+	XENO_EXPORT static const char CSS[];
+	XENO_EXPORT static const char XSL[];
+	XENO_EXPORT static const char XML[];
+	XENO_EXPORT static const char HTML[];
+	XENO_EXPORT static const char SVG[];
+	XENO_EXPORT static const char ECMA[];
+	XENO_EXPORT static const char BLOB[];
 };
 
 struct XENO_EXPORT action;
