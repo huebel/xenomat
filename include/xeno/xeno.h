@@ -15,7 +15,7 @@
 #include <iostream>
 
 // This is the version
-#define XENO_VERSION "2.5.0-CE" // @suppress("Obsolete object-like macro")
+#define XENO_VERSION "2.7.0-CE" // @suppress("Obsolete object-like macro")
 
 // This is the platform
 #if defined(XENO_WINDOWS)
@@ -28,7 +28,7 @@
 
 
 /**
- *  TODO: for version 2.5
+ *  TODO: for letting templates serve a structure for accessing on compile time
  *
  *
 
@@ -51,11 +51,19 @@
 
 #if defined(XENO_CORE_BUILD)
 
+#ifdef XENO_DARWIN
+#define XENO_EXPORT __attribute__ ((weak)) __attribute__ ((visibility ("default")))
+#else
 #define XENO_EXPORT __attribute__ ((visibility ("default")))
+#endif
 
 #else
 
+#ifdef XENO_DARWIN
 #define XENO_EXPORT /* __attribute__ ((visibility ("hidden"))) */
+#else
+#define XENO_EXPORT /* __attribute__ ((visibility ("hidden"))) */
+#endif
 
 #endif
 
@@ -89,6 +97,11 @@ struct XENO_EXPORT type {
 struct XENO_EXPORT action;
 
 struct XENO_EXPORT contens;
+// like a <list><a/><b/><c/></list>, has a size of 4 cells.
+
+struct XENO_EXPORT sequens;
+// is like a list too, but ordered in both depth and width
+// like <list><a><b><c/></b></a></list> still only 4 cells.
 
 struct XENO_EXPORT contact;
 
@@ -102,6 +115,7 @@ struct XENO_EXPORT context
 	bool empty() const;
 	context& push_back(const context& source);
 	context& push_back(const contens& source);
+	context& push_back(const sequens& source);
 	// Not copy- or assignable
 	context() {};
 	context(const context&) = delete;
@@ -110,8 +124,9 @@ struct XENO_EXPORT context
 
 struct XENO_EXPORT contens
 {
-	// This structure can enumerate the direct descendant contexts (plural!?) of its origin
-	// The origin of a sequence is the structure that wraps the sequence.
+	// This structure can enumerate the direct descendant contexts (plural!?) of its origin.
+	// The origin of a 'contens' (here implemented as 'this_context') is the 'context' which
+	// wraps it.
 	explicit contens(const context& origin);
 	inline contens(const contens& rhs)
 	:	this_context(rhs.this_context)
@@ -164,7 +179,7 @@ struct XENO_EXPORT context_object
 		return c_str();
 	}
 	const char* c_str() const;
-	bool defined() const {
+	inline bool defined() const {
 		return _value != 0;
 	}
 	bool empty() const;
@@ -243,7 +258,7 @@ struct XENO_EXPORT document;
 
 struct XENO_EXPORT contact : context
 {
-    // Test contact payload capabilites
+    // Test contact payload capabilities
 	bool will_accept(const char* type) const;
 	bool can_deliver(const char* type) const;
 	bool will_destroy() const;
@@ -256,6 +271,7 @@ struct XENO_EXPORT contact : context
 	// Inspect payload (will read_stream_data on demand)
 	document& content();
 	// Payload construction
+	bool parse(const std::string& xml_source);
 	contact& text(const char* string);
 	contact& xml(const context& source);
 	int content_length() const;

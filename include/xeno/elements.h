@@ -125,6 +125,15 @@ inline const xeno::context& find_child_element(const xeno::context& src, const c
 #endif//XENO_USE_LAMBDAS
 
 
+template <typename ContextAction>
+inline void for_each(xeno::sequens nodes, ContextAction action)
+{
+	while (!nodes.empty()) {
+		action(nodes.head());
+		nodes = nodes.tail();
+	}
+}
+
 template <typename ElementAction>
 inline xeno::context& for_each_element(xeno::context& s, ElementAction action)
 {
@@ -132,7 +141,7 @@ inline xeno::context& for_each_element(xeno::context& s, ElementAction action)
 	while (!nodes.empty()) {
 		nodes.skip_until<xeno::element>();
 		if (!nodes.empty()) {
-			action(nodes.head());
+			action(static_cast<element&>(nodes.head()));
 			nodes = nodes.tail();
 		}
 	}
@@ -146,12 +155,13 @@ inline const xeno::context& for_each_element(const xeno::context& s, ElementActi
 	while (!nodes.empty()) {
 		nodes.skip_until<xeno::element>();
 		if (!nodes.empty()) {
-			action(nodes.head());
+			action(static_cast<const element&>(nodes.head()));
 			nodes = nodes.tail();
 		}
 	}
 	return s;
 }
+
 
 inline xeno::context& documentElement(xeno::context& data) {
 	xeno::contens children(data);
@@ -164,6 +174,12 @@ inline const xeno::context& documentElement(const xeno::context& data) {
 	children.skip_until<xeno::element>();
 	return children.empty() ? data : children.head();
 }
+
+
+element* parent(element& e);
+
+const element* parent(const element& e);
+
 
 } // namespace xeno
 

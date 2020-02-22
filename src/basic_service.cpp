@@ -24,7 +24,7 @@ void basic_service::invoke(contact& visitor, sequens& route)
 		visitor.blame();
 	}
 	else {
-		if (!type.defined()) xml_preample(visitor);
+		if (!type.defined()) make_xml_preample(visitor);
 		contens initial_route(route.head());
 		element& root = visitor.content().element().child(route.heading());
 		route = route.tail();

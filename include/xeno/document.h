@@ -16,7 +16,7 @@ namespace xeno XENO_NAMESPACE_EXPORT {
 
 struct XENO_EXPORT element;
 
-context& xml_preample(context& document, const char* stylesheet = 0, const char* style_type = 0);
+context& make_xml_preample(context& document, const char* stylesheet = 0, const char* style_type = 0);
 
 element& make_element(context& document, const char* qname) XENO_EXPORT;
 
@@ -65,8 +65,12 @@ struct XENO_EXPORT element : public context {
     inline element& text(const char* buffer, size_t buflen) {
         return make_text(*this, buffer, buflen);
     }
-	element& text_element(const std::string& qname, const std::string& text) {
+	inline element& text_element(const std::string& qname, const std::string& text) {
 		make_text_element(*this, qname.c_str(), text.c_str());
+		return *this;
+	}
+	inline element& text_element(const char* qname, const char* text) {
+		make_text_element(*this, qname, text);
 		return *this;
 	}
 };
@@ -87,10 +91,17 @@ private:
 };
 
 
-inline element& xml_document(context& context, const char* document_element_name, const char* stylesheet = 0)
+inline element& make_xml_document(context& context, const char* document_element_name, const char* stylesheet = 0)
 {
-	return make_element(xml_preample(context, stylesheet), document_element_name);
+	return make_element(make_xml_preample(context, stylesheet), document_element_name);
 }
+
+inline element& make_xml_document(context& context, const std::string& document_element_name)
+{
+	return make_element(make_xml_preample(context), document_element_name.c_str());
+}
+
+bool xml_parse(context& context, const std::string& source) XENO_EXPORT;
 
 // OUTPUT
 
