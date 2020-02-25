@@ -22,7 +22,7 @@
 namespace boost {
 
     template<>
-    bool lexical_cast<bool, std::string>(const std::string& arg) {
+    inline bool lexical_cast<bool, std::string>(const std::string& arg) {
         std::istringstream ss(arg);
         bool b;
         ss >> std::boolalpha >> b;
@@ -30,7 +30,7 @@ namespace boost {
     }
 
     template<>
-    std::string lexical_cast<std::string, bool>(const bool& b) {
+    inline std::string lexical_cast<std::string, bool>(const bool& b) {
         std::ostringstream ss;
         ss << std::boolalpha << b;
         return ss.str();
@@ -334,6 +334,15 @@ struct context_reader: io_object<context_reader> {
 //		TRACE("R::io_enum(@%s,val) @ %s %s\n", name, current().qname(), attr.defined() ? attr.c_str() : "FAIL!");
 		assert(attr.defined() && !attr.empty());
 		E value = IO_ENUM_TRAITS::string_to_enum(attr.c_str());
+		return value;
+	}
+
+	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
+	const E io_enum_text(const char* name, const E& /*val*/)
+	{
+		xeno::textvalue text(name, current());
+		assert(text.defined() && !text.empty());
+		E value = IO_ENUM_TRAITS::string_to_enum(text.c_str());
 		return value;
 	}
 
