@@ -127,6 +127,14 @@ struct context_writer: io_object<context_writer> {
 		return val;
 	}
 
+	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
+	const E io_enum_text(const char* name, const E& val)
+	{
+		std::string value(IO_ENUM_TRAITS::enum_to_string(val));
+		current().text(value);
+		return val;
+	}
+
 	template <typename T>
 	const T& io_text(const T& val)
 	{
