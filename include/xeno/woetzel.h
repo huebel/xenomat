@@ -82,13 +82,15 @@ struct io_enum_traits {
 #define IO_ATTR_OPT(m)      m(io.io_attr_def(#m,m,m))
 // For IO_ENUM you can make a specialisation of the io_enum_traits template above
 #define IO_ENUM(m)          m(io.io_enum(#m,m))
+#define IO_ENUM_TEXT(m)     m(io.io_enum_text(#m,m))
 #define IO_TEXT(m)          m(io.io_text(#m,m))
 #define IO_INNER(m)         m(io.io_text(m))
 #define IO_INNER_NUL(m)     m(io.io_text_nul(m))
 #define IO_INNER_DEF(m,val) m(io.io_text_def(m,val))
 #define IO_LINK(m)          m(io.io_link(#m,m))
 #define IO_PART(m)          m(io.io_part(#m,m))
-#define IO_VECTOR(e,c)      c(std::move(io.io_list(#e,#c, c)))
+#define IO_VECTOR(e,c)      c(std::move(io.io_list(#e,#c,c)))
+#define IO_ANON_LIST(c)  	c(std::move(io.io_list(#c,nullptr,c)))
 #define IO_LIST(e,c)        IO_VECTOR(e,c)
 
 #define IO_INIT {
