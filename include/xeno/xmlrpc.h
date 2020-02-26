@@ -16,6 +16,8 @@
 #include <urdl/url.hpp>
 #include <urdl/read_stream.hpp>
 
+#include "xmlrpc_struct_writer.h"
+
 namespace xeno {
 namespace xmlrpc {
 
@@ -46,6 +48,8 @@ class struct_t {
 public:
 	value_t operator[](const char* name) const;
 	bool has_member(const char* name) const;
+	template <typename T>
+	void add_member(const char* name, const T& value);
 private:
 	struct_t(const xeno::element& struct_data);
 	std::map<const std::string, value_t> values;
@@ -56,7 +60,7 @@ friend
 class value_t {
 public:
 	value_t(const xeno::element& v)
-	: value(v)
+	:	value(v)
 	{
 		assert(!strcmp(v.qname(), "value"));
 	}
@@ -76,7 +80,7 @@ public:
 		return s.str();
 	}
 	int get_int() const {
-		xeno::textvalue s("i4", value, "0");
+		xeno::textvalue s("int", value, "0");
 		return std::atoi(s.c_str());
 	}
 	bool get_boolean() const {
@@ -145,38 +149,58 @@ private:
 
 class method {
 public:
-	method(const std::string& methodName)
-	:	stack(1024<<4)
+	method(const std::string& methodName, size_t stack_size = 1024<<4)
+	:	stack(stack_size)
 	{
 		auto& methodCall = make_xml_document(stack.content(), "methodCall");
 		methodCall.elem("methodName").text(methodName);
 		params = &methodCall.elem("params");
+		fault.clear();
 	}
-	template <typename T>
-	void add_param(const T& value) {
-		add_value(params->child("param").child("value"), value);
+	// simple types
+	void add_param(const std::string& value) {
+		param_value("string").text(value);
 	}
-	void add_value(xeno::element& param, const std::string& value) {
-		param.child("string").text(value);
+	void add_param(const char* value) {
+		param_value("string").text(value);
 	}
-	void add_value(xeno::element& param, int value) {
-		param.child("i4").text(std::to_string(value));
+	void add_param(xeno::element& param, int value) {
+		param_value("i4").text(std::to_string(value));
 	}
-	void add_value(xeno::element& param, bool value) {
-		param.child("boolean").text(value ? "1" : "0");
+	void add_param(xeno::element& param, double value) {
+		param_value("double").text(std::to_string(value));
 	}
+	void add_param(xeno::element& param, bool value) {
+		param_value("boolean").text(value ? "1" : "0");
+	}
+	// <struct/>
+	template <typename Struct>
+	void add_param(const Struct& value) {
+		xmlrpc_struct_writer(param_value("struct")).apply(value);
+	}
+	int error_code() const { return fault.faultCode; }
+	const std::string& error_string() const { return fault.faultString; }
 	value_t get_result() {
 		assert(params);
 		auto* param = xeno::find_element(*params, "param/value");
 		assert(param);
 		return value_t(*param);
 	}
-//	std::ostream& dump(std::ostream& os) {
-//		return xeno::xml_output(os, stack.content()) << std::endl;
-//	}
+	std::ostream& dump(std::ostream& os) {
+		return xeno::xml_output(os, stack.content()) << std::endl;
+	}
 private:
 	xeno::local_context stack;
 	xeno::element* params;
+	struct {
+		int faultCode;
+		std::string faultString;
+		void clear() { faultCode=0; faultString.clear(); }
+	} fault;
+	// Helper functions
+	xeno::element& param_value(const char* type) {
+		return params->child("param").child("value").child(type);
+	}
 friend
 	class endpoint;
 };
@@ -187,8 +211,9 @@ void endpoint::call(method& m, boost::system::error_code& ec) {
 	urdl::read_stream is(ios);
 
 	std::ostringstream payload; xeno::xml_output(payload, m.stack.content());
-
 //	TRACE("%s: payload:\n%s\n", __func__, payload.str().c_str());
+
+	m.fault.clear();
 
 	is.set_option(urdl::http::request_method("POST"));
 	is.set_option(urdl::http::request_content_type(xeno::type::XML));
@@ -202,6 +227,14 @@ void endpoint::call(method& m, boost::system::error_code& ec) {
 		if (xeno::xml_parse(m.stack.content(), returned_content)) {
 //			m.dump(std::cout);
 			m.params = xeno::find_element(m.stack.content(), "methodResponse/params");
+			if (!m.params) {
+				auto* fault = xeno::find_element(m.stack.content(), "methodResponse/fault/value");
+				if (fault) {
+					struct_t f = value_t(*fault).get_struct();
+					m.fault.faultCode = f["faultCode"].get_int();
+					m.fault.faultString = f["faultString"].get_string();
+				}
+			}
 		}
 		else {
 			m.params = nullptr;
