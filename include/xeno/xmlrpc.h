@@ -72,9 +72,18 @@ public:
 		return struct_t(*_struct);
 	}
 	std::string get_string() const {
-		xeno::textvalue s("string", value);
-		assert(s.defined());
+		xeno::textvalue s("string", value, "");
 		return s.str();
+	}
+	int get_int() const {
+		xeno::textvalue s("i4", value, "0");
+		return std::atoi(s.c_str());
+	}
+	bool get_boolean() const {
+		xeno::textvalue s("boolean", value);
+		assert(s.defined());
+		assert(s.str().length()==1);
+		return *s.c_str()=='1';
 	}
 private:
 	const xeno::element& value;
@@ -110,13 +119,13 @@ struct_t::struct_t(const xeno::element& struct_data)
 
 inline
 value_t struct_t::operator[](const char* name) const {
-	TRACE("xmlrpc::struct[%s]\n", name);
+//	TRACE("xmlrpc::struct[%s]\n", name);
 	return values.at(name);
 }
 
 inline
 bool struct_t::has_member(const char* name) const {
-	TRACE("xmlrpc::struct has_member(%s)\n", name);
+//	TRACE("xmlrpc::struct has_member(%s)\n", name);
 	return values.find(name) != values.end();
 }
 
@@ -162,9 +171,9 @@ public:
 		assert(param);
 		return value_t(*param);
 	}
-	std::ostream& dump(std::ostream& os) {
-		return xeno::xml_output(os, stack.content()) << std::endl;
-	}
+//	std::ostream& dump(std::ostream& os) {
+//		return xeno::xml_output(os, stack.content()) << std::endl;
+//	}
 private:
 	xeno::local_context stack;
 	xeno::element* params;
@@ -186,12 +195,12 @@ void endpoint::call(method& m, boost::system::error_code& ec) {
 	is.set_option(urdl::http::request_content(payload.str()));
 
 	if (!is.open(url, ec)) {
-		TRACE("open url %s\n", url.to_string().c_str());
+		TRACE("xmlrcp::endpoint::call - open url %s\n", url.to_string().c_str());
 		std::string returned_content(is.content_length(), 0);
 		boost::asio::read(is, boost::asio::buffer(&returned_content[0], returned_content.size()));
-		std::cout << std::endl << returned_content << std::endl << std::endl;
+//		std::cout << std::endl << returned_content << std::endl << std::endl;
 		if (xeno::xml_parse(m.stack.content(), returned_content)) {
-			m.dump(std::cout);
+//			m.dump(std::cout);
 			m.params = xeno::find_element(m.stack.content(), "methodResponse/params");
 		}
 		else {
@@ -199,7 +208,7 @@ void endpoint::call(method& m, boost::system::error_code& ec) {
 		}
 	}
 	else {
-		TRACE("could not open url? %s\n", ec.message().c_str());
+		TRACE("xmlrcp::endpoint::call - could not open url? %s\n", ec.message().c_str());
 		m.params = nullptr;
 	}
 }
