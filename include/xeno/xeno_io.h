@@ -74,7 +74,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	inline const T& io_attr(const char* name, const T& val)
+	inline const T io_attr(const char* name, const T val)
 	{
 		std::string value(boost::lexical_cast<std::string>(val));
 		current().attr(name, value);
@@ -82,7 +82,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	inline const T& io_attr_nul(const char* name, const T& val)
+	inline const T io_attr_nul(const char* name, const T val)
 	{
 		if (!singularity<T>::match(val)) {
 			std::string value(boost::lexical_cast<std::string>(val));
@@ -92,35 +92,36 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	inline const T& io_attr_def(const char* name, const T& val, const T& /*def*/)
+	inline const T io_attr_def(const char* name, const T val, const T& /*def*/)
 	{
 		std::string value(boost::lexical_cast<std::string>(val));
 		current().attr(name, value);
 		return val;
 	}
 
-	const std::string& io_attr(const char* name, const std::string& str)
-	{
-		current().attr(name, str);
-		return str;
-	}
+//	const std::string io_attr(const char* name, const std::string str)
+//	{
+//		current().attr(name, str);
+//		std::cout << "Indeed: " << str << std::endl;
+//		return str;
+//	}
 
-	const std::string& io_attr_nul(const char* name, const std::string& str)
-	{
-		if (!singularity<std::string>::match(str)) {
-			current().attr(name, str);
-		}
-		return str;
-	}
+//	const std::string& io_attr_nul(const char* name, const std::string& str)
+//	{
+//		if (!singularity<std::string>::match(str)) {
+//			current().attr(name, str);
+//		}
+//		return str;
+//	}
 
-	const std::string& io_attr_def(const char* name, const std::string& str, const std::string& /*def*/)
-	{
-		current().attr(name, str);
-		return str;
-	}
+//	const std::string& io_attr_def(const char* name, const std::string& str, const std::string& /*def*/)
+//	{
+//		current().attr(name, str);
+//		return str;
+//	}
 
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
-	const E& io_enum(const char* name, const E& val)
+	const E& io_enum(const char* name, const E val)
 	{
 		std::string value(IO_ENUM_TRAITS::enum_to_string(val));
 		current().attr(name, value);
@@ -128,7 +129,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
-	const E io_enum_text(const char* name, const E& val)
+	const E io_enum_text(const char* name, const E val)
 	{
 		std::string value(IO_ENUM_TRAITS::enum_to_string(val));
 		current().text(value);
@@ -136,7 +137,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	const T& io_text(const T& val)
+	const T io_text(const T val)
 	{
 		std::string value(boost::lexical_cast<std::string>(val));
 		current().text(value);
@@ -144,7 +145,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	const T& io_text(const char* name, const T& val)
+	const T io_text(const char* name, const T val)
 	{
 		std::string value(boost::lexical_cast<std::string>(val));
 		current().child(name).text(value);
@@ -152,7 +153,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	const T& io_text_def(const T& val, const T& def)
+	const T io_text_def(const T val, const T def)
 	{
 		if (val != def) {
 			std::string value(boost::lexical_cast<std::string>(val));
@@ -162,7 +163,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	const T& io_text_nul(const T& val)
+	const T io_text_nul(const T val)
 	{
 		if (!singularity<T>::match(val)) {
 			std::string value(boost::lexical_cast<std::string>(val));
@@ -182,12 +183,10 @@ struct context_writer: io_object<context_writer> {
 		}
 	}
 
-	template <typename T>
-	this_io_t& io_part(const char* name, T& object)
+	this_io_t io_part(const char* name)
 	{
 		xeno::element& target = current().child(name);
-		scope.push_back(&target);
-		return *this;
+		return this_io_t(target);
 	}
 
 	template <typename ForwardIterator>
@@ -262,7 +261,7 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename T>
-	T io_attr(const char* name, const T& /*val*/)
+	T io_attr(const char* name, const T /*val*/)
 	{
 		// TODO: make the IO_ATTR macro provide the @
 		std::string attr_name("@");
@@ -270,12 +269,12 @@ struct context_reader: io_object<context_reader> {
 		xeno::attribute attr(attr_name.c_str(), current());
 //		TRACE("R::io_attr(@%s,val) @ %s %s [%s]\n", name, current().qname(), attr.defined() ? "found" : "FAIL!", typeid(T).name());
 		assert(attr.defined() && !attr.empty());
-		T value = boost::lexical_cast<T>(attr.c_str());
+		T value = boost::lexical_cast<T>(attr.str());
 		return value;
 	}
 
 	template <typename T>
-	const T io_attr_nul(const char* name, const T& /*val*/)
+	const T io_attr_nul(const char* name, const T /*val*/)
 	{
 		std::string attr_name("@");
 		attr_name.append(name);
@@ -283,7 +282,7 @@ struct context_reader: io_object<context_reader> {
 
 		if (attr.defined()) {
 			try {
-				T value = boost::lexical_cast<T>(attr.c_str());
+				T value = boost::lexical_cast<T>(attr.str());
 				return value;
 			}
 			catch (boost::bad_lexical_cast& ex) {
@@ -294,47 +293,47 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename T>
-	const T io_attr_def(const char* name, const T& /*val*/, const T& def)
+	const T io_attr_def(const char* name, const T /*val*/, const T def)
 	{
 		std::string attr_name("@");
 		attr_name.append(name);
 		xeno::attribute attr(attr_name.c_str(), current());
 //		TRACE("R::io_attr_def(@%s,val) @ %s %s\n", name, current().qname(), attr.defined() ? "found" : "FAIL!");
 		if (attr.defined() && !attr.empty()) {
-			return boost::lexical_cast<T>(attr.c_str());
+			return boost::lexical_cast<T>(attr.str());
 		}
 		return def;
 	}
 
-	const std::string& io_attr(const char* name, const std::string& /*str*/)
-	{
-		std::string attr_name("@");
-		attr_name.append(name);
-		xeno::attribute attr(attr_name.c_str(), current());
-//      TRACE("R::io_attr('@%s', str) @ %s %s\n", name, current().qname(), attr.defined() ? "found" : "FAIL!");
-		assert(attr.defined());
-		return attr;
-	}
+//	const std::string& io_attr(const char* name, const std::string& /*str*/)
+//	{
+//		std::string attr_name("@");
+//		attr_name.append(name);
+//		xeno::attribute attr(attr_name.c_str(), current());
+////      TRACE("R::io_attr('@%s', str) @ %s %s\n", name, current().qname(), attr.defined() ? "found" : "FAIL!");
+//		assert(attr.defined());
+//		return attr;
+//	}
 
-	const std::string& io_attr_nul(const char* name, const std::string& /*str*/)
-	{
-		std::string attr_name("@");
-		attr_name.append(name);
-		xeno::attribute attr(attr_name.c_str(), current(), singularity<std::string>::undefined.c_str());
-		return attr.defined() ? attr : singularity<std::string>::undefined;
+//	const std::string& io_attr_nul(const char* name, const std::string& /*str*/)
+//	{
+//		std::string attr_name("@");
+//		attr_name.append(name);
+//		xeno::attribute attr(attr_name.c_str(), current(), singularity<std::string>::undefined.c_str());
+//		return attr.defined() ? attr : singularity<std::string>::undefined;
+//
+//	}
 
-	}
-
-	const std::string& io_attr_def(const char* name, const std::string& /*str*/, const std::string& def)
-	{
-		std::string attr_name("@");
-		attr_name.append(name);
-		xeno::attribute attr(attr_name.c_str(), current());
-		return attr.defined() ? attr : def;
-	}
+//	const std::string& io_attr_def(const char* name, const std::string& /*str*/, const std::string& def)
+//	{
+//		std::string attr_name("@");
+//		attr_name.append(name);
+//		xeno::attribute attr(attr_name.c_str(), current());
+//		return attr.defined() ? attr : def;
+//	}
 
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
-	const E io_enum(const char* name, const E& /*val*/)
+	const E io_enum(const char* name, const E /*val*/)
 	{
 		std::string attr_name("@");
 		attr_name.append(name);
@@ -346,7 +345,7 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
-	const E io_enum_text(const char* name, const E& /*val*/)
+	const E io_enum_text(const char* name, const E /*val*/)
 	{
 		xeno::textvalue text(name, current());
 		assert(text.defined() && !text.empty());
@@ -360,7 +359,7 @@ struct context_reader: io_object<context_reader> {
 //		TRACE("R::io_text('%s')\n", name);
 		xeno::textvalue text(name, current());
 		assert(text.defined() && !text.empty());
-		T value = boost::lexical_cast<T>(text.c_str());
+		T value = boost::lexical_cast<T>(text.str());
 		return value;
 	}
 
@@ -370,7 +369,7 @@ struct context_reader: io_object<context_reader> {
 //		TRACELN("R::io_text(.)");
 		xeno::textvalue text(current());
 		assert(text.defined() && !text.empty());
-		T value = boost::lexical_cast<T>(text.c_str());
+		T value = boost::lexical_cast<T>(text.str());
 		return value;
 	}
 
@@ -381,7 +380,7 @@ struct context_reader: io_object<context_reader> {
 		xeno::textvalue text(current());
 		if (text.defined() && !text.empty()) {
 			try {
-				T value = boost::lexical_cast<T>(text.c_str());
+				T value = boost::lexical_cast<T>(text.str());
 				return value;
 			}
 			catch (boost::bad_lexical_cast& ex) {
@@ -392,13 +391,13 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename T>
-	const T io_text_nul(const T& val)
+	const T io_text_nul(const T& /*val*/)
 	{
 //		TRACELN("R::io_text_nul");
 		xeno::textvalue text(current());
 		if (text.defined() && !text.empty()) {
 			try {
-				T value = boost::lexical_cast<T>(text.c_str());
+				T value = boost::lexical_cast<T>(text.str());
 				return value;
 			}
 			catch (boost::bad_lexical_cast& ex) {
@@ -422,13 +421,11 @@ struct context_reader: io_object<context_reader> {
 		return 0;
 	}
 
-	template <typename T>
-	inline this_io_t& io_part(const char* name, T& object)
+	context_reader io_part(const char* name)
 	{
 		const xeno::element* target = xeno::find_element(current(), name);
 		assert(target);
-		scope.push_back(target);
-		return *this;
+		return context_reader(*target);
 	}
 
 	template <typename ForwardIterator>
@@ -453,8 +450,8 @@ struct context_reader: io_object<context_reader> {
 //		TRACE("R::io_list('%s','%s')@%s:\n", element_name, container_name, current().qname());
 		if (container_name && (source = xeno::find_element(current(), container_name))) {
 			scope.push_back(source);
+			assert(!::strcmp(current().qname(), container_name));
 		}
-		assert(container_name ? !::strcmp(current().qname(), container_name) : true);
 		Container container;
 		xeno::contens list(current());
 		while (!list.empty()) {
