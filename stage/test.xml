@@ -10,14 +10,14 @@
       <p><a href="backstage"/></p>
       </nav>
     </xeno:http>
-    <xeno:load lib="xenomat-test.so"/>
-  	<xeno:plan type="text/xml"/>
+    <xeno:load lib="xeno-examples.so"/>
+    <xeno:plan type="text/xml"/>
   </backstage>
   <whatsmyip><test:ip/></whatsmyip>
   <basic><test:basic/></basic>
   <basic-plain><test:basic type="text/plain"/></basic-plain>
   <baml>
-  	<test:basic type="text/html"/>
+    <test:basic type="text/html"/>
   </baml>
   <clock><xeno:duct_tape doctype="svg"/><test:clock/></clock>
   <uhr><test:clock/></uhr>
