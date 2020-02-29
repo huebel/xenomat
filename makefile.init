@@ -1,0 +1,2 @@
+test: all
+	LD_LIBRARY_PATH=`pwd` xenomat -d ../stage/test.xml
