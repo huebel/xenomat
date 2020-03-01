@@ -99,27 +99,6 @@ struct context_writer: io_object<context_writer> {
 		return val;
 	}
 
-//	const std::string io_attr(const char* name, const std::string str)
-//	{
-//		current().attr(name, str);
-//		std::cout << "Indeed: " << str << std::endl;
-//		return str;
-//	}
-
-//	const std::string& io_attr_nul(const char* name, const std::string& str)
-//	{
-//		if (!singularity<std::string>::match(str)) {
-//			current().attr(name, str);
-//		}
-//		return str;
-//	}
-
-//	const std::string& io_attr_def(const char* name, const std::string& str, const std::string& /*def*/)
-//	{
-//		current().attr(name, str);
-//		return str;
-//	}
-
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
 	const E& io_enum(const char* name, const E val)
 	{
@@ -261,7 +240,7 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename T>
-	T io_attr(const char* name, const T /*val*/)
+	T io_attr(const char* name, const T& /*val*/)
 	{
 		// TODO: make the IO_ATTR macro provide the @
 		std::string attr_name("@");
@@ -274,7 +253,7 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename T>
-	const T io_attr_nul(const char* name, const T /*val*/)
+	const T io_attr_nul(const char* name, const T& /*val*/)
 	{
 		std::string attr_name("@");
 		attr_name.append(name);
@@ -293,7 +272,7 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename T>
-	const T io_attr_def(const char* name, const T /*val*/, const T def)
+	const T io_attr_def(const char* name, const T& /*val*/, const T def)
 	{
 		std::string attr_name("@");
 		attr_name.append(name);
@@ -304,33 +283,6 @@ struct context_reader: io_object<context_reader> {
 		}
 		return def;
 	}
-
-//	const std::string& io_attr(const char* name, const std::string& /*str*/)
-//	{
-//		std::string attr_name("@");
-//		attr_name.append(name);
-//		xeno::attribute attr(attr_name.c_str(), current());
-////      TRACE("R::io_attr('@%s', str) @ %s %s\n", name, current().qname(), attr.defined() ? "found" : "FAIL!");
-//		assert(attr.defined());
-//		return attr;
-//	}
-
-//	const std::string& io_attr_nul(const char* name, const std::string& /*str*/)
-//	{
-//		std::string attr_name("@");
-//		attr_name.append(name);
-//		xeno::attribute attr(attr_name.c_str(), current(), singularity<std::string>::undefined.c_str());
-//		return attr.defined() ? attr : singularity<std::string>::undefined;
-//
-//	}
-
-//	const std::string& io_attr_def(const char* name, const std::string& /*str*/, const std::string& def)
-//	{
-//		std::string attr_name("@");
-//		attr_name.append(name);
-//		xeno::attribute attr(attr_name.c_str(), current());
-//		return attr.defined() ? attr : def;
-//	}
 
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
 	const E io_enum(const char* name, const E /*val*/)
