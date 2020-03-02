@@ -76,6 +76,10 @@ public:
 		assert(_struct);
 		return struct_t(*_struct);
 	}
+	std::string c_str() const {
+		xeno::textvalue s("string", value, "");
+		return s.c_str();
+	}
 	std::string get_string() const {
 		xeno::textvalue s("string", value, "");
 		return s.str();
