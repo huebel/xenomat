@@ -8,6 +8,7 @@
 #ifndef XENO_XMLRPC_H_
 #define XENO_XMLRPC_H_
 
+#include <map>
 #include <string>
 #include <vector>
 #include <xeno/document.h>
@@ -141,7 +142,7 @@ public:
 	:	ios(ios)
 	,	url(endpoint)
 	{}
-	void call(method& m, boost::system::error_code& ec);
+	boost::system::error_code call(method& m, boost::system::error_code& ec);
 private:
 	boost::asio::io_service& ios;
 	urdl::url url;
@@ -206,7 +207,7 @@ friend
 };
 
 inline
-void endpoint::call(method& m, boost::system::error_code& ec) {
+boost::system::error_code endpoint::call(method& m, boost::system::error_code& ec) {
 
 	urdl::read_stream is(ios);
 
@@ -214,6 +215,7 @@ void endpoint::call(method& m, boost::system::error_code& ec) {
 //	TRACE("%s: payload:\n%s\n", __func__, payload.str().c_str());
 
 	m.fault.clear();
+	ec.clear();
 
 	is.set_option(urdl::http::request_method("POST"));
 	is.set_option(urdl::http::request_content_type(xeno::type::XML));
@@ -239,10 +241,12 @@ void endpoint::call(method& m, boost::system::error_code& ec) {
 		else {
 			m.params = nullptr;
 		}
+		return ec;
 	}
 	else {
 		TRACE("xmlrcp::endpoint::call - could not open url? %s\n", ec.message().c_str());
 		m.params = nullptr;
+		return ec;
 	}
 }
 
