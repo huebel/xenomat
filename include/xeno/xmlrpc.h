@@ -11,7 +11,10 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <type_traits>
+
 #include <xeno/document.h>
+
 #define URDL_HEADER_ONLY
 #define URDL_DISABLE_SSL
 #include <urdl/url.hpp>
@@ -169,17 +172,17 @@ public:
 	void add_param(const char* value) {
 		param_value("string").text(value);
 	}
-	void add_param(xeno::element& param, int value) {
+	void add_param(int value) {
 		param_value("i4").text(std::to_string(value));
 	}
-	void add_param(xeno::element& param, double value) {
+	void add_param(double value) {
 		param_value("double").text(std::to_string(value));
 	}
-	void add_param(xeno::element& param, bool value) {
+	void add_param(bool value) {
 		param_value("boolean").text(value ? "1" : "0");
 	}
 	// <struct/>
-	template <typename Struct>
+	template <typename Struct, typename = typename std::enable_if<std::is_object<Struct>::value,void>::type>
 	void add_param(const Struct& value) {
 		xmlrpc_struct_writer(param_value("struct")).apply(value);
 	}
