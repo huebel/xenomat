@@ -27,35 +27,35 @@ struct io_object : woetzel {
 	typedef IO this_io_t;
 
 	template<typename ObjectType>
-	inline ObjectType& apply(ObjectType& object)
+	inline ObjectType& apply(ObjectType& object) const
 	{
 		std::allocator<ObjectType>().construct(
-			&object, static_cast<this_io_t&>(*this)
+			&object, static_cast<const this_io_t&>(*this)
 		);
 		return object;
 	}
 
 	template<typename ObjectType>
-	inline const ObjectType& apply(const ObjectType& object)
+	inline const ObjectType& apply(const ObjectType& object) const
 	{
 		std::allocator<ObjectType>().construct(
 			&const_cast<ObjectType&>(object),
-			static_cast<this_io_t&>(*this)
+			static_cast<const this_io_t&>(*this)
 		);
 		return object;
 	}
 
 	template<typename ObjectType>
-	inline ObjectType* apply(ObjectType* pointer)
+	inline ObjectType* apply(ObjectType* pointer) const
 	{
 		std::allocator<ObjectType>().construct(
-			pointer, static_cast<this_io_t&>(*this)
+			pointer, static_cast<const this_io_t&>(*this)
 		);
 		return pointer;
 	}
 
 	template <typename Container>
-	inline Container io_std(Container c)
+	inline Container io_std(Container c) const
 	{
 		return std::move(c);
 	}
