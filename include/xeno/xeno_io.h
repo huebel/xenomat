@@ -102,7 +102,7 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
-	const E& io_enum(const char* name, const E val) const
+	const E io_enum(const char* name, const E val) const
 	{
 		std::string value(IO_ENUM_TRAITS::enum_to_string(val));
 		current().attr(name, value);
@@ -113,7 +113,7 @@ struct context_writer: io_object<context_writer> {
 	const E io_enum_text(const char* name, const E val) const
 	{
 		std::string value(IO_ENUM_TRAITS::enum_to_string(val));
-		current().text(value);
+		current().child(name).text(value);
 		return val;
 	}
 
