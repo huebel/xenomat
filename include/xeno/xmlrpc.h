@@ -219,7 +219,8 @@ boost::system::error_code endpoint::call(method& m, boost::system::error_code& e
 	urdl::read_stream is(ios);
 
 	std::ostringstream payload; xeno::xml_output(payload, m.stack.content());
-//	TRACE("%s: payload:\n%s\n", __func__, payload.str().c_str());
+//	TRACE("xmlrpc::endpoint::call - payload:\n");
+//	xeno::xml_output(std::cerr, m.stack.content()) << std::endl;
 
 	m.fault.clear();
 	ec.clear();
@@ -229,7 +230,7 @@ boost::system::error_code endpoint::call(method& m, boost::system::error_code& e
 	is.set_option(urdl::http::request_content(payload.str()));
 
 	if (!is.open(url, ec)) {
-		TRACE("xmlrcp::endpoint::call - open url %s\n", url.to_string().c_str());
+//		TRACE("xmlrcp::endpoint::call - open url '%s'.\n", url.to_string().c_str());
 		std::string returned_content(is.content_length(), 0);
 		boost::asio::read(is, boost::asio::buffer(&returned_content[0], returned_content.size()));
 //		std::cout << std::endl << returned_content << std::endl << std::endl;
@@ -246,12 +247,13 @@ boost::system::error_code endpoint::call(method& m, boost::system::error_code& e
 			}
 		}
 		else {
+			TRACE("xmlrpc::endpoint::call - failed to parse response.\n");
 			m.params = nullptr;
 		}
 		return ec;
 	}
 	else {
-		TRACE("xmlrcp::endpoint::call - could not open url? %s\n", ec.message().c_str());
+		TRACE("xmlrcp::endpoint::call - could not open url '%s'?\n", ec.message().c_str());
 		m.params = nullptr;
 		return ec;
 	}
