@@ -15,7 +15,7 @@
 #include <iostream>
 
 // This is the version
-#define XENO_VERSION "2.8.1-CE" // @suppress("Obsolete object-like macro")
+#define XENO_VERSION "2.9.0-CE" // @suppress("Obsolete object-like macro")
 
 // This is the platform
 #if defined(XENO_WINDOWS)
@@ -116,6 +116,7 @@ struct XENO_EXPORT context
 	context& push_back(const context& source);
 	context& push_back(const contens& source);
 	context& push_back(const sequens& source);
+	contens extens() const;
 	// Not copy- or assignable
 	context() {};
 	context(const context&) = delete;

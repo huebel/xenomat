@@ -176,11 +176,6 @@ inline const xeno::context& documentElement(const xeno::context& data) {
 }
 
 
-element* parent(element& e);
-
-const element* parent(const element& e);
-
-
 } // namespace xeno
 
 
