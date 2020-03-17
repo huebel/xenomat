@@ -159,11 +159,15 @@ class method {
 public:
 	method(const std::string& methodName, size_t stack_size = 1024<<4)
 	:	stack(stack_size)
+	,	underscores_to_dashes(false)
 	{
 		auto& methodCall = make_xml_document(stack.content(), "methodCall");
 		methodCall.elem("methodName").text(methodName);
 		params = &methodCall.elem("params");
 		fault.clear();
+	}
+	void use_dashed_names(bool use_dashes = true) {
+		underscores_to_dashes = use_dashes;
 	}
 	// simple types
 	void add_param(const std::string& value) {
@@ -183,8 +187,8 @@ public:
 	}
 	// <struct/>
 	template <typename Struct, typename = typename std::enable_if<std::is_object<Struct>::value,void>::type>
-	void add_param(const Struct& value) {
-		xmlrpc_struct_writer(param_value("struct")).apply(value);
+	void add_param(const Struct& s) {
+		xmlrpc_struct_writer(param_value("struct"), underscores_to_dashes).apply(s);
 	}
 	int error_code() const { return fault.faultCode; }
 	const std::string& error_string() const { return fault.faultString; }
@@ -200,6 +204,7 @@ public:
 private:
 	xeno::local_context stack;
 	xeno::element* params;
+	bool underscores_to_dashes;
 	struct {
 		int faultCode;
 		std::string faultString;
@@ -233,7 +238,7 @@ boost::system::error_code endpoint::call(method& m, boost::system::error_code& e
 //		TRACE("xmlrcp::endpoint::call - open url '%s'.\n", url.to_string().c_str());
 		std::string returned_content(is.content_length(), 0);
 		boost::asio::read(is, boost::asio::buffer(&returned_content[0], returned_content.size()));
-//		std::cout << std::endl << returned_content << std::endl << std::endl;
+		std::cout << std::endl << returned_content << std::endl << std::endl;
 		if (xeno::xml_parse(m.stack.content(), returned_content)) {
 //			m.dump(std::cout);
 			m.params = xeno::find_element(m.stack.content(), "methodResponse/params");
