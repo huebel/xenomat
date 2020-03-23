@@ -15,6 +15,7 @@ struct xmlrpc_struct_writer: xeno::io_object<xmlrpc_struct_writer>
 	}
 
 	template <typename T>
+	inline
 	const T io_text(const char* name, const T val) const
 	{
 //		TRACE("xmlrpc_struct_writer::io_text - %s\n", name);
@@ -24,7 +25,23 @@ struct xmlrpc_struct_writer: xeno::io_object<xmlrpc_struct_writer>
 		return val;
 	}
 
+	template <typename T>
+	inline
+	const T io_attr(const char* name, const T val) const
+	{
+		return io_text(name, val);
+	}
+
+	template <typename E>
+	inline
+	const E io_enum(const char* name, const E val) const
+	{
+		return static_cast<E>(io_text(name, static_cast<int>(val)));
+	}
+
+
 	template <typename Container>
+	inline
 	Container io_list(const char* element_name, const char* container_name,
 		Container& source) const
 	{
@@ -54,6 +71,14 @@ private:
 
 	void io_set_tag(xeno::element& tag, int32_t val) const {
 		tag.child("i4").text(std::to_string(val));
+	}
+
+	void io_set_tag(xeno::element& tag, unsigned val) const {
+		tag.child("unsigned").text(std::to_string(val));
+	}
+
+	void io_set_tag(xeno::element& tag, double val) const {
+		tag.child("double").text(std::to_string(val));
 	}
 
 	void io_set_tag(xeno::element& tag, bool val) const {

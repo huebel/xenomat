@@ -9,8 +9,8 @@
 #define XENO_XMLRPC_H_
 
 #include <map>
-#include <string>
 #include <vector>
+#include <string>
 #include <type_traits>
 
 #include <xeno/document.h>
@@ -24,6 +24,20 @@
 
 namespace xeno {
 namespace xmlrpc {
+
+template <typename Container>
+struct is_container : std::false_type { };
+
+template <typename... Ts> struct is_container<std::set<Ts...> > : std::true_type { };
+template <typename... Ts> struct is_container<std::list<Ts...> > : std::true_type { };
+template <typename... Ts> struct is_container<std::vector<Ts...> > : std::true_type { };
+
+template <typename T>
+struct is_simple : std::integral_constant<
+  bool,
+  std::is_arithmetic<T>::value ||
+  std::is_same<T,std::string>::value
+> { };
 
 class method;
 class value_t;
@@ -171,25 +185,44 @@ public:
 	}
 	// simple types
 	void add_param(const std::string& value) {
-		param_value("string").text(value);
+		add_value(add_param(), value);
 	}
 	void add_param(const char* value) {
-		param_value("string").text(value);
+		add_value(add_param(), value);
 	}
 	void add_param(int value) {
-		param_value("i4").text(std::to_string(value));
+		add_value(add_param(), value);
 	}
 	void add_param(double value) {
-		param_value("double").text(std::to_string(value));
+		add_value(add_param(), value);
 	}
 	void add_param(bool value) {
-		param_value("boolean").text(value ? "1" : "0");
+		add_value(add_param(), value);
 	}
 	// <struct/>
-	template <typename Struct, typename = typename std::enable_if<std::is_object<Struct>::value,void>::type>
-	void add_param(const Struct& s) {
-		xmlrpc_struct_writer(param_value("struct"), underscores_to_dashes).apply(s);
+	template <typename Struct>
+	typename std::enable_if<!is_simple<Struct>::value && !is_container<Struct>::value,void>::type
+	add_param(const Struct& s) {
+		xmlrpc_struct_writer(add_param().child("struct"), underscores_to_dashes).apply(s);
 	}
+	// <array/>
+	template <typename Array>
+	typename std::enable_if<is_container<Array>::value && !is_simple<typename Array::value_type>::value,void>::type
+	add_param(const Array& array) {
+		auto& data = add_param().child("array").child("data");
+		for (auto& item : array) {
+			xmlrpc_struct_writer(data.child("value").child("struct"), underscores_to_dashes).apply(item);
+		}
+	}
+	template <typename Array>
+	typename std::enable_if<is_container<Array>::value && is_simple<typename Array::value_type>::value,void>::type
+	add_param(const Array& array) {
+		auto& data = add_param().child("array").child("data");
+		for (auto& item : array) {
+			add_value(data.child("value"), item);
+		}
+	}
+	// Error handling
 	int error_code() const { return fault.faultCode; }
 	const std::string& error_string() const { return fault.faultString; }
 	value_t get_result() {
@@ -211,8 +244,29 @@ private:
 		void clear() { faultCode=0; faultString.clear(); }
 	} fault;
 	// Helper functions
-	xeno::element& param_value(const char* type) {
-		return params->child("param").child("value").child(type);
+	inline
+	xeno::element& add_param() {
+		return params->child("param").child("value");
+	}
+	inline
+	void add_value(xeno::element& tag, const std::string& value) {
+		tag.child("string").text(value);
+	}
+	inline
+	void add_value(xeno::element& tag, const char* value) {
+		tag.child("string").text(value);
+	}
+	inline
+	void add_value(xeno::element& tag, int value) {
+		tag.child("i4").text(std::to_string(value));
+	}
+	inline
+	void add_value(xeno::element& tag, double value) {
+		tag.child("double").text(std::to_string(value));
+	}
+	inline
+	void add_value(xeno::element& tag, bool value) {
+		tag.child("boolean").text(value ? "1" : "0");
 	}
 friend
 	class endpoint;
@@ -238,7 +292,7 @@ boost::system::error_code endpoint::call(method& m, boost::system::error_code& e
 //		TRACE("xmlrcp::endpoint::call - open url '%s'.\n", url.to_string().c_str());
 		std::string returned_content(is.content_length(), 0);
 		boost::asio::read(is, boost::asio::buffer(&returned_content[0], returned_content.size()));
-		std::cout << std::endl << returned_content << std::endl << std::endl;
+//		std::cout << std::endl << returned_content << std::endl << std::endl;
 		if (xeno::xml_parse(m.stack.content(), returned_content)) {
 //			m.dump(std::cout);
 			m.params = xeno::find_element(m.stack.content(), "methodResponse/params");
@@ -258,7 +312,8 @@ boost::system::error_code endpoint::call(method& m, boost::system::error_code& e
 		return ec;
 	}
 	else {
-		TRACE("xmlrcp::endpoint::call - could not open url '%s'?\n", ec.message().c_str());
+		TRACE("xmlrcp::endpoint::call - could not open url '%s': %s?\n",
+			url.to_string().c_str(), ec.message().c_str());
 		m.params = nullptr;
 		return ec;
 	}
