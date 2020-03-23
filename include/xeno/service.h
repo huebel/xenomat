@@ -57,7 +57,7 @@ protected:
 template <class Service>
 struct XENO_EXPORT ref_attribute;
 
-template <class SERVICE = xeno::action, class CONTEXT = xeno::context>
+template <class SERVICE = xeno::action, class CONTEXT = const xeno::context>
 class XENO_EXPORT service : public virtual action {
 public:
 
