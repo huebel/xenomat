@@ -348,6 +348,23 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename T>
+	const T io_text_def(const char* name, const T& /*val*/, const T& def) const
+	{
+//		TRACELN("R::io_text_def");
+		xeno::textvalue text(name, current());
+		if (text.defined() && !text.empty()) {
+			try {
+				T value = boost::lexical_cast<T>(text.str());
+				return value;
+			}
+			catch (boost::bad_lexical_cast& ex) {
+				TRACELN("ERROR: conversion failed, using default");
+			}
+		}
+		return def;
+	}
+
+	template <typename T>
 	const T io_text_nul(const T& /*val*/) const
 	{
 //		TRACELN("R::io_text_nul");
