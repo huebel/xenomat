@@ -99,6 +99,7 @@ struct io_enum_traits {
 #define IO_ENUM(m)          m(io.io_enum(#m,*(&m)))
 #define IO_ENUM_TEXT(m)     m(io.io_enum_text(#m,*(&m)))
 #define IO_TEXT(m)          m(io.io_text(#m,*(&m)))
+#define IO_TEXT_DEF(m,val)  m(io.io_text(#m,*(&m),val))
 #define IO_INNER(m)         m(io.io_text(*(&m)))
 #define IO_INNER_NUL(m)     m(io.io_text_nul(*(&m)))
 #define IO_INNER_DEF(m,val) m(io.io_text_def(*(&m),val))
