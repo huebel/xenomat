@@ -1,9 +1,35 @@
 #ifndef XMLRPC_STRUCT_WRITER_H_
 #define XMLRPC_STRUCT_WRITER_H_
 
+#include <set>
+#include <list>
+#include <vector>
 #include <algorithm>
 #include <xeno/trace.h>
 #include <xeno/xeno_io.h>
+
+namespace xeno {
+namespace xmlrpc {
+
+template <typename Container>
+struct is_container : std::false_type { };
+
+template <typename... Ts> struct is_container<std::set<Ts...> > : std::true_type { };
+template <typename... Ts> struct is_container<std::list<Ts...> > : std::true_type { };
+template <typename... Ts> struct is_container<std::vector<Ts...> > : std::true_type { };
+
+template <typename T>
+struct is_simple : std::integral_constant<
+  bool,
+  std::is_arithmetic<T>::value ||
+  std::is_same<T,std::string>::value
+> { };
+
+
+template <typename T>
+struct use_dashes : std::false_type {};
+
+// An io_object for serializing C++ to XML-RPC
 
 struct xmlrpc_struct_writer: xeno::io_object<xmlrpc_struct_writer>
 {
@@ -42,8 +68,9 @@ struct xmlrpc_struct_writer: xeno::io_object<xmlrpc_struct_writer>
 
 	template <typename Container>
 	inline
-	Container io_list(const char* element_name, const char* container_name,
-		Container& source) const
+	typename std::enable_if<is_container<Container>::value && is_simple<typename Container::value_type>::value,Container>::type
+	io_list(const char* element_name, const char* container_name,
+			const Container& source) const
 	{
 		auto& member = stack.child("member");
 		member.child("name").text(rpc_name(element_name));
@@ -56,11 +83,30 @@ struct xmlrpc_struct_writer: xeno::io_object<xmlrpc_struct_writer>
 		return std::move(source);
 	}
 
-	xmlrpc_struct_writer io_part(const char* name) const {
+	template <typename Container>
+	inline
+	typename std::enable_if<is_container<Container>::value && !is_simple<typename Container::value_type>::value,Container>::type
+	io_list(const char* element_name, const char* container_name,
+		const Container& source) const
+	{
+		auto& member = stack.child("member");
+		member.child("name").text(rpc_name(element_name));
+		auto& array_data = member.child("value").child("array").child("data");
+		typename Container::const_iterator begin = std::begin(source);
+		const typename Container::const_iterator end = std::end(source);
+		while (begin != end) {
+			this_io_t(array_data.child("value").child("struct"),
+					use_dashes<typename Container::value_type>::value).apply(*begin++);
+		}
+		return std::move(source);
+	}
+
+	template <typename T>
+	xmlrpc_struct_writer io_part(const char* name, const T& /* part_object */) const {
 		auto& member = stack.child("member");
 		member.child("name").text(rpc_name(name));
 		auto& struct_data = member.child("value").child("struct");
-		return xmlrpc_struct_writer(struct_data, underscores_to_dashes);
+		return xmlrpc_struct_writer(struct_data, use_dashes<T>::value);
 	}
 
 private:
@@ -102,5 +148,7 @@ private:
 
 };
 
+} // namespace xmlrpc
+} // namespace xeno
 
 #endif /* XMLRPC_STRUCT_WRITER_H_ */

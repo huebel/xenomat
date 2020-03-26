@@ -25,20 +25,6 @@
 namespace xeno {
 namespace xmlrpc {
 
-template <typename Container>
-struct is_container : std::false_type { };
-
-template <typename... Ts> struct is_container<std::set<Ts...> > : std::true_type { };
-template <typename... Ts> struct is_container<std::list<Ts...> > : std::true_type { };
-template <typename... Ts> struct is_container<std::vector<Ts...> > : std::true_type { };
-
-template <typename T>
-struct is_simple : std::integral_constant<
-  bool,
-  std::is_arithmetic<T>::value ||
-  std::is_same<T,std::string>::value
-> { };
-
 class method;
 class value_t;
 class struct_t;
@@ -47,6 +33,18 @@ class array_t {
 public:
 	size_t size() const { return data.size(); }
 	value_t operator[](size_t index) const;
+	struct const_iterator : std::vector<const xeno::element*>::const_iterator
+	{
+		using base_iterator = typename std::vector<const xeno::element*>::const_iterator;
+		const_iterator(base_iterator bit) : base_iterator(bit) {}
+		value_t operator*() const;
+	};
+	const_iterator begin() const {
+		return const_iterator(data.begin());
+	}
+	const_iterator end() const {
+		return const_iterator(data.end());
+	}
 private:
 	array_t(const xeno::element& array_data)
 	{
@@ -115,6 +113,10 @@ private:
 	const xeno::element& value;
 };
 
+inline
+value_t array_t::const_iterator::operator*() const {
+	return *(*static_cast<base_iterator>(*this));
+}
 
 inline
 value_t array_t::operator[](size_t index) const {
@@ -203,7 +205,7 @@ public:
 	template <typename Struct>
 	typename std::enable_if<!is_simple<Struct>::value && !is_container<Struct>::value,void>::type
 	add_param(const Struct& s) {
-		xmlrpc_struct_writer(add_param().child("struct"), underscores_to_dashes).apply(s);
+		xmlrpc_struct_writer(add_param().child("struct"), use_dashes<Struct>::value).apply(s);
 	}
 	// <array/>
 	template <typename Array>
@@ -211,7 +213,7 @@ public:
 	add_param(const Array& array) {
 		auto& data = add_param().child("array").child("data");
 		for (auto& item : array) {
-			xmlrpc_struct_writer(data.child("value").child("struct"), underscores_to_dashes).apply(item);
+			xmlrpc_struct_writer(data.child("value").child("struct"), use_dashes<typename Array::value_type>::value).apply(item);
 		}
 	}
 	template <typename Array>
@@ -233,6 +235,9 @@ public:
 	}
 	std::ostream& dump(std::ostream& os) {
 		return xeno::xml_output(os, stack.content()) << std::endl;
+	}
+	std::ostream& dump_result(std::ostream& os) {
+		return params ? xeno::xml_output(os, *params) : os;
 	}
 private:
 	xeno::local_context stack;

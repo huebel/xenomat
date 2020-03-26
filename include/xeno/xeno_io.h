@@ -164,7 +164,8 @@ struct context_writer: io_object<context_writer> {
 		}
 	}
 
-	this_io_t io_part(const char* name) const
+	template <typename T>
+	this_io_t io_part(const char* name, const T& /* part_object */) const
 	{
 		xeno::element& target = current().child(name);
 		return this_io_t(target);
@@ -395,7 +396,8 @@ struct context_reader: io_object<context_reader> {
 		return 0;
 	}
 
-	context_reader io_part(const char* name) const
+	template <typename T>
+	context_reader io_part(const char* name, T& /* part_object */) const
 	{
 		const xeno::element* target = xeno::find_element(current(), name);
 		assert(target);
