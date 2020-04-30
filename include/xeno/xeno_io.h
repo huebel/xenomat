@@ -118,18 +118,26 @@ struct context_writer: io_object<context_writer> {
 	}
 
 	template <typename T>
-	const T io_text(const T val) const
-	{
-		std::string value(boost::lexical_cast<std::string>(val));
-		current().text(value);
-		return val;
-	}
-
-	template <typename T>
 	const T io_text(const char* name, const T val) const
 	{
 		std::string value(boost::lexical_cast<std::string>(val));
 		current().child(name).text(value);
+		return val;
+	}
+
+	template <typename T>
+	const T io_text(const char* name, const T val, const T /*def*/) const
+	{
+		std::string value(boost::lexical_cast<std::string>(val));
+		current().child(name).text(value);
+		return val;
+	}
+
+	template <typename T>
+	const T io_text(const T val) const
+	{
+		std::string value(boost::lexical_cast<std::string>(val));
+		current().text(value);
 		return val;
 	}
 
@@ -303,22 +311,35 @@ struct context_reader: io_object<context_reader> {
 	}
 
 	template <typename E, typename IO_ENUM_TRAITS = io_enum_traits<E> >
-	const E io_enum_text(const char* name, const E /*val*/) const
+	const E io_enum_text(const char* name, const E val) const
 	{
 		xeno::textvalue text(name, current());
-		assert(text.defined() && !text.empty());
+		if (!text.defined() || text.empty()) return val;
+		//assert(text.defined() && !text.empty());
 		E value = IO_ENUM_TRAITS::string_to_enum(text.c_str());
 		return value;
 	}
 
 	template <typename T>
-	const T io_text(const char* name, const T& /*val*/) const
+	const T io_text(const char* name, const T& val) const
 	{
 //		TRACE("R::io_text('%s')\n", name);
 		xeno::textvalue text(name, current());
-		assert(text.defined() && !text.empty());
+		if (!text.defined() || text.empty()) return val;
+		//assert(text.defined() && !text.empty());
 		T value = boost::lexical_cast<T>(text.str());
 		return value;
+	}
+
+	template <typename T>
+	const T io_text(const char* name, const T& /*val*/, T def) const
+	{
+//		TRACE("R::io_text('%s')\n", name);
+		xeno::textvalue text(name, current());
+		if (text.defined() && !text.empty())
+			return boost::lexical_cast<T>(text.str());
+		else
+			return def;
 	}
 
 	template <typename T>
